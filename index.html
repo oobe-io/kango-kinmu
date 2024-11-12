@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>勤務表計算Webアプリケーション</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>勤務表計算Webアプリケーション</h1>
+    </header>
+    <main>
+        <section id="input-section">
+            <h2>入力</h2>
+            <label for="staff-count">スタッフ数:</label>
+            <input type="number" id="staff-count" min="1" value="33">
+            
+            <label for="working-days">日数:</label>
+            <input type="number" id="working-days" min="1" value="30">
+            
+            <button id="calculate-button">計算</button>
+        </section>
+        
+        <section id="output-section">
+            <h2>計算結果</h2>
+            <p>労働力 (P): <span id="labor-force-output">-</span></p>
+            <p>消費 (A+B): <span id="consumption-output">-</span></p>
+            <p>残余日数 (C): <span id="remaining-days-output">-</span></p>
+        </section>
+    </main>
+    <script src="js/main.js"></script>
+</body>
+</html>
