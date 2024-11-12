@@ -11,23 +11,36 @@
         <h1>勤務表計算Webアプリケーション</h1>
     </header>
     <main>
-        <section id="input-section">
-            <h2>入力</h2>
-            <label for="staff-count">スタッフ数:</label>
-            <input type="number" id="staff-count" min="1" value="33">
-            
-            <label for="working-days">日数:</label>
-            <input type="number" id="working-days" min="1" value="30">
-            
-            <button id="calculate-button">計算</button>
+        <!-- 年間計画エリア -->
+        <section id="annual-plan-section">
+            <table>
+                <tr>
+                    <th>月</th>
+                    <th>予定看護師数</th>
+                    <th>実績看護師数</th>
+                    <th>消費 (A+B)</th>
+                    <th>残日数 (C)</th>
+                </tr>
+                <tr>
+                    <td>4月</td>
+                    <td><input type="number" id="planned-staff-4" min="0"></td>
+                    <td><input type="number" id="actual-staff-4" min="0"></td>
+                    <td><span id="consumption-4">-</span></td>
+                    <td><span id="remaining-4">-</span></td>
+                </tr>
+                <tr>
+                    <td>5月</td>
+                    <td><input type="number" id="planned-staff-5" min="0"></td>
+                    <td><input type="number" id="actual-staff-5" min="0"></td>
+                    <td><span id="consumption-5">-</span></td>
+                    <td><span id="remaining-5">-</span></td>
+                </tr>
+                <!-- 6月から翌年3月まで同様の行を追加 -->
+            </table>
         </section>
-        
-        <section id="output-section">
-            <h2>計算結果</h2>
-            <p>労働力 (P): <span id="labor-force-output">-</span></p>
-            <p>消費 (A+B): <span id="consumption-output">-</span></p>
-            <p>残余日数 (C): <span id="remaining-days-output">-</span></p>
-        </section>
+
+        <!-- 計算ボタン -->
+        <button id="calculate-button">計算</button>
     </main>
     <script src="js/main.js"></script>
 </body>
