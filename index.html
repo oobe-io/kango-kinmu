@@ -13,29 +13,88 @@
             <table>
                 <thead>
                     <tr>
-                        <th>月</th>
-                        <th>予定看護師総数</th>
+                        <th>項目</th>
+                        <th>4月</th>
+                        <th>5月</th>
+                        <th>6月</th>
+                        <th>7月</th>
+                        <th>8月</th>
+                        <th>9月</th>
+                        <th>10月</th>
+                        <th>11月</th>
+                        <th>12月</th>
+                        <th>1月</th>
+                        <th>2月</th>
+                        <th>3月</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- 月ごとの入力フィールド -->
-                    <tr><td>1月</td><td><input type="number" id="nurse-count-jan" name="nurse_count_jan" required></td></tr>
-                    <tr><td>2月</td><td><input type="number" id="nurse-count-feb" name="nurse_count_feb" required></td></tr>
-                    <tr><td>3月</td><td><input type="number" id="nurse-count-mar" name="nurse_count_mar" required></td></tr>
-                    <tr><td>4月</td><td><input type="number" id="nurse-count-apr" name="nurse_count_apr" required></td></tr>
-                    <tr><td>5月</td><td><input type="number" id="nurse-count-may" name="nurse_count_may" required></td></tr>
-                    <tr><td>6月</td><td><input type="number" id="nurse-count-jun" name="nurse_count_jun" required></td></tr>
-                    <tr><td>7月</td><td><input type="number" id="nurse-count-jul" name="nurse_count_jul" required></td></tr>
-                    <tr><td>8月</td><td><input type="number" id="nurse-count-aug" name="nurse_count_aug" required></td></tr>
-                    <tr><td>9月</td><td><input type="number" id="nurse-count-sep" name="nurse_count_sep" required></td></tr>
-                    <tr><td>10月</td><td><input type="number" id="nurse-count-oct" name="nurse_count_oct" required></td></tr>
-                    <tr><td>11月</td><td><input type="number" id="nurse-count-nov" name="nurse_count_nov" required></td></tr>
-                    <tr><td>12月</td><td><input type="number" id="nurse-count-dec" name="nurse_count_dec" required></td></tr>
+                    <tr>
+                        <td>予定看護師総数</td>
+                        <td><input type="number" id="nurse-count-apr" required></td>
+                        <td><input type="number" id="nurse-count-may" required></td>
+                        <td><input type="number" id="nurse-count-jun" required></td>
+                        <td><input type="number" id="nurse-count-jul" required></td>
+                        <td><input type="number" id="nurse-count-aug" required></td>
+                        <td><input type="number" id="nurse-count-sep" required></td>
+                        <td><input type="number" id="nurse-count-oct" required></td>
+                        <td><input type="number" id="nurse-count-nov" required></td>
+                        <td><input type="number" id="nurse-count-dec" required></td>
+                        <td><input type="number" id="nurse-count-jan" required></td>
+                        <td><input type="number" id="nurse-count-feb" required></td>
+                        <td><input type="number" id="nurse-count-mar" required></td>
+                    </tr>
+                    <tr>
+                        <td>中途退職者数</td>
+                        <td><input type="number" id="retire-count-apr" value="0" required></td>
+                        <td><input type="number" id="retire-count-may" value="0" required></td>
+                        <td><input type="number" id="retire-count-jun" value="0" required></td>
+                        <td><input type="number" id="retire-count-jul" value="0" required></td>
+                        <td><input type="number" id="retire-count-aug" value="0" required></td>
+                        <td><input type="number" id="retire-count-sep" value="0" required></td>
+                        <td><input type="number" id="retire-count-oct" value="0" required></td>
+                        <td><input type="number" id="retire-count-nov" value="0" required></td>
+                        <td><input type="number" id="retire-count-dec" value="0" required></td>
+                        <td><input type="number" id="retire-count-jan" value="0" required></td>
+                        <td><input type="number" id="retire-count-feb" value="0" required></td>
+                        <td><input type="number" id="retire-count-mar" value="0" required></td>
+                    </tr>
+                    <tr>
+                        <td>産休予定者数</td>
+                        <td><input type="number" id="maternity-count-apr" value="0" required></td>
+                        <td><input type="number" id="maternity-count-may" value="0" required></td>
+                        <td><input type="number" id="maternity-count-jun" value="0" required></td>
+                        <td><input type="number" id="maternity-count-jul" value="0" required></td>
+                        <td><input type="number" id="maternity-count-aug" value="0" required></td>
+                        <td><input type="number" id="maternity-count-sep" value="0" required></td>
+                        <td><input type="number" id="maternity-count-oct" value="0" required></td>
+                        <td><input type="number" id="maternity-count-nov" value="0" required></td>
+                        <td><input type="number" id="maternity-count-dec" value="0" required></td>
+                        <td><input type="number" id="maternity-count-jan" value="0" required></td>
+                        <td><input type="number" id="maternity-count-feb" value="0" required></td>
+                        <td><input type="number" id="maternity-count-mar" value="0" required></td>
+                    </tr>
+                    <tr>
+                        <td>看護師総数</td>
+                        <td><input type="number" id="total-nurse-apr" readonly></td>
+                        <td><input type="number" id="total-nurse-may" readonly></td>
+                        <td><input type="number" id="total-nurse-jun" readonly></td>
+                        <td><input type="number" id="total-nurse-jul" readonly></td>
+                        <td><input type="number" id="total-nurse-aug" readonly></td>
+                        <td><input type="number" id="total-nurse-sep" readonly></td>
+                        <td><input type="number" id="total-nurse-oct" readonly></td>
+                        <td><input type="number" id="total-nurse-nov" readonly></td>
+                        <td>                        <input type="number" id="total-nurse-dec" readonly></td>
+                        <td><input type="number" id="total-nurse-jan" readonly></td>
+                        <td><input type="number" id="total-nurse-feb" readonly></td>
+                        <td><input type="number" id="total-nurse-mar" readonly></td>
+                    </tr>
                 </tbody>
             </table>
-            <button type="submit">保存</button>
+            <button type="button" onclick="calculateTotalNurses()">計算</button>
         </form>
     </div>
     <script src="js/main.js"></script>
 </body>
 </html>
+
