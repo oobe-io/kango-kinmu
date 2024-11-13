@@ -17,8 +17,6 @@ function calculateTotalNurses() {
         // 結果を総数のセルに表示
         document.getElementById(`total-nurse-${month}`).value = totalNurse;
     });
-
-    alert("看護師総数が計算されました。");
 }
 
 // ページロード時にローカルストレージからデータを読み込む関数
@@ -28,6 +26,7 @@ function loadData() {
         const input = document.getElementById(key);
         if (input) input.value = value;
     }
+    calculateTotalNurses(); // 初回ロード時にも計算を実行
 }
 
 // フォームのデータをローカルストレージに保存する関数
@@ -45,15 +44,21 @@ function saveData() {
     });
 
     localStorage.setItem("nurseCounts", JSON.stringify(nurseCounts));
-    alert("データが保存されました。");
+}
+
+// 入力フィールドにイベントリスナーを追加
+function addEventListeners() {
+    const inputs = document.querySelectorAll("input[type='number']");
+    inputs.forEach(input => {
+        input.addEventListener("input", () => {
+            calculateTotalNurses(); // 入力変更時に自動計算
+            saveData();             // データを自動保存
+        });
+    });
 }
 
 // DOMの読み込み完了後にイベントリスナーを設定
 document.addEventListener("DOMContentLoaded", function() {
     loadData();
-
-    const saveButton = document.getElementById("save-button");
-    if (saveButton) {
-        saveButton.addEventListener("click", saveData);
-    }
+    addEventListeners();
 });
