@@ -1,5 +1,4 @@
-// JavaScriptファイル全文
-
+// 各月の看護師総数を計算する関数
 function calculateTotalNurses() {
     const months = [
         "apr", "may", "jun", "jul", "aug", "sep",
