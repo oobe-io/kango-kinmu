@@ -1,4 +1,5 @@
-// 各月の看護師総数を計算する関数
+// JavaScriptファイル全文
+
 function calculateTotalNurses() {
     const months = [
         "apr", "may", "jun", "jul", "aug", "sep",
@@ -11,10 +12,12 @@ function calculateTotalNurses() {
         const retireCount = parseInt(document.getElementById(`retire-count-${month}`).value) || 0;
         const maternityCount = parseInt(document.getElementById(`maternity-count-${month}`).value) || 0;
         
-        // 看護師総数の計算 (予定看護師総数 - 中途退職者数 - 産休予定者数)
-        const totalNurse = nurseCount - retireCount - maternityCount;
-        
-        // 結果を総数のセルに表示
+        // 「計」を算出（中途退職者数 + 産休予定者数）
+        const totalCount = retireCount + maternityCount;
+        document.getElementById(`total-count-${month}`).value = totalCount;
+
+        // 看護師総数の計算 (予定看護師総数 - 計)
+        const totalNurse = nurseCount - totalCount;
         document.getElementById(`total-nurse-${month}`).value = totalNurse;
     });
 }
