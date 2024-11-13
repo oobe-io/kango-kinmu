@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>勤務表計算Webアプリケーション</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>勤務表計算 - 予定看護師総数入力</h1>
+        <form id="nurse-count-form">
+            <table>
+                <thead>
+                    <tr>
+                        <th>月</th>
+                        <th>予定看護師総数</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 月ごとの入力フィールド -->
+                    <tr><td>1月</td><td><input type="number" id="nurse-count-jan" name="nurse_count_jan" required></td></tr>
+                    <tr><td>2月</td><td><input type="number" id="nurse-count-feb" name="nurse_count_feb" required></td></tr>
+                    <tr><td>3月</td><td><input type="number" id="nurse-count-mar" name="nurse_count_mar" required></td></tr>
+                    <tr><td>4月</td><td><input type="number" id="nurse-count-apr" name="nurse_count_apr" required></td></tr>
+                    <tr><td>5月</td><td><input type="number" id="nurse-count-may" name="nurse_count_may" required></td></tr>
+                    <tr><td>6月</td><td><input type="number" id="nurse-count-jun" name="nurse_count_jun" required></td></tr>
+                    <tr><td>7月</td><td><input type="number" id="nurse-count-jul" name="nurse_count_jul" required></td></tr>
+                    <tr><td>8月</td><td><input type="number" id="nurse-count-aug" name="nurse_count_aug" required></td></tr>
+                    <tr><td>9月</td><td><input type="number" id="nurse-count-sep" name="nurse_count_sep" required></td></tr>
+                    <tr><td>10月</td><td><input type="number" id="nurse-count-oct" name="nurse_count_oct" required></td></tr>
+                    <tr><td>11月</td><td><input type="number" id="nurse-count-nov" name="nurse_count_nov" required></td></tr>
+                    <tr><td>12月</td><td><input type="number" id="nurse-count-dec" name="nurse_count_dec" required></td></tr>
+                </tbody>
+            </table>
+            <button type="submit">保存</button>
+        </form>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html>
