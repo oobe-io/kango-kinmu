@@ -115,82 +115,64 @@
                 <thead>
                     <tr>
                         <th>月</th>
-                        <th>平日</th>
-                        <th>休日</th>
-                        <th>暦日</th>
+                        <th>4月</th>
+                        <th>5月</th>
+                        <th>6月</th>
+                        <th>7月</th>
+                        <th>8月</th>
+                        <th>9月</th>
+                        <th>10月</th>
+                        <th>11月</th>
+                        <th>12月</th>
+                        <th>1月</th>
+                        <th>2月</th>
+                        <th>3月</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>4月</td>
-                        <td><input type="number" id="weekday-apr" placeholder="例: 21" required></td>
-                        <td><input type="number" id="holiday-apr" placeholder="例: 9" required></td>
+                        <td>平日</td>
+                        <td><input type="number" id="weekday-apr" required></td>
+                        <td><input type="number" id="weekday-may" required></td>
+                        <td><input type="number" id="weekday-jun" required></td>
+                        <td><input type="number" id="weekday-jul" required></td>
+                        <td><input type="number" id="weekday-aug" required></td>
+                        <td><input type="number" id="weekday-sep" required></td>
+                        <td><input type="number" id="weekday-oct" required></td>
+                        <td><input type="number" id="weekday-nov" required></td>
+                        <td><input type="number" id="weekday-dec" required></td>
+                        <td><input type="number" id="weekday-jan" required></td>
+                        <td><input type="number" id="weekday-feb" required></td>
+                        <td><input type="number" id="weekday-mar" required></td>
+                    </tr>
+                    <tr>
+                        <td>休日</td>
+                        <td><input type="number" id="holiday-apr" required></td>
+                        <td><input type="number" id="holiday-may" required></td>
+                        <td><input type="number" id="holiday-jun" required></td>
+                        <td><input type="number" id="holiday-jul" required></td>
+                        <td><input type="number" id="holiday-aug" required></td>
+                        <td><input type="number" id="holiday-sep" required></td>
+                        <td><input type="number" id="holiday-oct" required></td>
+                        <td><input type="number" id="holiday-nov" required></td>
+                        <td><input type="number" id="holiday-dec" required></td>
+                        <td><input type="number" id="holiday-jan" required></td>
+                        <td><input type="number" id="holiday-feb" required></td>
+                        <td><input type="number" id="holiday-mar" required></td>
+                    </tr>
+                    <tr>
+                        <td>暦日</td>
                         <td><input type="number" id="calendar-apr" readonly></td>
-                    </tr>
-                    <tr>
-                        <td>5月</td>
-                        <td><input type="number" id="weekday-may" placeholder="例: 21" required></td>
-                        <td><input type="number" id="holiday-may" placeholder="例: 10" required></td>
                         <td><input type="number" id="calendar-may" readonly></td>
-                    </tr>
-                    <tr>
-                        <td>6月</td>
-                        <td><input type="number" id="weekday-jun" placeholder="例: 20" required></td>
-                        <td><input type="number" id="holiday-jun" placeholder="例: 10" required></td>
                         <td><input type="number" id="calendar-jun" readonly></td>
-                    </tr>
-                    <tr>
-                        <td>7月</td>
-                        <td><input type="number" id="weekday-jul" placeholder="例: 22" required></td>
-                        <td><input type="number" id="holiday-jul" placeholder="例: 9" required></td>
                         <td><input type="number" id="calendar-jul" readonly></td>
-                    </tr>
-                    <tr>
-                        <td>8月</td>
-                        <td><input type="number" id="weekday-aug" placeholder="例: 21" required></td>
-                        <td><input type="number" id="holiday-aug" placeholder="例: 10" required></td>
                         <td><input type="number" id="calendar-aug" readonly></td>
-                    </tr>
-                    <tr>
-                        <td>9月</td>
-                        <td><input type="number" id="weekday-sep" placeholder="例: 19" required></td>
-                        <td><input type="number" id="holiday-sep" placeholder="例: 11" required></td>
                         <td><input type="number" id="calendar-sep" readonly></td>
-                    </tr>
-                    <tr>
-                        <td>10月</td>
-                        <td><input type="number" id="weekday-oct" placeholder="例: 22" required></td>
-                        <td><input type="number" id="holiday-oct" placeholder="例: 9" required></td>
                         <td><input type="number" id="calendar-oct" readonly></td>
-                    </tr>
-                    <tr>
-                        <td>11月</td>
-                        <td><input type="number" id="weekday-nov" placeholder="例: 20" required></td>
-                        <td><input type="number" id="holiday-nov" placeholder="例: 10" required></td>
                         <td><input type="number" id="calendar-nov" readonly></td>
-                    </tr>
-                    <tr>
-                        <td>12月</td>
-                        <td><input type="number" id="weekday-dec" placeholder="例: 20" required></td>
-                        <td><input type="number" id="holiday-dec" placeholder="例: 11" required></td>
                         <td><input type="number" id="calendar-dec" readonly></td>
-                    </tr>
-                    <tr>
-                        <td>1月</td>
-                        <td><input type="number" id="weekday-jan" placeholder="例: 19" required></td>
-                        <td><input type="number" id="holiday-jan" placeholder="例: 12" required></td>
                         <td><input type="number" id="calendar-jan" readonly></td>
-                    </tr>
-                    <tr>
-                        <td>2月</td>
-                        <td><input type="number" id="weekday-feb" placeholder="例: 18" required></td>
-                        <td><input type="number" id="holiday-feb" placeholder="例: 10" required></td>
                         <td><input type="number" id="calendar-feb" readonly></td>
-                    </tr>
-                    <tr>
-                        <td>3月</td>
-                        <td><input type="number" id="weekday-mar" placeholder="例: 21" required></td>
-                        <td><input type="number" id="holiday-mar" placeholder="例: 10" required></td>
                         <td><input type="number" id="calendar-mar" readonly></td>
                     </tr>
                 </tbody>
