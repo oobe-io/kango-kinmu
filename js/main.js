@@ -61,6 +61,25 @@ function loadData() {
     calculateCalendarDays(); // 暦日計算も実行
 }
 
+// フォームのデータをローカルストレージに保存する関数
+function saveData() {
+    const months = [
+        "apr", "may", "jun", "jul", "aug", "sep",
+        "oct", "nov", "dec", "jan", "feb", "mar"
+    ];
+    const nurseCounts = {};
+
+    months.forEach(month => {
+        nurseCounts[`nurse-count-${month}`] = document.getElementById(`nurse-count-${month}`).value || 0;
+        nurseCounts[`retire-count-${month}`] = document.getElementById(`retire-count-${month}`).value || 0;
+        nurseCounts[`maternity-count-${month}`] = document.getElementById(`maternity-count-${month}`).value || 0;
+        nurseCounts[`weekday-${month}`] = document.getElementById(`weekday-${month}`).value || 0;
+        nurseCounts[`holiday-${month}`] = document.getElementById(`holiday-${month}`).value || 0;
+    });
+
+    localStorage.setItem("nurseCounts", JSON.stringify(nurseCounts));
+}
+
 // 入力フィールドにイベントリスナーを追加
 function addEventListeners() {
     const inputs = document.querySelectorAll("input[type='number']");
@@ -74,4 +93,7 @@ function addEventListeners() {
 }
 
 // DOMの読み込み完了後にイベントリスナーを設定
-document.addEventListener("
+document.addEventListener("DOMContentLoaded", function() {
+    loadData();
+    addEventListeners();
+});
