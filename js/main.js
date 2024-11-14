@@ -1,4 +1,5 @@
-// 各月の看護師総数を計算する関数
+// JavaScriptファイル全文
+
 function calculateTotalNurses() {
     const months = [
         "apr", "may", "jun", "jul", "aug", "sep",
@@ -22,13 +23,30 @@ function calculateTotalNurses() {
         cumulativeTotal += totalCount;
 
         // 看護師総数の計算
-        // 予定看護師総数が0の場合、看護師総数は0とする
+        // 予定看護師総数が0の場合、看護師総数は空欄とする
         if (nurseCount === 0) {
-            document.getElementById(`total-nurse-${month}`).value = "0";
+            document.getElementById(`total-nurse-${month}`).value = "";
         } else {
             const totalNurse = nurseCount - cumulativeTotal;
             document.getElementById(`total-nurse-${month}`).value = totalNurse;
         }
+    });
+}
+
+// 月ごとの暦日を計算する関数
+function calculateCalendarDays() {
+    const months = [
+        "apr", "may", "jun", "jul", "aug", "sep",
+        "oct", "nov", "dec", "jan", "feb", "mar"
+    ];
+
+    months.forEach(month => {
+        const weekday = parseInt(document.getElementById(`weekday-${month}`).value) || 0;
+        const holiday = parseInt(document.getElementById(`holiday-${month}`).value) || 0;
+
+        // 暦日を計算（平日 + 休日）
+        const calendarDays = weekday + holiday;
+        document.getElementById(`calendar-${month}`).value = calendarDays;
     });
 }
 
@@ -40,23 +58,7 @@ function loadData() {
         if (input) input.value = value;
     }
     calculateTotalNurses(); // 初回ロード時にも計算を実行
-}
-
-// フォームのデータをローカルストレージに保存する関数
-function saveData() {
-    const months = [
-        "apr", "may", "jun", "jul", "aug", "sep",
-        "oct", "nov", "dec", "jan", "feb", "mar"
-    ];
-    const nurseCounts = {};
-
-    months.forEach(month => {
-        nurseCounts[`nurse-count-${month}`] = document.getElementById(`nurse-count-${month}`).value || 0;
-        nurseCounts[`retire-count-${month}`] = document.getElementById(`retire-count-${month}`).value || 0;
-        nurseCounts[`maternity-count-${month}`] = document.getElementById(`maternity-count-${month}`).value || 0;
-    });
-
-    localStorage.setItem("nurseCounts", JSON.stringify(nurseCounts));
+    calculateCalendarDays(); // 暦日計算も実行
 }
 
 // 入力フィールドにイベントリスナーを追加
@@ -65,13 +67,11 @@ function addEventListeners() {
     inputs.forEach(input => {
         input.addEventListener("input", () => {
             calculateTotalNurses(); // 入力変更時に自動計算
+            calculateCalendarDays(); // 暦日計算も自動で更新
             saveData();             // データを自動保存
         });
     });
 }
 
 // DOMの読み込み完了後にイベントリスナーを設定
-document.addEventListener("DOMContentLoaded", function() {
-    loadData();
-    addEventListeners();
-});
+document.addEventListener("
