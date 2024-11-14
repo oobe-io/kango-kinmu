@@ -5,18 +5,24 @@ function calculateTotalNurses() {
         "oct", "nov", "dec", "jan", "feb", "mar"
     ];
 
+    // 累積の「計」を保持する変数
+    let cumulativeTotal = 0;
+
     months.forEach(month => {
         // 各月の予定看護師総数、中途退職者数、産休予定者数を取得
         const nurseCount = parseInt(document.getElementById(`nurse-count-${month}`).value) || 0;
         const retireCount = parseInt(document.getElementById(`retire-count-${month}`).value) || 0;
         const maternityCount = parseInt(document.getElementById(`maternity-count-${month}`).value) || 0;
-        
+
         // 「計」を算出（中途退職者数 + 産休予定者数）
         const totalCount = retireCount + maternityCount;
         document.getElementById(`total-count-${month}`).value = totalCount;
 
-        // 看護師総数の計算 (予定看護師総数 - 計)
-        const totalNurse = nurseCount - totalCount;
+        // 累積の「計」に今月の「計」を加算
+        cumulativeTotal += totalCount;
+
+        // 看護師総数の計算 (予定看護師総数 - 累積の「計」)
+        const totalNurse = nurseCount - cumulativeTotal;
         document.getElementById(`total-nurse-${month}`).value = totalNurse;
     });
 }
