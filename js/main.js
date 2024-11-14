@@ -22,7 +22,6 @@ function calculateTotalNurses() {
         cumulativeTotal += totalCount;
 
         // 看護師総数の計算
-        // 予定看護師総数が0の場合、看護師総数は空欄とする
         if (nurseCount === 0) {
             document.getElementById(`total-nurse-${month}`).value = "";
         } else {
@@ -63,7 +62,6 @@ function calculateShiftTotals() {
         let weekdayTotal = 0;
         let holidayTotal = 0;
 
-        // 各シフトタイプの平日・休日を取得し、それぞれの総和を計算
         shiftTypes.forEach(type => {
             const weekdayValue = parseInt(document.getElementById(`${type}-shift-${month}-weekday`).value) || 0;
             const holidayValue = parseInt(document.getElementById(`${type}-shift-${month}-holiday`).value) || 0;
@@ -72,7 +70,6 @@ function calculateShiftTotals() {
             holidayTotal += holidayValue;
         });
 
-        // 計算結果を該当フィールドに表示
         document.getElementById(`total-${month}-weekday`).value = weekdayTotal;
         document.getElementById(`total-${month}-holiday`).value = holidayTotal;
     });
@@ -124,6 +121,6 @@ function addEventListeners() {
 
 // DOMの読み込み完了後にイベントリスナーを設定
 document.addEventListener("DOMContentLoaded", function() {
-    loadData();
-    addEventListeners();
+    loadData(); // 初回ロード時にデータを復元
+    addEventListeners(); // イベントリスナーを追加
 });
