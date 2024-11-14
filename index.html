@@ -179,6 +179,78 @@
             </table>
         </form>
     </div>
+    <div class="container">
+    <h1>月ごとの平日・休日入力と暦日計算</h1>
+    <form id="calendar-form">
+        <table>
+            <thead>
+                <tr>
+                    <th>2024</th>
+                    <th>4月</th>
+                    <th>5月</th>
+                    <th>6月</th>
+                    <th>7月</th>
+                    <th>8月</th>
+                    <th>9月</th>
+                    <th>10月</th>
+                    <th>11月</th>
+                    <th>12月</th>
+                    <th>1月</th>
+                    <th>2月</th>
+                    <th>3月</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>平日</td>
+                    <td><input type="number" id="weekday-apr" required></td>
+                    <td><input type="number" id="weekday-may" required></td>
+                    <td><input type="number" id="weekday-jun" required></td>
+                    <td><input type="number" id="weekday-jul" required></td>
+                    <td><input type="number" id="weekday-aug" required></td>
+                    <td><input type="number" id="weekday-sep" required></td>
+                    <td><input type="number" id="weekday-oct" required></td>
+                    <td><input type="number" id="weekday-nov" required></td>
+                    <td><input type="number" id="weekday-dec" required></td>
+                    <td><input type="number" id="weekday-jan" required></td>
+                    <td><input type="number" id="weekday-feb" required></td>
+                    <td><input type="number" id="weekday-mar" required></td>
+                </tr>
+                <tr>
+                    <td>休日</td>
+                    <td><input type="number" id="holiday-apr" required></td>
+                    <td><input type="number" id="holiday-may" required></td>
+                    <td><input type="number" id="holiday-jun" required></td>
+                    <td><input type="number" id="holiday-jul" required></td>
+                    <td><input type="number" id="holiday-aug" required></td>
+                    <td><input type="number" id="holiday-sep" required></td>
+                    <td><input type="number" id="holiday-oct" required></td>
+                    <td><input type="number" id="holiday-nov" required></td>
+                    <td><input type="number" id="holiday-dec" required></td>
+                    <td><input type="number" id="holiday-jan" required></td>
+                    <td><input type="number" id="holiday-feb" required></td>
+                    <td><input type="number" id="holiday-mar" required></td>
+                </tr>
+                <tr>
+                    <td>暦日数</td>
+                    <td><input type="number" id="calendar-apr" readonly></td>
+                    <td><input type="number" id="calendar-may" readonly></td>
+                    <td><input type="number" id="calendar-jun" readonly></td>
+                    <td><input type="number" id="calendar-jul" readonly></td>
+                    <td><input type="number" id="calendar-aug" readonly></td>
+                    <td><input type="number" id="calendar-sep" readonly></td>
+                    <td><input type="number" id="calendar-oct" readonly></td>
+                    <td><input type="number" id="calendar-nov" readonly></td>
+                    <td><input type="number" id="calendar-dec" readonly></td>
+                    <td><input type="number" id="calendar-jan" readonly></td>
+                    <td><input type="number" id="calendar-feb" readonly></td>
+                    <td><input type="number" id="calendar-mar" readonly></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+
     <script src="js/main.js"></script>
 </body>
 </html>
