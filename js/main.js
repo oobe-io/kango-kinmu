@@ -1,10 +1,6 @@
 // 看護師総数を計算する関数
 function calculateTotalNurses() {
-    const months = [
-        "apr", "may", "jun", "jul", "aug", "sep",
-        "oct", "nov", "dec", "jan", "feb", "mar"
-    ];
-
+    const months = ["apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec", "jan", "feb", "mar"];
     let cumulativeTotal = 0;
 
     months.forEach(month => {
@@ -28,15 +24,11 @@ function calculateTotalNurses() {
 
 // 月ごとの暦日を計算する関数
 function calculateCalendarDays() {
-    const months = [
-        "apr", "may", "jun", "jul", "aug", "sep",
-        "oct", "nov", "dec", "jan", "feb", "mar"
-    ];
+    const months = ["apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec", "jan", "feb", "mar"];
 
     months.forEach(month => {
         const weekday = parseInt(document.getElementById(`weekday-${month}`).value) || 0;
         const holiday = parseInt(document.getElementById(`holiday-${month}`).value) || 0;
-
         const calendarDays = weekday + holiday;
         document.getElementById(`calendar-${month}`).value = calendarDays;
     });
@@ -44,11 +36,7 @@ function calculateCalendarDays() {
 
 // シフト入力の総和を計算して表示する関数
 function calculateShiftTotals() {
-    const months = [
-        "apr", "may", "jun", "jul", "aug", "sep",
-        "oct", "nov", "dec", "jan", "feb", "mar"
-    ];
-
+    const months = ["apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec", "jan", "feb", "mar"];
     const shiftTypes = ["night", "off-duty", "short", "late", "managerial", "day"];
     
     months.forEach(month => {
@@ -58,7 +46,6 @@ function calculateShiftTotals() {
         shiftTypes.forEach(type => {
             const weekdayValue = parseInt(document.getElementById(`${type}-shift-${month}-weekday`).value) || 0;
             const holidayValue = parseInt(document.getElementById(`${type}-shift-${month}-holiday`).value) || 0;
-
             weekdayTotal += weekdayValue;
             holidayTotal += holidayValue;
         });
@@ -70,10 +57,7 @@ function calculateShiftTotals() {
 
 // データをローカルストレージに保存する関数
 function saveData() {
-    const months = [
-        "apr", "may", "jun", "jul", "aug", "sep",
-        "oct", "nov", "dec", "jan", "feb", "mar"
-    ];
+    const months = ["apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec", "jan", "feb", "mar"];
     const nurseCounts = {};
 
     months.forEach(month => {
@@ -94,7 +78,6 @@ function loadData() {
         const input = document.getElementById(key);
         if (input) input.value = value;
     }
-    // データ復元後に計算を再実行
     calculateTotalNurses();
     calculateCalendarDays();
     calculateShiftTotals();
@@ -115,6 +98,6 @@ function addEventListeners() {
 
 // DOMの読み込み完了後に初期化
 document.addEventListener("DOMContentLoaded", function() {
-    loadData(); // データを復元
-    addEventListeners(); // イベントリスナーを追加
+    loadData();
+    addEventListeners();
 });
