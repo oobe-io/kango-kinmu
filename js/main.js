@@ -56,14 +56,13 @@ function calculateShiftTotals() {
         "oct", "nov", "dec", "jan", "feb", "mar"
     ];
 
-    const shiftTypes = ["night", "off-duty", "short", "late", "managerial", "day"];
-    
-    // 月ごとの総和を計算
     months.forEach(month => {
+        // 平日と休日の総和を初期化
         let weekdayTotal = 0;
         let holidayTotal = 0;
 
-        // 各シフトタイプの平日・休日を取得し、それぞれの総和を計算
+        // シフトタイプごとに平日と休日の値を取得して総和に加算
+        const shiftTypes = ["night", "off-duty", "short", "late", "managerial", "day"];
         shiftTypes.forEach(type => {
             const weekdayValue = parseInt(document.getElementById(`${type}-shift-${month}-weekday`).value) || 0;
             const holidayValue = parseInt(document.getElementById(`${type}-shift-${month}-holiday`).value) || 0;
@@ -72,7 +71,7 @@ function calculateShiftTotals() {
             holidayTotal += holidayValue;
         });
 
-        // 計算結果を該当フィールドに表示
+        // 総和を対応するフィールドに表示
         document.getElementById(`total-${month}-weekday`).value = weekdayTotal;
         document.getElementById(`total-${month}-holiday`).value = holidayTotal;
     });
