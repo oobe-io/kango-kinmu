@@ -72,22 +72,28 @@ function saveData() {
         "apr", "may", "jun", "jul", "aug", "sep",
         "oct", "nov", "dec", "jan", "feb", "mar"
     ];
-    const nurseCounts = {};
+    const data = {};
 
     months.forEach(month => {
-        nurseCounts[`nurse-count-${month}`] = document.getElementById(`nurse-count-${month}`).value || 0;
-        nurseCounts[`retire-count-${month}`] = document.getElementById(`retire-count-${month}`).value || 0;
-        nurseCounts[`maternity-count-${month}`] = document.getElementById(`maternity-count-${month}`).value || 0;
-        nurseCounts[`weekday-${month}`] = document.getElementById(`weekday-${month}`).value || 0;
-        nurseCounts[`holiday-${month}`] = document.getElementById(`holiday-${month}`).value || 0;
+        data[`nurse-count-${month}`] = document.getElementById(`nurse-count-${month}`).value || 0;
+        data[`retire-count-${month}`] = document.getElementById(`retire-count-${month}`).value || 0;
+        data[`maternity-count-${month}`] = document.getElementById(`maternity-count-${month}`).value || 0;
+        data[`weekday-${month}`] = document.getElementById(`weekday-${month}`).value || 0;
+        data[`holiday-${month}`] = document.getElementById(`holiday-${month}`).value || 0;
+
+        const shiftTypes = ["night", "off-duty", "short", "late", "managerial", "day"];
+        shiftTypes.forEach(type => {
+            data[`${type}-shift-${month}-weekday`] = document.getElementById(`${type}-shift-${month}-weekday`).value || 0;
+            data[`${type}-shift-${month}-holiday`] = document.getElementById(`${type}-shift-${month}-holiday`).value || 0;
+        });
     });
 
-    localStorage.setItem("nurseCounts", JSON.stringify(nurseCounts));
+    localStorage.setItem("nurseData", JSON.stringify(data));
 }
 
 // ローカルストレージからデータを読み込む関数
 function loadData() {
-    const storedData = JSON.parse(localStorage.getItem("nurseCounts")) || {};
+    const storedData = JSON.parse(localStorage.getItem("nurseData")) || {};
     for (let [key, value] of Object.entries(storedData)) {
         const input = document.getElementById(key);
         if (input) input.value = value;
