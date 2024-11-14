@@ -5,18 +5,24 @@ function calculateTotalNurses() {
         "oct", "nov", "dec", "jan", "feb", "mar"
     ];
 
+    // 累積の「計」を保持する変数
     let cumulativeTotal = 0;
 
     months.forEach(month => {
+        // 各月の予定看護師総数、中途退職者数、産休予定者数を取得
         const nurseCount = parseInt(document.getElementById(`nurse-count-${month}`).value) || 0;
         const retireCount = parseInt(document.getElementById(`retire-count-${month}`).value) || 0;
         const maternityCount = parseInt(document.getElementById(`maternity-count-${month}`).value) || 0;
 
+        // 「計」を算出（中途退職者数 + 産休予定者数）
         const totalCount = retireCount + maternityCount;
         document.getElementById(`total-count-${month}`).value = totalCount;
 
+        // 累積の「計」に今月の「計」を加算
         cumulativeTotal += totalCount;
 
+        // 看護師総数の計算
+        // 予定看護師総数が0の場合、看護師総数は空欄とする
         if (nurseCount === 0) {
             document.getElementById(`total-nurse-${month}`).value = "";
         } else {
@@ -26,7 +32,7 @@ function calculateTotalNurses() {
     });
 }
 
-// 暦日を計算する関数
+// 月ごとの暦日を計算する関数
 function calculateCalendarDays() {
     const months = [
         "apr", "may", "jun", "jul", "aug", "sep",
@@ -36,12 +42,14 @@ function calculateCalendarDays() {
     months.forEach(month => {
         const weekday = parseInt(document.getElementById(`weekday-${month}`).value) || 0;
         const holiday = parseInt(document.getElementById(`holiday-${month}`).value) || 0;
+
+        // 暦日を計算（平日 + 休日）
         const calendarDays = weekday + holiday;
         document.getElementById(`calendar-${month}`).value = calendarDays;
     });
 }
 
-// シフトの総和を計算して表示する関数
+// シフト入力の総和を計算して表示する関数
 function calculateShiftTotals() {
     const months = [
         "apr", "may", "jun", "jul", "aug", "sep",
@@ -49,9 +57,11 @@ function calculateShiftTotals() {
     ];
 
     months.forEach(month => {
+        // 平日と休日の総和を初期化
         let weekdayTotal = 0;
         let holidayTotal = 0;
 
+        // シフトタイプごとに平日と休日の値を取得して総和に加算
         const shiftTypes = ["night", "off-duty", "short", "late", "managerial", "day"];
         shiftTypes.forEach(type => {
             const weekdayValue = parseInt(document.getElementById(`${type}-shift-${month}-weekday`).value) || 0;
@@ -61,6 +71,7 @@ function calculateShiftTotals() {
             holidayTotal += holidayValue;
         });
 
+        // 総和を対応するフィールドに表示
         document.getElementById(`total-${month}-weekday`).value = weekdayTotal;
         document.getElementById(`total-${month}-holiday`).value = holidayTotal;
     });
@@ -72,35 +83,29 @@ function saveData() {
         "apr", "may", "jun", "jul", "aug", "sep",
         "oct", "nov", "dec", "jan", "feb", "mar"
     ];
-    const data = {};
+    const nurseCounts = {};
 
     months.forEach(month => {
-        data[`nurse-count-${month}`] = document.getElementById(`nurse-count-${month}`).value || 0;
-        data[`retire-count-${month}`] = document.getElementById(`retire-count-${month}`).value || 0;
-        data[`maternity-count-${month}`] = document.getElementById(`maternity-count-${month}`).value || 0;
-        data[`weekday-${month}`] = document.getElementById(`weekday-${month}`).value || 0;
-        data[`holiday-${month}`] = document.getElementById(`holiday-${month}`).value || 0;
-
-        const shiftTypes = ["night", "off-duty", "short", "late", "managerial", "day"];
-        shiftTypes.forEach(type => {
-            data[`${type}-shift-${month}-weekday`] = document.getElementById(`${type}-shift-${month}-weekday`).value || 0;
-            data[`${type}-shift-${month}-holiday`] = document.getElementById(`${type}-shift-${month}-holiday`).value || 0;
-        });
+        nurseCounts[`nurse-count-${month}`] = document.getElementById(`nurse-count-${month}`).value || 0;
+        nurseCounts[`retire-count-${month}`] = document.getElementById(`retire-count-${month}`).value || 0;
+        nurseCounts[`maternity-count-${month}`] = document.getElementById(`maternity-count-${month}`).value || 0;
+        nurseCounts[`weekday-${month}`] = document.getElementById(`weekday-${month}`).value || 0;
+        nurseCounts[`holiday-${month}`] = document.getElementById(`holiday-${month}`).value || 0;
     });
 
-    localStorage.setItem("nurseData", JSON.stringify(data));
+    localStorage.setItem("nurseCounts", JSON.stringify(nurseCounts));
 }
 
 // ローカルストレージからデータを読み込む関数
 function loadData() {
-    const storedData = JSON.parse(localStorage.getItem("nurseData")) || {};
+    const storedData = JSON.parse(localStorage.getItem("nurseCounts")) || {};
     for (let [key, value] of Object.entries(storedData)) {
         const input = document.getElementById(key);
         if (input) input.value = value;
     }
-    calculateTotalNurses();
-    calculateCalendarDays();
-    calculateShiftTotals();
+    calculateTotalNurses(); // 初回ロード時にも計算を実行
+    calculateCalendarDays(); // 暦日計算も実行
+    calculateShiftTotals(); // シフト総和計算も実行
 }
 
 // 入力フィールドにイベントリスナーを追加
@@ -108,10 +113,10 @@ function addEventListeners() {
     const inputs = document.querySelectorAll("input[type='number']");
     inputs.forEach(input => {
         input.addEventListener("input", () => {
-            calculateTotalNurses();
-            calculateCalendarDays();
-            calculateShiftTotals();
-            saveData();
+            calculateTotalNurses(); // 看護師総数の自動計算
+            calculateCalendarDays(); // 暦日計算の自動更新
+            calculateShiftTotals(); // シフト総和の自動計算
+            saveData(); // データを自動保存
         });
     });
 }
