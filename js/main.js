@@ -22,9 +22,9 @@ function calculateTotalNurses() {
         cumulativeTotal += totalCount;
 
         // 看護師総数の計算
-        // 予定看護師総数が0の場合、看護師総数は空欄とする
+        // 予定看護師総数が0の場合、看護師総数は0とする
         if (nurseCount === 0) {
-            document.getElementById(`total-nurse-${month}`).value = "";
+            document.getElementById(`total-nurse-${month}`).value = "0";
         } else {
             const totalNurse = nurseCount - cumulativeTotal;
             document.getElementById(`total-nurse-${month}`).value = totalNurse;
