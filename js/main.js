@@ -1,5 +1,4 @@
-// JavaScriptファイル全文
-
+// 看護師総数を計算する関数
 function calculateTotalNurses() {
     const months = [
         "apr", "may", "jun", "jul", "aug", "sep",
@@ -50,18 +49,35 @@ function calculateCalendarDays() {
     });
 }
 
-// ページロード時にローカルストレージからデータを読み込む関数
-function loadData() {
-    const storedData = JSON.parse(localStorage.getItem("nurseCounts")) || {};
-    for (let [key, value] of Object.entries(storedData)) {
-        const input = document.getElementById(key);
-        if (input) input.value = value;
-    }
-    calculateTotalNurses(); // 初回ロード時にも計算を実行
-    calculateCalendarDays(); // 暦日計算も実行
+// シフト入力の総和を計算して表示する関数
+function calculateShiftTotals() {
+    const months = [
+        "apr", "may", "jun", "jul", "aug", "sep",
+        "oct", "nov", "dec", "jan", "feb", "mar"
+    ];
+
+    months.forEach(month => {
+        // 平日と休日の総和を初期化
+        let weekdayTotal = 0;
+        let holidayTotal = 0;
+
+        // シフトタイプごとに平日と休日の値を取得して総和に加算
+        const shiftTypes = ["night", "off-duty", "short", "late", "managerial", "day"];
+        shiftTypes.forEach(type => {
+            const weekdayValue = parseInt(document.getElementById(`${type}-shift-${month}-weekday`).value) || 0;
+            const holidayValue = parseInt(document.getElementById(`${type}-shift-${month}-holiday`).value) || 0;
+
+            weekdayTotal += weekdayValue;
+            holidayTotal += holidayValue;
+        });
+
+        // 総和を対応するフィールドに表示
+        document.getElementById(`total-${month}-weekday`).value = weekdayTotal;
+        document.getElementById(`total-${month}-holiday`).value = holidayTotal;
+    });
 }
 
-// フォームのデータをローカルストレージに保存する関数
+// データをローカルストレージに保存する関数
 function saveData() {
     const months = [
         "apr", "may", "jun", "jul", "aug", "sep",
@@ -80,14 +96,27 @@ function saveData() {
     localStorage.setItem("nurseCounts", JSON.stringify(nurseCounts));
 }
 
+// ローカルストレージからデータを読み込む関数
+function loadData() {
+    const storedData = JSON.parse(localStorage.getItem("nurseCounts")) || {};
+    for (let [key, value] of Object.entries(storedData)) {
+        const input = document.getElementById(key);
+        if (input) input.value = value;
+    }
+    calculateTotalNurses(); // 初回ロード時にも計算を実行
+    calculateCalendarDays(); // 暦日計算も実行
+    calculateShiftTotals(); // シフト総和計算も実行
+}
+
 // 入力フィールドにイベントリスナーを追加
 function addEventListeners() {
     const inputs = document.querySelectorAll("input[type='number']");
     inputs.forEach(input => {
         input.addEventListener("input", () => {
-            calculateTotalNurses(); // 入力変更時に自動計算
-            calculateCalendarDays(); // 暦日計算も自動で更新
-            saveData();             // データを自動保存
+            calculateTotalNurses(); // 看護師総数の自動計算
+            calculateCalendarDays(); // 暦日計算の自動更新
+            calculateShiftTotals(); // シフト総和の自動計算
+            saveData(); // データを自動保存
         });
     });
 }
