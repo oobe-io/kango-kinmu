@@ -39,8 +39,31 @@ th {
     color: white;
 }
 
+/* 入力フィールドのサイズを大きくする */
 input[type="number"] {
-    width: 100%;
-    padding: 5px;
+    width: 60px; /* 入力欄の幅 */
+    height: 40px; /* 入力欄の高さ */
+    font-size: 1rem; /* フォントサイズを大きく */
+    padding: 5px; /* 内側の余白 */
+    box-sizing: border-box;
+}
+
+/* 特定のクラスに対する入力フィールドのスタイル */
+.shift-input, #total-apr-weekday, #total-apr-holiday,
+#total-may-weekday, #total-may-holiday,
+#total-jun-weekday, #total-jun-holiday,
+#total-jul-weekday, #total-jul-holiday,
+#total-aug-weekday, #total-aug-holiday,
+#total-sep-weekday, #total-sep-holiday,
+#total-oct-weekday, #total-oct-holiday,
+#total-nov-weekday, #total-nov-holiday,
+#total-dec-weekday, #total-dec-holiday,
+#total-jan-weekday, #total-jan-holiday,
+#total-feb-weekday, #total-feb-holiday,
+#total-mar-weekday, #total-mar-holiday {
+    width: 60px; /* 入力欄の幅 */
+    height: 40px; /* 入力欄の高さ */
+    font-size: 1rem; /* フォントサイズを大きく */
+    padding: 5px; /* 内側の余白 */
     box-sizing: border-box;
 }
