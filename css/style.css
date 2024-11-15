@@ -48,22 +48,36 @@ input[type="number"] {
     box-sizing: border-box;
 }
 
-/* 特定のクラスに対する入力フィールドのスタイル */
-.shift-input, #total-apr-weekday, #total-apr-holiday,
-#total-may-weekday, #total-may-holiday,
-#total-jun-weekday, #total-jun-holiday,
-#total-jul-weekday, #total-jul-holiday,
-#total-aug-weekday, #total-aug-holiday,
-#total-sep-weekday, #total-sep-holiday,
-#total-oct-weekday, #total-oct-holiday,
-#total-nov-weekday, #total-nov-holiday,
-#total-dec-weekday, #total-dec-holiday,
-#total-jan-weekday, #total-jan-holiday,
-#total-feb-weekday, #total-feb-holiday,
-#total-mar-weekday, #total-mar-holiday {
+/* シフト入力フィールド専用 */
+.shift-input {
     width: 60px; /* 入力欄の幅 */
     height: 40px; /* 入力欄の高さ */
-    font-size: 1rem; /* フォントサイズを大きく */
-    padding: 5px; /* 内側の余白 */
-    box-sizing: border-box;
+    font-size: 1rem; /* フォントサイズ */
+}
+
+/* テーブル切り替え用スタイル */
+.shift-table {
+    display: none; /* 初期状態では非表示 */
+}
+
+.shift-table.active {
+    display: block; /* 表示するテーブル */
+}
+
+.hidden {
+    display: none !important;
+}
+
+.table-switcher {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.table-switcher button {
+    margin: 0 10px;
+    padding: 5px 10px;
+    font-size: 1rem;
+    cursor: pointer;
 }
