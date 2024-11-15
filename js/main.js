@@ -50,6 +50,33 @@ function calculateCalendarDays() {
     });
 }
 
+// 月ごとの平日・休日の総和を計算する関数
+function calculateMonthlySums() {
+    const months = [
+        "apr", "may", "jun", "jul", "aug", "sep",
+        "oct", "nov", "dec", "jan", "feb", "mar"
+    ];
+
+    months.forEach(month => {
+        const shiftTypes = ["night", "off-duty", "short", "late", "managerial", "day"];
+        let weekdayTotal = 0;
+        let holidayTotal = 0;
+
+        // 平日と休日の合計を計算
+        shiftTypes.forEach(type => {
+            const weekdayShift = parseInt(document.getElementById(`${type}-shift-${month}-weekday`).value) || 0;
+            const holidayShift = parseInt(document.getElementById(`${type}-shift-${month}-holiday`).value) || 0;
+
+            weekdayTotal += weekdayShift;
+            holidayTotal += holidayShift;
+        });
+
+        // 総和の欄に計算結果を表示
+        document.getElementById(`total-${month}-weekday`).value = weekdayTotal;
+        document.getElementById(`total-${month}-holiday`).value = holidayTotal;
+    });
+}
+
 // ページロード時にローカルストレージからデータを読み込む関数
 function loadData() {
     const storedData = JSON.parse(localStorage.getItem("nurseCounts")) || {};
@@ -59,6 +86,7 @@ function loadData() {
     }
     calculateTotalNurses(); // 初回ロード時にも計算を実行
     calculateCalendarDays(); // 暦日計算も実行
+    calculateMonthlySums(); // 月ごとの総和も計算
 }
 
 // フォームのデータをローカルストレージに保存する関数
@@ -87,6 +115,7 @@ function addEventListeners() {
         input.addEventListener("input", () => {
             calculateTotalNurses(); // 入力変更時に自動計算
             calculateCalendarDays(); // 暦日計算も自動で更新
+            calculateMonthlySums(); // 平日・休日の総和を更新
             saveData();             // データを自動保存
         });
     });
