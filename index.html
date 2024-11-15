@@ -110,7 +110,12 @@
     </div>
     <div class="container">
         <h1>月ごとの予定勤務者数を入力</h1>
-        <form id="shift-schedule-form">
+        <div class="table-switcher">
+            <button id="prev-button">◀</button>
+            <span id="table-period">4月〜9月</span>
+            <button id="next-button">▶</button>
+        </div>
+        <div id="table-4-9" class="shift-table">
             <table>
                 <thead>
                     <tr>
@@ -121,27 +126,9 @@
                         <th colspan="2">7月</th>
                         <th colspan="2">8月</th>
                         <th colspan="2">9月</th>
-                        <th colspan="2">10月</th>
-                        <th colspan="2">11月</th>
-                        <th colspan="2">12月</th>
-                        <th colspan="2">1月</th>
-                        <th colspan="2">2月</th>
-                        <th colspan="2">3月</th>
                     </tr>
                     <tr>
                         <td></td>
-                        <td>平日</td>
-                        <td>休日</td>
-                        <td>平日</td>
-                        <td>休日</td>
-                        <td>平日</td>
-                        <td>休日</td>
-                        <td>平日</td>
-                        <td>休日</td>
-                        <td>平日</td>
-                        <td>休日</td>
-                        <td>平日</td>
-                        <td>休日</td>
                         <td>平日</td>
                         <td>休日</td>
                         <td>平日</td>
@@ -171,18 +158,6 @@
                         <td><input type="number" class="shift-input" id="night-shift-aug-holiday"></td>
                         <td><input type="number" class="shift-input" id="night-shift-sep-weekday"></td>
                         <td><input type="number" class="shift-input" id="night-shift-sep-holiday"></td>
-                        <td><input type="number" class="shift-input" id="night-shift-oct-weekday"></td>
-                        <td><input type="number" class="shift-input" id="night-shift-oct-holiday"></td>
-                        <td><input type="number" class="shift-input" id="night-shift-nov-weekday"></td>
-                        <td><input type="number" class="shift-input" id="night-shift-nov-holiday"></td>
-                        <td><input type="number" class="shift-input" id="night-shift-dec-weekday"></td>
-                        <td><input type="number" class="shift-input" id="night-shift-dec-holiday"></td>
-                        <td><input type="number" class="shift-input" id="night-shift-jan-weekday"></td>
-                        <td><input type="number" class="shift-input" id="night-shift-jan-holiday"></td>
-                        <td><input type="number" class="shift-input" id="night-shift-feb-weekday"></td>
-                        <td><input type="number" class="shift-input" id="night-shift-feb-holiday"></td>
-                        <td><input type="number" class="shift-input" id="night-shift-mar-weekday"></td>
-                        <td><input type="number" class="shift-input" id="night-shift-mar-holiday"></td>
                     </tr>
                     <tr>
                         <td>非番</td>
@@ -198,18 +173,6 @@
                         <td><input type="number" class="shift-input" id="off-duty-aug-holiday"></td>
                         <td><input type="number" class="shift-input" id="off-duty-sep-weekday"></td>
                         <td><input type="number" class="shift-input" id="off-duty-sep-holiday"></td>
-                        <td><input type="number" class="shift-input" id="off-duty-oct-weekday"></td>
-                        <td><input type="number" class="shift-input" id="off-duty-oct-holiday"></td>
-                        <td><input type="number" class="shift-input" id="off-duty-nov-weekday"></td>
-                        <td><input type="number" class="shift-input" id="off-duty-nov-holiday"></td>
-                        <td><input type="number" class="shift-input" id="off-duty-dec-weekday"></td>
-                        <td><input type="number" class="shift-input" id="off-duty-dec-holiday"></td>
-                        <td><input type="number" class="shift-input" id="off-duty-jan-weekday"></td>
-                        <td><input type="number" class="shift-input" id="off-duty-jan-holiday"></td>
-                        <td><input type="number" class="shift-input" id="off-duty-feb-weekday"></td>
-                        <td><input type="number" class="shift-input" id="off-duty-feb-holiday"></td>
-                        <td><input type="number" class="shift-input" id="off-duty-mar-weekday"></td>
-                        <td><input type="number" class="shift-input" id="off-duty-mar-holiday"></td>
                     </tr>
                     <tr>
                         <td>時短</td>
@@ -225,18 +188,6 @@
                         <td><input type="number" class="shift-input" id="short-shift-aug-holiday"></td>
                         <td><input type="number" class="shift-input" id="short-shift-sep-weekday"></td>
                         <td><input type="number" class="shift-input" id="short-shift-sep-holiday"></td>
-                        <td><input type="number" class="shift-input" id="short-shift-oct-weekday"></td>
-                        <td><input type="number" class="shift-input" id="short-shift-oct-holiday"></td>
-                        <td><input type="number" class="shift-input" id="short-shift-nov-weekday"></td>
-                        <td><input type="number" class="shift-input" id="short-shift-nov-holiday"></td>
-                        <td><input type="number" class="shift-input" id="short-shift-dec-weekday"></td>
-                        <td><input type="number" class="shift-input" id="short-shift-dec-holiday"></td>
-                        <td><input type="number" class="shift-input" id="short-shift-jan-weekday"></td>
-                        <td><input type="number" class="shift-input" id="short-shift-jan-holiday"></td>
-                        <td><input type="number" class="shift-input" id="short-shift-feb-weekday"></td>
-                        <td><input type="number" class="shift-input" id="short-shift-feb-holiday"></td>
-                        <td><input type="number" class="shift-input" id="short-shift-mar-weekday"></td>
-                        <td><input type="number" class="shift-input" id="short-shift-mar-holiday"></td>
                     </tr>
                     <tr>
                         <td>遅出</td>
@@ -252,18 +203,6 @@
                         <td><input type="number" class="shift-input" id="late-shift-aug-holiday"></td>
                         <td><input type="number" class="shift-input" id="late-shift-sep-weekday"></td>
                         <td><input type="number" class="shift-input" id="late-shift-sep-holiday"></td>
-                        <td><input type="number" class="shift-input" id="late-shift-oct-weekday"></td>
-                        <td><input type="number" class="shift-input" id="late-shift-oct-holiday"></td>
-                        <td><input type="number" class="shift-input" id="late-shift-nov-weekday"></td>
-                        <td><input type="number" class="shift-input" id="late-shift-nov-holiday"></td>
-                        <td><input type="number" class="shift-input" id="late-shift-dec-weekday"></td>
-                        <td><input type="number" class="shift-input" id="late-shift-dec-holiday"></td>
-                        <td><input type="number" class="shift-input" id="late-shift-jan-weekday"></td>
-                        <td><input type="number" class="shift-input" id="late-shift-jan-holiday"></td>
-                        <td><input type="number" class="shift-input" id="late-shift-feb-weekday"></td>
-                        <td><input type="number" class="shift-input" id="late-shift-feb-holiday"></td>
-                        <td><input type="number" class="shift-input" id="late-shift-mar-weekday"></td>
-                        <td><input type="number" class="shift-input" id="late-shift-mar-holiday"></td>
                     </tr>
                     <tr>
                         <td>管理職</td>
@@ -279,18 +218,6 @@
                         <td><input type="number" class="shift-input" id="managerial-shift-aug-holiday"></td>
                         <td><input type="number" class="shift-input" id="managerial-shift-sep-weekday"></td>
                         <td><input type="number" class="shift-input" id="managerial-shift-sep-holiday"></td>
-                        <td><input type="number" class="shift-input" id="managerial-shift-oct-weekday"></td>
-                        <td><input type="number" class="shift-input" id="managerial-shift-oct-holiday"></td>
-                        <td><input type="number" class="shift-input" id="managerial-shift-nov-weekday"></td>
-                        <td><input type="number" class="shift-input" id="managerial-shift-nov-holiday"></td>
-                        <td><input type="number" class="shift-input" id="managerial-shift-dec-weekday"></td>
-                        <td><input type="number" class="shift-input" id="managerial-shift-dec-holiday"></td>
-                        <td><input type="number" class="shift-input" id="managerial-shift-jan-weekday"></td>
-                        <td><input type="number" class="shift-input" id="managerial-shift-jan-holiday"></td>
-                        <td><input type="number" class="shift-input" id="managerial-shift-feb-weekday"></td>
-                        <td><input type="number" class="shift-input" id="managerial-shift-feb-holiday"></td>
-                        <td><input type="number" class="shift-input" id="managerial-shift-mar-weekday"></td>
-                        <td><input type="number" class="shift-input" id="managerial-shift-mar-holiday"></td>
                     </tr>
                     <tr>
                         <td>日勤</td>
@@ -306,18 +233,6 @@
                         <td><input type="number" class="shift-input" id="day-shift-aug-holiday"></td>
                         <td><input type="number" class="shift-input" id="day-shift-sep-weekday"></td>
                         <td><input type="number" class="shift-input" id="day-shift-sep-holiday"></td>
-                        <td><input type="number" class="shift-input" id="day-shift-oct-weekday"></td>
-                        <td><input type="number" class="shift-input" id="day-shift-oct-holiday"></td>
-                        <td><input type="number" class="shift-input" id="day-shift-nov-weekday"></td>
-                        <td><input type="number" class="shift-input" id="day-shift-nov-holiday"></td>
-                        <td><input type="number" class="shift-input" id="day-shift-dec-weekday"></td>
-                        <td><input type="number" class="shift-input" id="day-shift-dec-holiday"></td>
-                        <td><input type="number" class="shift-input" id="day-shift-jan-weekday"></td>
-                        <td><input type="number" class="shift-input" id="day-shift-jan-holiday"></td>
-                        <td><input type="number" class="shift-input" id="day-shift-feb-weekday"></td>
-                        <td><input type="number" class="shift-input" id="day-shift-feb-holiday"></td>
-                        <td><input type="number" class="shift-input" id="day-shift-mar-weekday"></td>
-                        <td><input type="number" class="shift-input" id="day-shift-mar-holiday"></td>
                     </tr>
                     <tr>
                         <td>総和</td>
@@ -333,6 +248,131 @@
                         <td><input type="number" id="total-aug-holiday" readonly></td>
                         <td><input type="number" id="total-sep-weekday" readonly></td>
                         <td><input type="number" id="total-sep-holiday" readonly></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    
+        <div id="table-10-3" class="shift-table hidden">
+            <table>
+                <thead>
+                    <tr>
+                        <th>項目</th>
+                        <th colspan="2">10月</th>
+                        <th colspan="2">11月</th>
+                        <th colspan="2">12月</th>
+                        <th colspan="2">1月</th>
+                        <th colspan="2">2月</th>
+                        <th colspan="2">3月</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>平日</td>
+                        <td>休日</td>
+                        <td>平日</td>
+                        <td>休日</td>
+                        <td>平日</td>
+                        <td>休日</td>
+                        <td>平日</td>
+                        <td>休日</td>
+                        <td>平日</td>
+                        <td>休日</td>
+                        <td>平日</td>
+                        <td>休日</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>夜勤</td>
+                        <td><input type="number" class="shift-input" id="night-shift-oct-weekday"></td>
+                        <td><input type="number" class="shift-input" id="night-shift-oct-holiday"></td>
+                        <td><input type="number" class="shift-input" id="night-shift-nov-weekday"></td>
+                        <td><input type="number" class="shift-input" id="night-shift-nov-holiday"></td>
+                        <td><input type="number" class="shift-input" id="night-shift-dec-weekday"></td>
+                        <td><input type="number" class="shift-input" id="night-shift-dec-holiday"></td>
+                        <td><input type="number" class="shift-input" id="night-shift-jan-weekday"></td>
+                        <td><input type="number" class="shift-input" id="night-shift-jan-holiday"></td>
+                        <td><input type="number" class="shift-input" id="night-shift-feb-weekday"></td>
+                        <td><input type="number" class="shift-input" id="night-shift-feb-holiday"></td>
+                        <td><input type="number" class="shift-input" id="night-shift-mar-weekday"></td>
+                        <td><input type="number" class="shift-input" id="night-shift-mar-holiday"></td>
+                    </tr>
+                    <tr>
+                        <td>非番</td>
+                        <td><input type="number" class="shift-input" id="off-duty-oct-weekday"></td>
+                        <td><input type="number" class="shift-input" id="off-duty-oct-holiday"></td>
+                        <td><input type="number" class="shift-input" id="off-duty-nov-weekday"></td>
+                        <td><input type="number" class="shift-input" id="off-duty-nov-holiday"></td>
+                        <td><input type="number" class="shift-input" id="off-duty-dec-weekday"></td>
+                        <td><input type="number" class="shift-input" id="off-duty-dec-holiday"></td>
+                        <td><input type="number" class="shift-input" id="off-duty-jan-weekday"></td>
+                        <td><input type="number" class="shift-input" id="off-duty-jan-holiday"></td>
+                        <td><input type="number" class="shift-input" id="off-duty-feb-weekday"></td>
+                        <td><input type="number" class="shift-input" id="off-duty-feb-holiday"></td>
+                        <td><input type="number" class="shift-input" id="off-duty-mar-weekday"></td>
+                        <td><input type="number" class="shift-input" id="off-duty-mar-holiday"></td>
+                                   <tr>
+                        <td>時短</td>
+                        <td><input type="number" class="shift-input" id="short-shift-oct-weekday"></td>
+                        <td><input type="number" class="shift-input" id="short-shift-oct-holiday"></td>
+                        <td><input type="number" class="shift-input" id="short-shift-nov-weekday"></td>
+                        <td><input type="number" class="shift-input" id="short-shift-nov-holiday"></td>
+                        <td><input type="number" class="shift-input" id="short-shift-dec-weekday"></td>
+                        <td><input type="number" class="shift-input" id="short-shift-dec-holiday"></td>
+                        <td><input type="number" class="shift-input" id="short-shift-jan-weekday"></td>
+                        <td><input type="number" class="shift-input" id="short-shift-jan-holiday"></td>
+                        <td><input type="number" class="shift-input" id="short-shift-feb-weekday"></td>
+                        <td><input type="number" class="shift-input" id="short-shift-feb-holiday"></td>
+                        <td><input type="number" class="shift-input" id="short-shift-mar-weekday"></td>
+                        <td><input type="number" class="shift-input" id="short-shift-mar-holiday"></td>
+                    </tr>
+                    <tr>
+                        <td>遅出</td>
+                        <td><input type="number" class="shift-input" id="late-shift-oct-weekday"></td>
+                        <td><input type="number" class="shift-input" id="late-shift-oct-holiday"></td>
+                        <td><input type="number" class="shift-input" id="late-shift-nov-weekday"></td>
+                        <td><input type="number" class="shift-input" id="late-shift-nov-holiday"></td>
+                        <td><input type="number" class="shift-input" id="late-shift-dec-weekday"></td>
+                        <td><input type="number" class="shift-input" id="late-shift-dec-holiday"></td>
+                        <td><input type="number" class="shift-input" id="late-shift-jan-weekday"></td>
+                        <td><input type="number" class="shift-input" id="late-shift-jan-holiday"></td>
+                        <td><input type="number" class="shift-input" id="late-shift-feb-weekday"></td>
+                        <td><input type="number" class="shift-input" id="late-shift-feb-holiday"></td>
+                        <td><input type="number" class="shift-input" id="late-shift-mar-weekday"></td>
+                        <td><input type="number" class="shift-input" id="late-shift-mar-holiday"></td>
+                    </tr>
+                    <tr>
+                        <td>管理職</td>
+                        <td><input type="number" class="shift-input" id="managerial-shift-oct-weekday"></td>
+                        <td><input type="number" class="shift-input" id="managerial-shift-oct-holiday"></td>
+                        <td><input type="number" class="shift-input" id="managerial-shift-nov-weekday"></td>
+                        <td><input type="number" class="shift-input" id="managerial-shift-nov-holiday"></td>
+                        <td><input type="number" class="shift-input" id="managerial-shift-dec-weekday"></td>
+                        <td><input type="number" class="shift-input" id="managerial-shift-dec-holiday"></td>
+                        <td><input type="number" class="shift-input" id="managerial-shift-jan-weekday"></td>
+                        <td><input type="number" class="shift-input" id="managerial-shift-jan-holiday"></td>
+                        <td><input type="number" class="shift-input" id="managerial-shift-feb-weekday"></td>
+                        <td><input type="number" class="shift-input" id="managerial-shift-feb-holiday"></td>
+                        <td><input type="number" class="shift-input" id="managerial-shift-mar-weekday"></td>
+                        <td><input type="number" class="shift-input" id="managerial-shift-mar-holiday"></td>
+                    </tr>
+                    <tr>
+                        <td>日勤</td>
+                        <td><input type="number" class="shift-input" id="day-shift-oct-weekday"></td>
+                        <td><input type="number" class="shift-input" id="day-shift-oct-holiday"></td>
+                        <td><input type="number" class="shift-input" id="day-shift-nov-weekday"></td>
+                        <td><input type="number" class="shift-input" id="day-shift-nov-holiday"></td>
+                        <td><input type="number" class="shift-input" id="day-shift-dec-weekday"></td>
+                        <td><input type="number" class="shift-input" id="day-shift-dec-holiday"></td>
+                        <td><input type="number" class="shift-input" id="day-shift-jan-weekday"></td>
+                        <td><input type="number" class="shift-input" id="day-shift-jan-holiday"></td>
+                        <td><input type="number" class="shift-input" id="day-shift-feb-weekday"></td>
+                        <td><input type="number" class="shift-input" id="day-shift-feb-holiday"></td>
+                        <td><input type="number" class="shift-input" id="day-shift-mar-weekday"></td>
+                        <td><input type="number" class="shift-input" id="day-shift-mar-holiday"></td>
+                    </tr>
+                    <tr>
+                        <td>総和</td>
                         <td><input type="number" id="total-oct-weekday" readonly></td>
                         <td><input type="number" id="total-oct-holiday" readonly></td>
                         <td><input type="number" id="total-nov-weekday" readonly></td>
@@ -348,8 +388,9 @@
                     </tr>
                 </tbody>
             </table>
-        </form>
+        </div>
     </div>
+
 
     <div class="container">
         <h1>月ごとの平日・休日入力と暦日計算</h1>
