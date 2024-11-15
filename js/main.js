@@ -131,7 +131,8 @@ function addTableSwitcher() {
 
     // 初期設定
     let currentTable = "4-9";
-    table4To9.classList.add("active");
+    table4To9.classList.add("active"); // 初期表示
+    table10To3.classList.add("hidden");
 
     // 切り替え関数
     function toggleTables() {
