@@ -148,7 +148,7 @@ function saveData() {
 
 // 入力フィールドにイベントリスナーを追加
 function addEventListeners() {
-    document.querySelectorAll("input[type='number']").forEach(input => {
+    document.querySelectorAll("input").forEach(input => {
         input.addEventListener("input", () => {
             calculateTotalNurses();
             calculateCalendarDays();
