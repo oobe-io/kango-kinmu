@@ -107,7 +107,6 @@ function calculateSpecialLeave() {
     let totalPlan = 0;
     let totalActual = 0;
 
-    // 各月の「予定」と「実績」を合計
     months.forEach(month => {
         const planValue = parseInt(document.getElementById(`summer-${month}-plan`)?.value) || 0;
         const actualValue = parseInt(document.getElementById(`summer-${month}-actual`)?.value) || 0;
@@ -116,18 +115,11 @@ function calculateSpecialLeave() {
         totalActual += actualValue;
     });
 
-    // 必要日数の計算
     const days = parseInt(document.getElementById("summer-days")?.value) || 0;
     const people = parseInt(document.getElementById("summer-people")?.value) || 0;
 
-    const planResult = days * people - totalPlan;
-    const actualResult = days * people - totalActual;
-
-    const planField = document.getElementById("summer-total-plan");
-    if (planField) planField.value = planResult;
-
-    const actualField = document.getElementById("summer-total-actual");
-    if (actualField) actualField.value = actualResult;
+    document.getElementById("summer-total-plan").value = days * people - totalPlan;
+    document.getElementById("summer-total-actual").value = days * people - totalActual;
 }
 
 // ローカルストレージからデータを読み込む
