@@ -1,3 +1,5 @@
+// JavaScriptファイル全文
+
 document.addEventListener("DOMContentLoaded", function () {
     initializePage();
 });
@@ -17,7 +19,6 @@ function initializePage() {
     calculateTotalNurses();
     calculateCalendarDays();
     calculateMonthlySums();
-    calculateSpecialLeave();
 
     console.log("ページ初期化完了");
 }
@@ -97,31 +98,6 @@ function calculateMonthlySums() {
     });
 }
 
-// 特別休暇テーブルの計算
-function calculateSpecialLeave() {
-    const months = [
-        "apr", "may", "jun", "jul", "aug", "sep",
-        "oct", "nov", "dec", "jan", "feb", "mar"
-    ];
-
-    let totalPlan = 0;
-    let totalActual = 0;
-
-    months.forEach(month => {
-        const planValue = parseInt(document.getElementById(`summer-${month}-plan`)?.value) || 0;
-        const actualValue = parseInt(document.getElementById(`summer-${month}-actual`)?.value) || 0;
-
-        totalPlan += planValue;
-        totalActual += actualValue;
-    });
-
-    const days = parseInt(document.getElementById("summer-days")?.value) || 0;
-    const people = parseInt(document.getElementById("summer-people")?.value) || 0;
-
-    document.getElementById("summer-total-plan").value = days * people - totalPlan;
-    document.getElementById("summer-total-actual").value = days * people - totalActual;
-}
-
 // ローカルストレージからデータを読み込む
 function loadData() {
     const storedData = JSON.parse(localStorage.getItem("nurseCounts")) || {};
@@ -132,23 +108,38 @@ function loadData() {
     console.log("データロード完了");
 }
 
-// データをローカルストレージに保存
+// データ保存
 function saveData() {
-    const storedData = {}; // 必要なデータを保存
-    localStorage.setItem("nurseCounts", JSON.stringify(storedData));
+    const months = [
+        "apr", "may", "jun", "jul", "aug", "sep",
+        "oct", "nov", "dec", "jan", "feb", "mar"
+    ];
+
+    const nurseCounts = {};
+
+    months.forEach(month => {
+        nurseCounts[`nurse-count-${month}`] = document.getElementById(`nurse-count-${month}`)?.value || 0;
+        nurseCounts[`retire-count-${month}`] = document.getElementById(`retire-count-${month}`)?.value || 0;
+        nurseCounts[`maternity-count-${month}`] = document.getElementById(`maternity-count-${month}`)?.value || 0;
+        nurseCounts[`weekday-${month}`] = document.getElementById(`weekday-${month}`)?.value || 0;
+        nurseCounts[`holiday-${month}`] = document.getElementById(`holiday-${month}`)?.value || 0;
+    });
+
+    localStorage.setItem("nurseCounts", JSON.stringify(nurseCounts));
+    console.log("データ保存完了");
 }
 
-// 入力フィールドにイベントリスナーを追加
+// イベントリスナーを追加
 function addEventListeners() {
-    document.querySelectorAll("input").forEach(input => {
+    document.querySelectorAll("input[type='number']").forEach(input => {
         input.addEventListener("input", () => {
             calculateTotalNurses();
             calculateCalendarDays();
             calculateMonthlySums();
-            calculateSpecialLeave();
             saveData();
         });
     });
+    console.log("イベントリスナー追加完了");
 }
 
 // テーブル切り替え機能
