@@ -1,3 +1,5 @@
+/* CSSファイル全文 */
+
 body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -30,6 +32,11 @@ table th, table td {
     text-align: center;
 }
 
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
 input {
     width: 60px;
     height: 30px;
@@ -39,4 +46,9 @@ input {
     padding: 4px;
     font-size: 14px;
     box-sizing: border-box;
+}
+
+input[readonly] {
+    background-color: #e9ecef;
+    cursor: not-allowed;
 }
