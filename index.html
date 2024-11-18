@@ -577,26 +577,123 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>夏季休暇</td>
-                    <td><input type="number" id="vacation-summer-oct-plan"></td>
-                    <td><input type="number" id="vacation-summer-oct-result"></td>
-                    <td><input type="number" id="vacation-summer-nov-plan"></td>
-                    <td><input type="number" id="vacation-summer-nov-result"></td>
-                    <td><input type="number" id="vacation-summer-dec-plan"></td>
-                    <td><input type="number" id="vacation-summer-dec-result"></td>
-                    <td><input type="number" id="vacation-summer-jan-plan"></td>
-                    <td><input type="number" id="vacation-summer-jan-result"></td>
-                    <td><input type="number" id="vacation-summer-feb-plan"></td>
-                    <td><input type="number" id="vacation-summer-feb-result"></td>
-                    <td><input type="number" id="vacation-summer-mar-plan"></td>
-                    <td><input type="number" id="vacation-summer-mar-result"></td>
-                    <td><input type="number" id="vacation-summer-required-plan"></td>
-                    <td><input type="number" id="vacation-summer-required-result"></td>
-                    <td><input type="number" id="vacation-summer-days"></td>
-                    <td><input type="number" id="vacation-summer-people"></td>
-                </tr>
-                <!-- 他の項目も同様の構造で追加 -->
+    <tr>
+        <td>夏季休暇</td>
+        <td><input type="number" id="vacation-summer-apr-plan"></td>
+        <td><input type="number" id="vacation-summer-apr-result"></td>
+        <td><input type="number" id="vacation-summer-may-plan"></td>
+        <td><input type="number" id="vacation-summer-may-result"></td>
+        <td><input type="number" id="vacation-summer-jun-plan"></td>
+        <td><input type="number" id="vacation-summer-jun-result"></td>
+        <td><input type="number" id="vacation-summer-jul-plan"></td>
+        <td><input type="number" id="vacation-summer-jul-result"></td>
+        <td><input type="number" id="vacation-summer-aug-plan"></td>
+        <td><input type="number" id="vacation-summer-aug-result"></td>
+        <td><input type="number" id="vacation-summer-sep-plan"></td>
+        <td><input type="number" id="vacation-summer-sep-result"></td>
+        <td><input type="number" id="vacation-summer-required-plan"></td>
+        <td><input type="number" id="vacation-summer-required-result"></td>
+        <td><input type="number" id="vacation-summer-days"></td>
+        <td><input type="number" id="vacation-summer-people"></td>
+    </tr>
+    <tr>
+        <td>予定年休（法定5日）</td>
+        <td><input type="number" id="vacation-legal-apr-plan"></td>
+        <td><input type="number" id="vacation-legal-apr-result"></td>
+        <td><input type="number" id="vacation-legal-may-plan"></td>
+        <td><input type="number" id="vacation-legal-may-result"></td>
+        <td><input type="number" id="vacation-legal-jun-plan"></td>
+        <td><input type="number" id="vacation-legal-jun-result"></td>
+        <td><input type="number" id="vacation-legal-jul-plan"></td>
+        <td><input type="number" id="vacation-legal-jul-result"></td>
+        <td><input type="number" id="vacation-legal-aug-plan"></td>
+        <td><input type="number" id="vacation-legal-aug-result"></td>
+        <td><input type="number" id="vacation-legal-sep-plan"></td>
+        <td><input type="number" id="vacation-legal-sep-result"></td>
+        <td><input type="number" id="vacation-legal-required-plan"></td>
+        <td><input type="number" id="vacation-legal-required-result"></td>
+        <td><input type="number" id="vacation-legal-days"></td>
+        <td><input type="number" id="vacation-legal-people"></td>
+    </tr>
+    <tr>
+        <td>病欠等の年休</td>
+        <td><input type="number" id="vacation-sick-apr-plan"></td>
+        <td><input type="number" id="vacation-sick-apr-result"></td>
+        <td><input type="number" id="vacation-sick-may-plan"></td>
+        <td><input type="number" id="vacation-sick-may-result"></td>
+        <td><input type="number" id="vacation-sick-jun-plan"></td>
+        <td><input type="number" id="vacation-sick-jun-result"></td>
+        <td><input type="number" id="vacation-sick-jul-plan"></td>
+        <td><input type="number" id="vacation-sick-jul-result"></td>
+        <td><input type="number" id="vacation-sick-aug-plan"></td>
+        <td><input type="number" id="vacation-sick-aug-result"></td>
+        <td><input type="number" id="vacation-sick-sep-plan"></td>
+        <td><input type="number" id="vacation-sick-sep-result"></td>
+        <td><input type="number" id="vacation-sick-required-plan"></td>
+        <td><input type="number" id="vacation-sick-required-result"></td>
+        <td><input type="number" id="vacation-sick-days"></td>
+        <td><input type="number" id="vacation-sick-people"></td>
+    </tr>
+    <tr>
+        <td>その他年休</td>
+        <td><input type="number" id="vacation-other-apr-plan"></td>
+        <td><input type="number" id="vacation-other-apr-result"></td>
+        <td><input type="number" id="vacation-other-may-plan"></td>
+        <td><input type="number" id="vacation-other-may-result"></td>
+        <td><input type="number" id="vacation-other-jun-plan"></td>
+        <td><input type="number" id="vacation-other-jun-result"></td>
+        <td><input type="number" id="vacation-other-jul-plan"></td>
+        <td><input type="number" id="vacation-other-jul-result"></td>
+        <td><input type="number" id="vacation-other-aug-plan"></td>
+        <td><input type="number" id="vacation-other-aug-result"></td>
+        <td><input type="number" id="vacation-other-sep-plan"></td>
+        <td><input type="number" id="vacation-other-sep-result"></td>
+        <td><input type="number" id="vacation-other-required-plan"></td>
+        <td><input type="number" id="vacation-other-required-result"></td>
+        <td><input type="number" id="vacation-other-days"></td>
+        <td><input type="number" id="vacation-other-people"></td>
+    </tr>
+    <tr>
+        <td>特休（結婚・慰労等）</td>
+        <td><input type="number" id="vacation-special-apr-plan"></td>
+        <td><input type="number" id="vacation-special-apr-result"></td>
+        <td><input type="number" id="vacation-special-may-plan"></td>
+        <td><input type="number" id="vacation-special-may-result"></td>
+        <td><input type="number" id="vacation-special-jun-plan"></td>
+        <td><input type="number" id="vacation-special-jun-result"></td>
+        <td><input type="number" id="vacation-special-jul-plan"></td>
+        <td><input type="number" id="vacation-special-jul-result"></td>
+        <td><input type="number" id="vacation-special-aug-plan"></td>
+        <td><input type="number" id="vacation-special-aug-result"></td>
+        <td><input type="number" id="vacation-special-sep-plan"></td>
+        <td><input type="number" id="vacation-special-sep-result"></td>
+        <td><input type="number" id="vacation-special-required-plan"></td>
+        <td><input type="number" id="vacation-special-required-result"></td>
+        <td><input type="number" id="vacation-special-days"></td>
+        <td><input type="number" id="vacation-special-people"></td>
+    </tr>
+    <tr>
+        <td>新人夜勤研修</td>
+        <td><input type="number" id="vacation-newnight-apr-plan"></td>
+        <td><input type="number" id="vacation-newnight-apr-result"></td>
+        <td><input type="number" id="vacation-newnight-may-plan"></td>
+        <td><input type="number" id="vacation-newnight-may-result"></td>
+        <td><input type="number" id="vacation-newnight-jun-plan"></td>
+        <td><input type="number" id="vacation-newnight-jun-result"></td>
+        <td><input type="number" id="vacation-newnight-jul-plan"></td>
+        <td><input type="number" id="vacation-newnight-jul-result"></td>
+        <td><input type="number" id="vacation-newnight-aug-plan"></td>
+        <td><input type="number" id="vacation-newnight-aug-result"></td>
+        <td><input type="number" id="vacation-newnight-sep-plan"></td>
+        <td><input type="number" id="vacation-newnight-sep-result"></td>
+        <td><input type="number" id="-aug-result"></td>
+        <td><input type="number" id="vacation-year13-sep-plan"></td>
+        <td><input type="number" id="vacation-year13-sep-result"></td>
+        <td><input type="number" id="vacation-year13-required-plan"></td>
+        <td><input type="number" id="vacation-year13-required-result"></td>
+        <td><input type="number" id="vacation-year13-days"></td>
+        <td><input type="number" id="vacation-year13-people"></td>
+    </tr>
             </tbody>
         </table>
     </div>
