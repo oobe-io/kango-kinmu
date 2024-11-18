@@ -2,6 +2,7 @@
 
 document.addEventListener("DOMContentLoaded", function () {
     initializePage();
+    addVacationTableSwitcher(); // 休暇テーブル切り替え機能を追加
 });
 
 // 初期化関数
@@ -172,6 +173,41 @@ function addTableSwitcher() {
             tablePeriod.textContent = "4月〜9月";
         }
         console.log("切り替え完了:", currentTable);
+    }
+
+    prevButton.addEventListener("click", toggleTables);
+    nextButton.addEventListener("click", toggleTables);
+}
+
+// Vacation Table Switcher
+function addVacationTableSwitcher() {
+    const prevButton = document.getElementById("vacation-prev-button");
+    const nextButton = document.getElementById("vacation-next-button");
+    const tablePeriod = document.getElementById("vacation-table-period");
+    const table4To9 = document.getElementById("vacation-table-4-9");
+    const table10To3 = document.getElementById("vacation-table-10-3");
+
+    let currentTable = "4-9";
+
+    table4To9.classList.add("active");
+    table10To3.classList.add("hidden");
+
+    function toggleTables() {
+        if (currentTable === "4-9") {
+            currentTable = "10-3";
+            table4To9.classList.remove("active");
+            table4To9.classList.add("hidden");
+            table10To3.classList.remove("hidden");
+            table10To3.classList.add("active");
+            tablePeriod.textContent = "10月〜3月";
+        } else {
+            currentTable = "4-9";
+            table10To3.classList.remove("active");
+            table10To3.classList.add("hidden");
+            table4To9.classList.remove("hidden");
+            table4To9.classList.add("active");
+            tablePeriod.textContent = "4月〜9月";
+        }
     }
 
     prevButton.addEventListener("click", toggleTables);
