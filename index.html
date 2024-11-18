@@ -482,73 +482,84 @@
         </form>
     </div>
         <div class="container">
-        <h1>特別休暇計算テーブル</h1>
-        <table id="special-leave-table">
-            <thead>
-                <tr>
-                    <th>項目</th>
-                    <th>4月</th>
-                    <th>5月</th>
-                    <th>6月</th>
-                    <th>7月</th>
-                    <th>8月</th>
-                    <th>9月</th>
-                    <th>10月</th>
-                    <th>11月</th>
-                    <th>12月</th>
-                    <th>1月</th>
-                    <th>2月</th>
-                    <th>3月</th>
-                    <th>日</th>
-                    <th>人</th>
-                    <th>必要日数（予定）</th>
-                    <th>必要日数（実績）</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- 夏季休暇 -->
-                <tr>
-                    <td>夏季休暇</td>
-                    <!-- 各月の「予定」 -->
-                    <td><input type="number" id="summer-apr-plan"></td>
-                    <td><input type="number" id="summer-may-plan"></td>
-                    <td><input type="number" id="summer-jun-plan"></td>
-                    <td><input type="number" id="summer-jul-plan"></td>
-                    <td><input type="number" id="summer-aug-plan"></td>
-                    <td><input type="number" id="summer-sep-plan"></td>
-                    <td><input type="number" id="summer-oct-plan"></td>
-                    <td><input type="number" id="summer-nov-plan"></td>
-                    <td><input type="number" id="summer-dec-plan"></td>
-                    <td><input type="number" id="summer-jan-plan"></td>
-                    <td><input type="number" id="summer-feb-plan"></td>
-                    <td><input type="number" id="summer-mar-plan"></td>
-                    <!-- 日と人 -->
-                    <td><input type="number" id="summer-days"></td>
-                    <td><input type="number" id="summer-people"></td>
-                    <!-- 必要日数 -->
-                    <td><input type="number" id="summer-total-plan" readonly></td>
-                    <td><input type="number" id="summer-total-actual" readonly></td>
-                </tr>
-                <tr>
-                    <!-- 各月の「実績」 -->
-                    <td>実績</td>
-                    <td><input type="number" id="summer-apr-actual"></td>
-                    <td><input type="number" id="summer-may-actual"></td>
-                    <td><input type="number" id="summer-jun-actual"></td>
-                    <td><input type="number" id="summer-jul-actual"></td>
-                    <td><input type="number" id="summer-aug-actual"></td>
-                    <td><input type="number" id="summer-sep-actual"></td>
-                    <td><input type="number" id="summer-oct-actual"></td>
-                    <td><input type="number" id="summer-nov-actual"></td>
-                    <td><input type="number" id="summer-dec-actual"></td>
-                    <td><input type="number" id="summer-jan-actual"></td>
-                    <td><input type="number" id="summer-feb-actual"></td>
-                    <td><input type="number" id="summer-mar-actual"></td>
-                    <td colspan="4"></td> <!-- 空白列 -->
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <h1>特別休暇計算テーブル</h1>
+    <table id="special-leave-table">
+        <thead>
+            <tr>
+                <th rowspan="2">項目</th>
+                <!-- 各月の「予定」と「実績」ヘッダー -->
+                <th colspan="2">4月</th>
+                <th colspan="2">5月</th>
+                <th colspan="2">6月</th>
+                <th colspan="2">7月</th>
+                <th colspan="2">8月</th>
+                <th colspan="2">9月</th>
+                <th colspan="2">10月</th>
+                <th colspan="2">11月</th>
+                <th colspan="2">12月</th>
+                <th colspan="2">1月</th>
+                <th colspan="2">2月</th>
+                <th colspan="2">3月</th>
+                <!-- 必要日数と日・人の列 -->
+                <th colspan="2">必要日数</th>
+                <th rowspan="2">日</th>
+                <th rowspan="2">人</th>
+            </tr>
+            <tr>
+                <!-- 各月のサブヘッダー -->
+                <th>予定</th><th>実績</th>
+                <th>予定</th><th>実績</th>
+                <th>予定</th><th>実績</th>
+                <th>予定</th><th>実績</th>
+                <th>予定</th><th>実績</th>
+                <th>予定</th><th>実績</th>
+                <th>予定</th><th>実績</th>
+                <th>予定</th><th>実績</th>
+                <th>予定</th><th>実績</th>
+                <th>予定</th><th>実績</th>
+                <th>予定</th><th>実績</th>
+                <th>予定</th><th>実績</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 行例：夏季休暇 -->
+            <tr>
+                <td>夏季休暇</td>
+                <!-- 各月の入力欄 -->
+                <td><input type="number" id="summer-apr-plan" class="yellow"></td>
+                <td><input type="number" id="summer-apr-actual" class="yellow"></td>
+                <td><input type="number" id="summer-may-plan" class="yellow"></td>
+                <td><input type="number" id="summer-may-actual" class="yellow"></td>
+                <td><input type="number" id="summer-jun-plan" class="yellow"></td>
+                <td><input type="number" id="summer-jun-actual" class="yellow"></td>
+                <td><input type="number" id="summer-jul-plan" class="yellow"></td>
+                <td><input type="number" id="summer-jul-actual" class="yellow"></td>
+                <td><input type="number" id="summer-aug-plan" class="yellow"></td>
+                <td><input type="number" id="summer-aug-actual" class="yellow"></td>
+                <td><input type="number" id="summer-sep-plan" class="yellow"></td>
+                <td><input type="number" id="summer-sep-actual" class="yellow"></td>
+                <td><input type="number" id="summer-oct-plan" class="yellow"></td>
+                <td><input type="number" id="summer-oct-actual" class="yellow"></td>
+                <td><input type="number" id="summer-nov-plan" class="yellow"></td>
+                <td><input type="number" id="summer-nov-actual" class="yellow"></td>
+                <td><input type="number" id="summer-dec-plan" class="yellow"></td>
+                <td><input type="number" id="summer-dec-actual" class="yellow"></td>
+                <td><input type="number" id="summer-jan-plan" class="yellow"></td>
+                <td><input type="number" id="summer-jan-actual" class="yellow"></td>
+                <td><input type="number" id="summer-feb-plan" class="yellow"></td>
+                <td><input type="number" id="summer-feb-actual" class="yellow"></td>
+                <td><input type="number" id="summer-mar-plan" class="yellow"></td>
+                <td><input type="number" id="summer-mar-actual" class="yellow"></td>
+                <!-- 必要日数 -->
+                <td><input type="number" id="summer-total-plan" class="blue" readonly></td>
+                <td><input type="number" id="summer-total-actual" class="blue" readonly></td>
+                <!-- 日と人 -->
+                <td><input type="number" id="summer-days" class="yellow"></td>
+                <td><input type="number" id="summer-people" class="yellow"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
         <script src="js/main.js"></script>
 </body>
 </html>
