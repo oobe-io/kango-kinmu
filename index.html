@@ -481,6 +481,92 @@
             </table>
         </form>
     </div>
+        <div class="container">
+    <h1>月ごとの休暇予定と実績</h1>
+    <div class="table-switcher">
+        <button id="vacation-prev-button">◀</button>
+        <span id="vacation-table-period">4月〜9月</span>
+        <button id="vacation-next-button">▶</button>
+    </div>
+    <div id="vacation-table-4-9" class="vacation-table active">
+        <table>
+            <thead>
+                <tr>
+                    <th>項目</th>
+                    <th>4月 (予定)</th>
+                    <th>4月 (実績)</th>
+                    <th>5月 (予定)</th>
+                    <th>5月 (実績)</th>
+                    <th>6月 (予定)</th>
+                    <th>6月 (実績)</th>
+                    <th>7月 (予定)</th>
+                    <th>7月 (実績)</th>
+                    <th>8月 (予定)</th>
+                    <th>8月 (実績)</th>
+                    <th>9月 (予定)</th>
+                    <th>9月 (実績)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>夏季休暇</td>
+                    <td><input type="number" id="vacation-summer-apr-plan"></td>
+                    <td><input type="number" id="vacation-summer-apr-result"></td>
+                    <td><input type="number" id="vacation-summer-may-plan"></td>
+                    <td><input type="number" id="vacation-summer-may-result"></td>
+                    <td><input type="number" id="vacation-summer-jun-plan"></td>
+                    <td><input type="number" id="vacation-summer-jun-result"></td>
+                    <td><input type="number" id="vacation-summer-jul-plan"></td>
+                    <td><input type="number" id="vacation-summer-jul-result"></td>
+                    <td><input type="number" id="vacation-summer-aug-plan"></td>
+                    <td><input type="number" id="vacation-summer-aug-result"></td>
+                    <td><input type="number" id="vacation-summer-sep-plan"></td>
+                    <td><input type="number" id="vacation-summer-sep-result"></td>
+                </tr>
+                <!-- 他の項目も同様の構造で追加可能 -->
+            </tbody>
+        </table>
+    </div>
+    <div id="vacation-table-10-3" class="vacation-table hidden">
+        <table>
+            <thead>
+                <tr>
+                    <th>項目</th>
+                    <th>10月 (予定)</th>
+                    <th>10月 (実績)</th>
+                    <th>11月 (予定)</th>
+                    <th>11月 (実績)</th>
+                    <th>12月 (予定)</th>
+                    <th>12月 (実績)</th>
+                    <th>1月 (予定)</th>
+                    <th>1月 (実績)</th>
+                    <th>2月 (予定)</th>
+                    <th>2月 (実績)</th>
+                    <th>3月 (予定)</th>
+                    <th>3月 (実績)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>夏季休暇</td>
+                    <td><input type="number" id="vacation-summer-oct-plan"></td>
+                    <td><input type="number" id="vacation-summer-oct-result"></td>
+                    <td><input type="number" id="vacation-summer-nov-plan"></td>
+                    <td><input type="number" id="vacation-summer-nov-result"></td>
+                    <td><input type="number" id="vacation-summer-dec-plan"></td>
+                    <td><input type="number" id="vacation-summer-dec-result"></td>
+                    <td><input type="number" id="vacation-summer-jan-plan"></td>
+                    <td><input type="number" id="vacation-summer-jan-result"></td>
+                    <td><input type="number" id="vacation-summer-feb-plan"></td>
+                    <td><input type="number" id="vacation-summer-feb-result"></td>
+                    <td><input type="number" id="vacation-summer-mar-plan"></td>
+                    <td><input type="number" id="vacation-summer-mar-result"></td>
+                </tr>
+                <!-- 他の項目も同様の構造で追加可能 -->
+            </tbody>
+        </table>
+    </div>
+</div>
            <script src="js/main.js"></script>
 </body>
 </html>
