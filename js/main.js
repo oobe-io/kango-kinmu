@@ -231,7 +231,7 @@ function addEventListeners() {
             saveData();
         });
     });
-    console.log("イベント    リスナー追加完了");
+    console.log("イベントリスナー追加完了");
 }
 
 // 初期計算関数
@@ -243,5 +243,4 @@ function calculateInitialValues() {
 }
 
 // 他の初期化処理や必要な追加関数があればここに記載
-
 
