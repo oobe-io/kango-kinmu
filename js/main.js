@@ -14,7 +14,6 @@ function initializePage() {
 
     // 各種イベントリスナーを追加
     addEventListeners();
-    addTableSwitcher();
 
     // 初期計算
     calculateTotalNurses();
@@ -23,6 +22,31 @@ function initializePage() {
     calculateRequiredDays(); // 必要日数計算を初期化に追加
 
     console.log("ページ初期化完了");
+}
+
+// ローカルストレージからデータを読み込む
+function loadData() {
+    const storedData = JSON.parse(localStorage.getItem("vacationData")) || {};
+    Object.entries(storedData).forEach(([key, value]) => {
+        const input = document.getElementById(key);
+        if (input) input.value = value;
+    });
+    console.log("データロード完了");
+}
+
+// データ保存
+function saveData() {
+    const inputs = document.querySelectorAll("input[type='number']");
+    const vacationData = {};
+
+    inputs.forEach(input => {
+        if (input.id) {
+            vacationData[input.id] = input.value;
+        }
+    });
+
+    localStorage.setItem("vacationData", JSON.stringify(vacationData));
+    console.log("データ保存完了");
 }
 
 // 看護師数の計算
@@ -53,50 +77,6 @@ function calculateTotalNurses() {
                 totalNurseField.value = nurseCount - cumulativeTotal;
             }
         }
-    });
-}
-
-// 暦日計算
-function calculateCalendarDays() {
-    const months = [
-        "apr", "may", "jun", "jul", "aug", "sep",
-        "oct", "nov", "dec", "jan", "feb", "mar"
-    ];
-
-    months.forEach(month => {
-        const weekday = parseInt(document.getElementById(`weekday-${month}`)?.value) || 0;
-        const holiday = parseInt(document.getElementById(`holiday-${month}`)?.value) || 0;
-
-        const calendarField = document.getElementById(`calendar-${month}`);
-        if (calendarField) calendarField.value = weekday + holiday;
-    });
-}
-
-// 月ごとの平日・休日の総和
-function calculateMonthlySums() {
-    const months = [
-        "apr", "may", "jun", "jul", "aug", "sep",
-        "oct", "nov", "dec", "jan", "feb", "mar"
-    ];
-
-    months.forEach(month => {
-        const shiftTypes = ["night", "off-duty", "short", "late", "managerial", "day"];
-        let weekdayTotal = 0;
-        let holidayTotal = 0;
-
-        shiftTypes.forEach(type => {
-            const weekdayShift = parseInt(document.getElementById(`${type}-shift-${month}-weekday`)?.value) || 0;
-            const holidayShift = parseInt(document.getElementById(`${type}-shift-${month}-holiday`)?.value) || 0;
-
-            weekdayTotal += weekdayShift;
-            holidayTotal += holidayShift;
-        });
-
-        const totalWeekdayField = document.getElementById(`total-${month}-weekday`);
-        if (totalWeekdayField) totalWeekdayField.value = weekdayTotal;
-
-        const totalHolidayField = document.getElementById(`total-${month}-holiday`);
-        if (totalHolidayField) totalHolidayField.value = holidayTotal;
     });
 }
 
@@ -133,61 +113,17 @@ function calculateRequiredDays() {
     });
 }
 
-// ローカルストレージからデータを読み込む
-function loadData() {
-    const storedData = JSON.parse(localStorage.getItem("nurseCounts")) || {};
-    Object.entries(storedData).forEach(([key, value]) => {
-        const input = document.getElementById(key);
-        if (input) input.value = value;
-    });
-    console.log("データロード完了");
-}
-
-// データ保存
-function saveData() {
-    const months = [
-        "apr", "may", "jun", "jul", "aug", "sep",
-        "oct", "nov", "dec", "jan", "feb", "mar"
-    ];
-
-    const nurseCounts = {};
-
-    months.forEach(month => {
-        nurseCounts[`nurse-count-${month}`] = document.getElementById(`nurse-count-${month}`)?.value || 0;
-        nurseCounts[`retire-count-${month}`] = document.getElementById(`retire-count-${month}`)?.value || 0;
-        nurseCounts[`maternity-count-${month}`] = document.getElementById(`maternity-count-${month}`)?.value || 0;
-        nurseCounts[`weekday-${month}`] = document.getElementById(`weekday-${month}`)?.value || 0;
-        nurseCounts[`holiday-${month}`] = document.getElementById(`holiday-${month}`)?.value || 0;
-    });
-
-    localStorage.setItem("nurseCounts", JSON.stringify(nurseCounts));
-    console.log("データ保存完了");
-}
-
-// イベントリスナーを追加
-function addEventListeners() {
-    document.querySelectorAll("input[type='number']").forEach(input => {
-        input.addEventListener("input", () => {
-            calculateTotalNurses();
-            calculateCalendarDays();
-            calculateMonthlySums();
-            calculateRequiredDays(); // 入力変更時に必要日数を再計算
-            saveData();
-        });
-    });
-    console.log("イベントリスナー追加完了");
-}
-
-// テーブル切り替え機能
-function addTableSwitcher() {
-    const prevButton = document.getElementById("prev-button");
-    const nextButton = document.getElementById("next-button");
-    const tablePeriod = document.getElementById("table-period");
-    const table4To9 = document.getElementById("table-4-9");
-    const table10To3 = document.getElementById("table-10-3");
+// テーブル切り替え機能（修正）
+function addVacationTableSwitcher() {
+    const prevButton = document.getElementById("vacation-prev-button");
+    const nextButton = document.getElementById("vacation-next-button");
+    const tablePeriod = document.getElementById("vacation-table-period");
+    const table4To9 = document.getElementById("vacation-table-4-9");
+    const table10To3 = document.getElementById("vacation-table-10-3");
 
     let currentTable = "4-9";
 
+    // 初期状態の設定
     table4To9.classList.add("active");
     table10To3.classList.add("hidden");
 
@@ -207,9 +143,24 @@ function addTableSwitcher() {
             table4To9.classList.add("active");
             tablePeriod.textContent = "4月〜9月";
         }
-        console.log("切り替え完了:", currentTable);
     }
 
     prevButton.addEventListener("click", toggleTables);
     nextButton.addEventListener("click", toggleTables);
 }
+
+// イベントリスナーを追加
+function addEventListeners() {
+    document.querySelectorAll("input[type='number']").forEach(input => {
+        input.addEventListener("input", () => {
+            calculateTotalNurses();
+            calculateCalendarDays();
+            calculateMonthlySums();
+            calculateRequiredDays();
+            saveData(); // 入力変更時にデータを保存
+        });
+    });
+    console.log("イベントリスナー追加完了");
+}
+
+// 他の関数（省略部分はそのまま既存コードに準拠）
