@@ -111,11 +111,13 @@
     <div class="container">
         <h1>月ごとの予定勤務者数を入力</h1>
         <div class="table-switcher">
-            <button id="prev-button">◀</button>
-            <span id="table-period">4月〜9月</span>
-            <button id="next-button">▶</button>
+            <button id="workforce-prev-button">◀</button>
+            <span id="workforce-table-period">4月〜9月</span>
+            <button id="workforce-next-button">▶</button>
         </div>
-        <div id="table-4-9" class="shift-table">
+
+        <!-- 4月〜9月のテーブル -->
+        <div id="workforce-table-4-9" class="shift-table active">
             <table>
                 <thead>
                     <tr>
@@ -253,7 +255,8 @@
             </table>
         </div>
     
-        <div id="table-10-3" class="shift-table hidden">
+        <!-- 10月〜3月のテーブル -->
+        <div id="workforce-table-10-3" class="shift-table hidden">
             <table>
                 <thead>
                     <tr>
