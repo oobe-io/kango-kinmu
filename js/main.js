@@ -2,7 +2,7 @@
 
 document.addEventListener("DOMContentLoaded", function () {
     initializePage();
-    addTableSwitcher(); // 月切り替えと休暇テーブル切り替え機能を統合
+    addTableSwitcher(); // 月切り替えとテーブル切り替えを統合
 });
 
 // 初期化関数
@@ -31,8 +31,6 @@ function calculateTotalNurses() {
         "oct", "nov", "dec", "jan", "feb", "mar"
     ];
 
-    let cumulativeTotal = 0;
-
     months.forEach(month => {
         const nurseCount = parseInt(document.getElementById(`nurse-count-${month}`)?.value) || 0;
         const retireCount = parseInt(document.getElementById(`retire-count-${month}`)?.value) || 0;
@@ -42,60 +40,10 @@ function calculateTotalNurses() {
         const totalField = document.getElementById(`total-count-${month}`);
         if (totalField) totalField.value = totalCount;
 
-        cumulativeTotal += totalCount;
-
         const totalNurseField = document.getElementById(`total-nurse-${month}`);
         if (totalNurseField) {
-            if (nurseCount === 0) {
-                totalNurseField.value = "";
-            } else {
-                totalNurseField.value = nurseCount - cumulativeTotal;
-            }
+            totalNurseField.value = nurseCount - totalCount;
         }
-    });
-}
-
-// 暦日計算
-function calculateCalendarDays() {
-    const months = [
-        "apr", "may", "jun", "jul", "aug", "sep",
-        "oct", "nov", "dec", "jan", "feb", "mar"
-    ];
-
-    months.forEach(month => {
-        const weekday = parseInt(document.getElementById(`weekday-${month}`)?.value) || 0;
-        const holiday = parseInt(document.getElementById(`holiday-${month}`)?.value) || 0;
-
-        const calendarField = document.getElementById(`calendar-${month}`);
-        if (calendarField) calendarField.value = weekday + holiday;
-    });
-}
-
-// 月ごとの平日・休日の総和
-function calculateMonthlySums() {
-    const months = [
-        "apr", "may", "jun", "jul", "aug", "sep",
-        "oct", "nov", "dec", "jan", "feb", "mar"
-    ];
-
-    months.forEach(month => {
-        const shiftTypes = ["night", "off-duty", "short", "late", "managerial", "day"];
-        let weekdayTotal = 0;
-        let holidayTotal = 0;
-
-        shiftTypes.forEach(type => {
-            const weekdayShift = parseInt(document.getElementById(`${type}-shift-${month}-weekday`)?.value) || 0;
-            const holidayShift = parseInt(document.getElementById(`${type}-shift-${month}-holiday`)?.value) || 0;
-
-            weekdayTotal += weekdayShift;
-            holidayTotal += holidayShift;
-        });
-
-        const totalWeekdayField = document.getElementById(`total-${month}-weekday`);
-        if (totalWeekdayField) totalWeekdayField.value = weekdayTotal;
-
-        const totalHolidayField = document.getElementById(`total-${month}-holiday`);
-        if (totalHolidayField) totalHolidayField.value = holidayTotal;
     });
 }
 
@@ -116,52 +64,70 @@ function calculateRequiredDays() {
         let planSum = 0;
         let resultSum = 0;
 
-        // 月ごとの予定と実績の合計を計算
         ["apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec", "jan", "feb", "mar"].forEach(month => {
             planSum += parseInt(document.getElementById(`vacation-${category}-${month}-plan`)?.value) || 0;
             resultSum += parseInt(document.getElementById(`vacation-${category}-${month}-result`)?.value) || 0;
         });
 
-        // 必要日数の計算
         const requiredPlan = (dayField * peopleField) - planSum;
         const requiredResult = (dayField * peopleField) - resultSum;
 
-        // 計算結果を表示
         if (totalPlanField) totalPlanField.value = requiredPlan;
         if (totalResultField) totalResultField.value = requiredResult;
     });
 }
 
-// テーブル切り替え機能（統合）
+// テーブル切り替え機能
 function addTableSwitcher() {
+    const generalPrevButton = document.getElementById("prev-button");
+    const generalNextButton = document.getElementById("next-button");
     const vacationPrevButton = document.getElementById("vacation-prev-button");
     const vacationNextButton = document.getElementById("vacation-next-button");
+
+    const generalPeriod = document.getElementById("general-table-period");
     const vacationPeriod = document.getElementById("vacation-table-period");
-    const table4To9 = document.getElementById("vacation-table-4-9");
-    const table10To3 = document.getElementById("vacation-table-10-3");
 
-    let currentTable = "4-9";
+    const generalTable4To9 = document.getElementById("general-table-4-9");
+    const generalTable10To3 = document.getElementById("general-table-10-3");
+    const vacationTable4To9 = document.getElementById("vacation-table-4-9");
+    const vacationTable10To3 = document.getElementById("vacation-table-10-3");
 
-    function toggleTables() {
-        if (currentTable === "4-9") {
-            currentTable = "10-3";
-            table4To9.classList.remove("active");
-            table4To9.classList.add("hidden");
-            table10To3.classList.remove("hidden");
-            table10To3.classList.add("active");
+    let currentGeneralTable = "4-9";
+    let currentVacationTable = "4-9";
+
+    function toggleGeneralTables() {
+        if (currentGeneralTable === "4-9") {
+            currentGeneralTable = "10-3";
+            generalTable4To9.classList.add("hidden");
+            generalTable10To3.classList.remove("hidden");
+            generalPeriod.textContent = "10月〜3月";
+        } else {
+            currentGeneralTable = "4-9";
+            generalTable10To3.classList.add("hidden");
+            generalTable4To9.classList.remove("hidden");
+            generalPeriod.textContent = "4月〜9月";
+        }
+    }
+
+    function toggleVacationTables() {
+        if (currentVacationTable === "4-9") {
+            currentVacationTable = "10-3";
+            vacationTable4To9.classList.add("hidden");
+            vacationTable10To3.classList.remove("hidden");
             vacationPeriod.textContent = "10月〜3月";
         } else {
-            currentTable = "4-9";
-            table10To3.classList.remove("active");
-            table10To3.classList.add("hidden");
-            table4To9.classList.remove("hidden");
-            table4To9.classList.add("active");
+            currentVacationTable = "4-9";
+            vacationTable10To3.classList.add("hidden");
+            vacationTable4To9.classList.remove("hidden");
             vacationPeriod.textContent = "4月〜9月";
         }
     }
 
-    vacationPrevButton.addEventListener("click", toggleTables);
-    vacationNextButton.addEventListener("click", toggleTables);
+    generalPrevButton.addEventListener("click", toggleGeneralTables);
+    generalNextButton.addEventListener("click", toggleGeneralTables);
+
+    vacationPrevButton.addEventListener("click", toggleVacationTables);
+    vacationNextButton.addEventListener("click", toggleVacationTables);
 }
 
 // ローカルストレージからデータを読み込む
@@ -202,7 +168,7 @@ function addEventListeners() {
             calculateTotalNurses();
             calculateCalendarDays();
             calculateMonthlySums();
-            calculateRequiredDays(); // 入力変更時に必要日数を再計算
+            calculateRequiredDays();
             saveData();
         });
     });
