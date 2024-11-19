@@ -197,6 +197,7 @@ function addMonthlyWorkforceTableSwitcher() {
 
     let currentTable = "4-9";
 
+    // 初期状態を確実に設定
     table4To9.classList.add("active");
     table10To3.classList.add("hidden");
 
