@@ -222,7 +222,8 @@ function addMonthlyWorkforceTableSwitcher() {
 
 // イベントリスナーを追加
 function addEventListeners() {
-    document.querySelectorAll("input[type='number']").forEach(input => {
+    const inputs = document.querySelectorAll("input[type='number']");
+    inputs.forEach(input => {
         input.addEventListener("input", () => {
             calculateTotalNurses();
             calculateCalendarDays();
