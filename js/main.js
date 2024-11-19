@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     initializePage();
-    addVacationTableSwitcher(); // 「月ごとの休暇予定と実績」の切り替え機能
-    addMonthlyWorkforceTableSwitcher(); // 「月ごとの予定勤務者数を入力」の切り替え機能
+    addVacationTableSwitcher();
+    addMonthlyWorkforceTableSwitcher(); // 月ごとの予定勤務者数切り替え機能を追加
 });
 
 // 初期化関数
@@ -14,7 +14,7 @@ function initializePage() {
     // 各種イベントリスナーを追加
     addEventListeners();
 
-    // 初期計算を実行
+    // 初期計算
     calculateTotalNurses();
     calculateCalendarDays();
     calculateMonthlySums();
@@ -231,15 +231,16 @@ function addEventListeners() {
             saveData();
         });
     });
-    console.log("イベントリスナー追加完了");
+    console.log("イベント    リスナー追加完了");
 }
 
-// 初期化時に必要な計算を実行
+// 初期計算関数
 function calculateInitialValues() {
     calculateTotalNurses();
     calculateCalendarDays();
     calculateMonthlySums();
     calculateRequiredDays();
-    console.log("初期計算完了");
 }
+
+// 他の初期化処理や必要な追加関数があればここに記載
 
