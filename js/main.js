@@ -4,12 +4,17 @@ document.addEventListener("DOMContentLoaded", function () {
     addMonthlyWorkforceTableSwitcher(); // 月ごとの予定勤務者数切り替え機能を追加
 });
 
+// 初期化関数
 function initializePage() {
     console.log("ページ初期化開始");
 
+    // データをロード
     loadData();
+
+    // 各種イベントリスナーを追加
     addEventListeners();
 
+    // 初期計算
     calculateTotalNurses();
     calculateCalendarDays();
     calculateMonthlySums();
@@ -41,6 +46,81 @@ function saveData() {
 
     localStorage.setItem("vacationData", JSON.stringify(vacationData));
     console.log("データ保存完了");
+}
+
+// 看護師数の計算
+function calculateTotalNurses() {
+    const months = [
+        "apr", "may", "jun", "jul", "aug", "sep",
+        "oct", "nov", "dec", "jan", "feb", "mar"
+    ];
+
+    let cumulativeTotal = 0;
+
+    months.forEach(month => {
+        const nurseCount = parseInt(document.getElementById(`nurse-count-${month}`)?.value) || 0;
+        const retireCount = parseInt(document.getElementById(`retire-count-${month}`)?.value) || 0;
+        const maternityCount = parseInt(document.getElementById(`maternity-count-${month}`)?.value) || 0;
+
+        const totalCount = retireCount + maternityCount;
+        const totalField = document.getElementById(`total-count-${month}`);
+        if (totalField) totalField.value = totalCount;
+
+        cumulativeTotal += totalCount;
+
+        const totalNurseField = document.getElementById(`total-nurse-${month}`);
+        if (totalNurseField) {
+            if (nurseCount === 0) {
+                totalNurseField.value = "";
+            } else {
+                totalNurseField.value = nurseCount - cumulativeTotal;
+            }
+        }
+    });
+}
+
+// 暦日計算
+function calculateCalendarDays() {
+    const months = [
+        "apr", "may", "jun", "jul", "aug", "sep",
+        "oct", "nov", "dec", "jan", "feb", "mar"
+    ];
+
+    months.forEach(month => {
+        const weekday = parseInt(document.getElementById(`weekday-${month}`)?.value) || 0;
+        const holiday = parseInt(document.getElementById(`holiday-${month}`)?.value) || 0;
+
+        const calendarField = document.getElementById(`calendar-${month}`);
+        if (calendarField) calendarField.value = weekday + holiday;
+    });
+}
+
+// 月ごとの平日・休日の総和
+function calculateMonthlySums() {
+    const months = [
+        "apr", "may", "jun", "jul", "aug", "sep",
+        "oct", "nov", "dec", "jan", "feb", "mar"
+    ];
+
+    months.forEach(month => {
+        const shiftTypes = ["night", "off-duty", "short", "late", "managerial", "day"];
+        let weekdayTotal = 0;
+        let holidayTotal = 0;
+
+        shiftTypes.forEach(type => {
+            const weekdayShift = parseInt(document.getElementById(`${type}-shift-${month}-weekday`)?.value) || 0;
+            const holidayShift = parseInt(document.getElementById(`${type}-shift-${month}-holiday`)?.value) || 0;
+
+            weekdayTotal += weekdayShift;
+            holidayTotal += holidayShift;
+        });
+
+        const totalWeekdayField = document.getElementById(`total-${month}-weekday`);
+        if (totalWeekdayField) totalWeekdayField.value = weekdayTotal;
+
+        const totalHolidayField = document.getElementById(`total-${month}-holiday`);
+        if (totalHolidayField) totalHolidayField.value = holidayTotal;
+    });
 }
 
 // 必要日数の計算
@@ -140,7 +220,7 @@ function addMonthlyWorkforceTableSwitcher() {
     nextButton.addEventListener("click", toggleTables);
 }
 
-// イベントリスナー
+// イベントリスナーを追加
 function addEventListeners() {
     document.querySelectorAll("input[type='number']").forEach(input => {
         input.addEventListener("input", () => {
@@ -151,7 +231,16 @@ function addEventListeners() {
             saveData();
         });
     });
-    console.log("イベントリスナー追加完了");
+    console.log("イベント    リスナー追加完了");
 }
 
-// その他の計算関数は省略せずそのまま組み込んであります
+// 初期計算関数
+function calculateInitialValues() {
+    calculateTotalNurses();
+    calculateCalendarDays();
+    calculateMonthlySums();
+    calculateRequiredDays();
+}
+
+// 他の初期化処理や必要な追加関数があればここに記載
+
