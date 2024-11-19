@@ -80,6 +80,50 @@ function calculateTotalNurses() {
     });
 }
 
+// 暦日計算
+function calculateCalendarDays() {
+    const months = [
+        "apr", "may", "jun", "jul", "aug", "sep",
+        "oct", "nov", "dec", "jan", "feb", "mar"
+    ];
+
+    months.forEach(month => {
+        const weekday = parseInt(document.getElementById(`weekday-${month}`)?.value) || 0;
+        const holiday = parseInt(document.getElementById(`holiday-${month}`)?.value) || 0;
+
+        const calendarField = document.getElementById(`calendar-${month}`);
+        if (calendarField) calendarField.value = weekday + holiday;
+    });
+}
+
+// 月ごとの平日・休日の総和
+function calculateMonthlySums() {
+    const months = [
+        "apr", "may", "jun", "jul", "aug", "sep",
+        "oct", "nov", "dec", "jan", "feb", "mar"
+    ];
+
+    months.forEach(month => {
+        const shiftTypes = ["night", "off-duty", "short", "late", "managerial", "day"];
+        let weekdayTotal = 0;
+        let holidayTotal = 0;
+
+        shiftTypes.forEach(type => {
+            const weekdayShift = parseInt(document.getElementById(`${type}-shift-${month}-weekday`)?.value) || 0;
+            const holidayShift = parseInt(document.getElementById(`${type}-shift-${month}-holiday`)?.value) || 0;
+
+            weekdayTotal += weekdayShift;
+            holidayTotal += holidayShift;
+        });
+
+        const totalWeekdayField = document.getElementById(`total-${month}-weekday`);
+        if (totalWeekdayField) totalWeekdayField.value = weekdayTotal;
+
+        const totalHolidayField = document.getElementById(`total-${month}-holiday`);
+        if (totalHolidayField) totalHolidayField.value = holidayTotal;
+    });
+}
+
 // 必要日数の計算
 function calculateRequiredDays() {
     const categories = [
@@ -113,7 +157,7 @@ function calculateRequiredDays() {
     });
 }
 
-// テーブル切り替え機能（修正）
+// テーブル切り替え機能
 function addVacationTableSwitcher() {
     const prevButton = document.getElementById("vacation-prev-button");
     const nextButton = document.getElementById("vacation-next-button");
@@ -162,5 +206,3 @@ function addEventListeners() {
     });
     console.log("イベントリスナー追加完了");
 }
-
-// 他の関数（省略部分はそのまま既存コードに準拠）
