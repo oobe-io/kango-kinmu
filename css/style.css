@@ -69,10 +69,6 @@ input[type="number"] {
     display: none !important;
 }
 
-.active {
-    display: block;
-}
-
 .table-switcher {
     display: flex;
     justify-content: center;
