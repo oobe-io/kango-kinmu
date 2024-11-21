@@ -236,6 +236,7 @@ function addEventListeners() {
             calculateCalendarDays();
             calculateMonthlySums();
             saveData();
+            calculateVacationRequiredDays(); // 全月の「必要日数」再計算
         });
     });
 
@@ -314,6 +315,7 @@ function addVacationTableSwitcher() {
             table4To9.classList.add("active");
             tablePeriod.textContent = "4月〜9月";
         }
+        calculateVacationRequiredDays(); // 切り替え時に再計算
     }
 
     prevButton.addEventListener("click", toggleTables);
