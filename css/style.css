@@ -63,6 +63,17 @@ th {
     color: white;
 }
 
+/* 共通部分のスタイル */
+.vacation-summary {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+}
+
+.vacation-summary table {
+    width: 50%;
+    margin: 0 auto;
+}
+
 /* 入力フィールドのスタイル */
 input[type="number"] {
     width: 100%; /* 入力欄の幅をセルに合わせる */
