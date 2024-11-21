@@ -73,7 +73,7 @@ function calculateCalendarDays() {
     });
 }
 
-// 月ごとの平日・休日の総和
+// 月ごとの予定勤務者数の計算
 function calculateMonthlySums() {
     const months = [
         "apr", "may", "jun", "jul", "aug", "sep",
