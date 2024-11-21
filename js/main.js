@@ -292,6 +292,7 @@ function addTableSwitcher() {
             tablePeriod.textContent = "4月〜9月";
         }
         console.log("切り替え完了:", currentTable);
+        calculateVacationRequiredDays();
     }
 
     prevButton.addEventListener("click", toggleTables);
