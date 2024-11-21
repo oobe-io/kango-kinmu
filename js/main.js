@@ -168,12 +168,14 @@ function calculateVacationRequiredDays() {
 
 //休暇テーブル切り替えで共通項目を更新する関数
 function updateSharedVacationFields() {
+    calculateVacationRequiredDays(); // 最新の共通データを計算
     document.getElementById("vacation-summer-days").value = sharedVacationData["required-days"];
     document.getElementById("vacation-summer-people").value = sharedVacationData["required-people"];
     document.getElementById("vacation-summer-required-plan").value = sharedVacationData["required-total"];
     document.getElementById("vacation-summer-required-result").value = sharedVacationData["required-total"];
     console.log("共通フィールド更新完了");
 }
+
 
 // ローカルストレージからデータを読み込む
 function loadData() {
@@ -247,12 +249,13 @@ function saveVacationData() {
         vacationData[input.id] = input.value || 0;
     });
 
+    // 共通データを保存
     sharedVacationData["required-days"] = document.getElementById("vacation-summer-days").value || 0;
     sharedVacationData["required-people"] = document.getElementById("vacation-summer-people").value || 0;
     sharedVacationData["required-total"] = document.getElementById("vacation-summer-required-plan").value || 0;
 
     localStorage.setItem("vacationData", JSON.stringify(vacationData));
-    localStorage.setItem("sharedVacationData", JSON.stringify(sharedVacationData)); // sharedVacationDataを保存
+    localStorage.setItem("sharedVacationData", JSON.stringify(sharedVacationData)); // 修正: 一貫して保存
 
     console.log("月ごとの休暇予定と実績データ保存完了");
 }
@@ -272,7 +275,8 @@ function loadVacationData() {
         "required-total": 0
     };
     sharedVacationData = sharedData;
-    updateSharedVacationFields(); // 復元したデータで共通項目を更新
+
+    updateSharedVacationFields(); // 修正: 復元したデータを即時反映
 
     console.log("月ごとの休暇予定と実績データ復元完了");
 }
@@ -380,9 +384,9 @@ function addVacationTableSwitcher() {
             table4To9.classList.add("active");
             tablePeriod.textContent = "4月〜9月";
         }
-        // 切り替え後のテーブルを確認
-        console.log("切り替え後の計算対象テーブル:", currentTable);
-        updateSharedVacationFields(); // 追加：共通項目の再描画
+        console.log("切り替え完了:", currentTable);
+
+        updateSharedVacationFields(); // 修正: 再計算して共通項目を更新
     }
 
     prevButton.addEventListener("click", toggleTables);
