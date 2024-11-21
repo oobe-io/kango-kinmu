@@ -250,16 +250,6 @@ function loadVacationData() {
 function initializeShiftInputs() {
     loadShiftData();
 
-    document.querySelectorAll(".vacation-table input[type='number']").forEach(input => {
-    input.addEventListener("input", () => {
-        saveVacationData(); // 入力データを保存
-        calculateVacationRequiredDays(); // 必要日数を再計算
-    });
-});
-
-    console.log("休暇入力の初期化完了");
-}
-
     // 各シフト入力に保存用イベントリスナーを追加
     const inputs = document.querySelectorAll(".shift-input");
     inputs.forEach(input => {
