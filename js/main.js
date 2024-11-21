@@ -81,13 +81,13 @@ function calculateMonthlySums() {
     ];
 
     months.forEach(month => {
-        const shiftTypes = ["night", "off-duty", "short", "late", "managerial", "day"];
+        const shiftTypes = ["night-shift", "off-duty", "short-shift", "late-shift", "managerial-shift", "day-shift"];
         let weekdayTotal = 0;
         let holidayTotal = 0;
 
         shiftTypes.forEach(type => {
-            const weekdayShift = parseInt(document.getElementById(`${type}-shift-${month}-weekday`)?.value) || 0;
-            const holidayShift = parseInt(document.getElementById(`${type}-shift-${month}-holiday`)?.value) || 0;
+            const weekdayShift = parseInt(document.getElementById(`${type}-${month}-weekday`)?.value) || 0;
+            const holidayShift = parseInt(document.getElementById(`${type}-${month}-holiday`)?.value) || 0;
 
             weekdayTotal += weekdayShift;
             holidayTotal += holidayShift;
