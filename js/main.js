@@ -225,6 +225,30 @@ function loadShiftData() {
     console.log("シフトデータ復元完了");
 }
 
+//月ごとの休暇予定と実績データ保存
+function saveVacationData() {
+    const vacationData = {};
+    document.querySelectorAll(".vacation-table input[type='number']").forEach(input => {
+        vacationData[input.id] = input.value || 0;
+    });
+
+    localStorage.setItem("vacationData", JSON.stringify(vacationData));
+    console.log("休暇データ保存完了");
+}
+
+//月ごとの休暇予定と実績データ復元
+function loadVacationData() {
+    const vacationData = JSON.parse(localStorage.getItem("vacationData")) || {};
+    Object.entries(vacationData).forEach(([key, value]) => {
+        const input = document.getElementById(key);
+        if (input) {
+            input.value = value;
+        }
+    });
+
+    console.log("休暇データ復元完了");
+}
+
 // 初期化関数に保存と復元の処理を追加
 function initializeShiftInputs() {
     loadShiftData();
@@ -254,6 +278,7 @@ function addEventListeners() {
     
     document.querySelectorAll(".vacation-table input[type='number']").forEach(input => {
         input.addEventListener("input", () => {
+            saveVacationData(); // 休暇テーブルデータの保存
             calculateVacationRequiredDays();
         });
     });
