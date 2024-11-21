@@ -18,6 +18,7 @@ function initializePage() {
 
     // データをロード
     loadData();
+    loadVacationData(); // 追加: 休暇データの復元
 
     // 各種イベントリスナーを追加
     addEventListeners();
@@ -251,6 +252,8 @@ function saveVacationData() {
     sharedVacationData["required-total"] = document.getElementById("vacation-summer-required-plan").value || 0;
 
     localStorage.setItem("vacationData", JSON.stringify(vacationData));
+    localStorage.setItem("sharedVacationData", JSON.stringify(sharedVacationData)); // sharedVacationDataを保存
+
     console.log("月ごとの休暇予定と実績データ保存完了");
 }
 
@@ -261,6 +264,16 @@ function loadVacationData() {
         const input = document.getElementById(key);
         if (input) input.value = value;
     });
+
+    // sharedVacationDataを復元
+    const sharedData = JSON.parse(localStorage.getItem("sharedVacationData")) || {
+        "required-days": 0,
+        "required-people": 0,
+        "required-total": 0
+    };
+    sharedVacationData = sharedData;
+    updateSharedVacationFields(); // 復元したデータで共通項目を更新
+
     console.log("月ごとの休暇予定と実績データ復元完了");
 }
 
