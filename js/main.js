@@ -150,10 +150,15 @@ function calculateVacationRequiredDays() {
         const requiredResultField = document.getElementById(`${row}-required-result`);
 
         if (requiredPlanField) {
-            requiredPlanField.value = (totalDays * totalPeople) - totalPlan;
+            const requiredPlanValue = (totalDays * totalPeople) - totalPlan;
+            requiredPlanField.value = requiredPlanValue >= 0 ? requiredPlanValue : 0; // 負の値を防ぐ
+            console.log(`Required Plan (${row}):`, requiredPlanValue);
         }
+        
         if (requiredResultField) {
-            requiredResultField.value = (totalDays * totalPeople) - totalResult;
+            const requiredResultValue = (totalDays * totalPeople) - totalResult;
+            requiredResultField.value = requiredResultValue >= 0 ? requiredResultValue : 0; // 負の値を防ぐ
+            console.log(`Required Result (${row}):`, requiredResultValue);
         }
     });
 
