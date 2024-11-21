@@ -328,7 +328,8 @@ function addVacationTableSwitcher() {
             table4To9.classList.add("active");
             tablePeriod.textContent = "4月〜9月";
         }
-
+        // 切り替え後のテーブルを確認
+        console.log("切り替え後の計算対象テーブル:", currentTable);
         calculateVacationRequiredDays(); // 切り替え後に再計算
     }
 
