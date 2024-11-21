@@ -128,18 +128,11 @@ function calculateVacationRequiredDays() {
         "oct", "nov", "dec", "jan", "feb", "mar"
     ];
 
-  months.forEach(month => {
-    const planField = document.getElementById(`${row}-${month}-plan`);
-    const resultField = document.getElementById(`${row}-${month}-result`);
-
-    if (planField && !planField.closest('.hidden')) {
-        totalPlan += parseInt(planField.value) || 0;
-    }
-    if (resultField && !resultField.closest('.hidden')) {
-        totalResult += parseInt(resultField.value) || 0;
-    }
-});
-
+    months.forEach(month => {
+        totalPlan += parseInt(document.getElementById(`${row}-${month}-plan`)?.value) || 0;
+        totalResult += parseInt(document.getElementById(`${row}-${month}-result`)?.value) || 0;
+    });
+        
     // 必要日数の計算
     const requiredPlanField = document.getElementById(`${row}-required-plan`);
     const requiredResultField = document.getElementById(`${row}-required-result`);
