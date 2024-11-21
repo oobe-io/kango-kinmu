@@ -239,13 +239,6 @@ function addEventListeners() {
             calculateVacationRequiredDays(); // 全月の「必要日数」再計算
         });
     });
-
-    // イベントリスナー追加: 「月ごとの休暇予定と実績」
-    document.querySelectorAll(".vacation-table input[type='number']").forEach(input => {
-        input.addEventListener("input", () => {
-            calculateVacationRequiredDays();
-        });
-    });
     
     console.log("イベントリスナー追加完了");
 }
