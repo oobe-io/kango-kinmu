@@ -127,18 +127,24 @@ function calculateVacationRequiredDays() {
             "oct", "nov", "dec", "jan", "feb", "mar"
         ];
 
-        months.forEach(month => {
-            const planField = document.getElementById(`${row}-${month}-plan`);
-            const resultField = document.getElementById(`${row}-${month}-result`);
-
-            if (planField) {
-                totalPlan += parseInt(planField.value) || 0;
-            }
-
-            if (resultField) {
-                totalResult += parseInt(resultField.value) || 0;
-            }
-        });
+    months.forEach(month => {
+        const planField = document.getElementById(`${row}-${month}-plan`);
+        const resultField = document.getElementById(`${row}-${month}-result`);
+    
+        if (planField) {
+            console.log(`Plan Field (${row}-${month}-plan):`, planField.value);
+            totalPlan += parseInt(planField.value) || 0;
+        } else {
+            console.warn(`Plan Field (${row}-${month}-plan) not found`);
+        }
+    
+        if (resultField) {
+            console.log(`Result Field (${row}-${month}-result):`, resultField.value);
+            totalResult += parseInt(resultField.value) || 0;
+        } else {
+            console.warn(`Result Field (${row}-${month}-result) not found`);
+        }
+    });
 
         const requiredPlanField = document.getElementById(`${row}-required-plan`);
         const requiredResultField = document.getElementById(`${row}-required-result`);
