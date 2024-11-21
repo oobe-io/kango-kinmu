@@ -134,7 +134,7 @@ function saveData() {
 // シフトデータ保存
 function saveShiftData() {
     const months = ["apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec", "jan", "feb", "mar"];
-    const shiftTypes = ["night", "off-duty", "short", "late", "managerial", "day"];
+    const shiftTypes = ["night", "off-duty", "short", "late", "managerial", "day", "total"];
     const shiftData = {};
 
     months.forEach(month => {
