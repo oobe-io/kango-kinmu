@@ -127,7 +127,6 @@ function calculateVacationRequiredDays() {
             "oct", "nov", "dec", "jan", "feb", "mar"
         ];
 
-
     months.forEach(month => {
         const planField = document.getElementById(`${row}-${month}-plan`);
         const resultField = document.getElementById(`${row}-${month}-result`);
