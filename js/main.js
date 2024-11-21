@@ -119,11 +119,14 @@ function calculateVacationRequiredDays() {
         const totalDays = parseInt(document.getElementById(`${row}-days`)?.value) || 0;
         const totalPeople = parseInt(document.getElementById(`${row}-people`)?.value) || 0;
 
-        // 合計の「予定」と「実績」
-        let totalPlan = 0;
-        let totalResult = 0;
+    // 合計の「予定」と「実績」
+    let totalPlan = 0;
+    let totalResult = 0;
 
-        const months = ["apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec", "jan", "feb", "mar"];
+    const months = [
+        "apr", "may", "jun", "jul", "aug", "sep", 
+        "oct", "nov", "dec", "jan", "feb", "mar"
+    ];
 
         months.forEach(month => {
             totalPlan += parseInt(document.getElementById(`${row}-${month}-plan`)?.value) || 0;
