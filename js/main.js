@@ -153,13 +153,18 @@ function calculateVacationRequiredDays() {
         if (requiredPlanField) {
             const requiredPlanValue = (totalDays * totalPeople) - totalPlan;
             requiredPlanField.value = requiredPlanValue >= 0 ? requiredPlanValue : 0; // 負の値を防ぐ
-            console.log(`Required Plan (${row}):`, requiredPlanValue);
         }
         
         if (requiredResultField) {
             const requiredResultValue = (totalDays * totalPeople) - totalResult;
             requiredResultField.value = requiredResultValue >= 0 ? requiredResultValue : 0; // 負の値を防ぐ
-            console.log(`Required Result (${row}):`, requiredResultValue);
+        }
+
+        // 共通データを更新
+        if (row === "vacation-summer") {
+            sharedVacationData["required-days"] = totalDays;
+            sharedVacationData["required-people"] = totalPeople;
+            sharedVacationData["required-total"] = totalResult;
         }
     });
 
@@ -168,13 +173,13 @@ function calculateVacationRequiredDays() {
 
 //休暇テーブル切り替えで共通項目を更新する関数
 function updateSharedVacationFields() {
-    calculateVacationRequiredDays(); // 最新の共通データを計算
     document.getElementById("vacation-summer-days").value = sharedVacationData["required-days"];
     document.getElementById("vacation-summer-people").value = sharedVacationData["required-people"];
     document.getElementById("vacation-summer-required-plan").value = sharedVacationData["required-total"];
     document.getElementById("vacation-summer-required-result").value = sharedVacationData["required-total"];
     console.log("共通フィールド更新完了");
 }
+
 
 
 // ローカルストレージからデータを読み込む
@@ -385,8 +390,8 @@ function addVacationTableSwitcher() {
             tablePeriod.textContent = "4月〜9月";
         }
         console.log("切り替え完了:", currentTable);
-
-        updateSharedVacationFields(); // 修正: 再計算して共通項目を更新
+        calculateVacationRequiredDays(); // 修正: 再計算を強制
+        updateSharedVacationFields(); // 修正: 描画を更新
     }
 
     prevButton.addEventListener("click", toggleTables);
