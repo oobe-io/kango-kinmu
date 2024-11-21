@@ -21,7 +21,7 @@ function initializePage() {
     calculateTotalNurses();
     calculateCalendarDays();
     calculateMonthlySums();
-     calculateVacationRequiredDays(); 
+    calculateVacationRequiredDays(); 
 
     console.log("ページ初期化完了");
 }
