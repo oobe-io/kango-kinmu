@@ -241,17 +241,24 @@ function loadVacationData() {
     const vacationData = JSON.parse(localStorage.getItem("vacationData")) || {};
     Object.entries(vacationData).forEach(([key, value]) => {
         const input = document.getElementById(key);
-        if (input) {
-            input.value = value;
-        }
+        if (input) input.value = value;
     });
-
     console.log("月ごとの休暇予定と実績データ復元完了");
 }
 
 // 初期化関数に保存と復元の処理を追加
 function initializeShiftInputs() {
     loadShiftData();
+
+    document.querySelectorAll(".vacation-table input[type='number']").forEach(input => {
+    input.addEventListener("input", () => {
+        saveVacationData(); // 入力データを保存
+        calculateVacationRequiredDays(); // 必要日数を再計算
+    });
+});
+
+    console.log("休暇入力の初期化完了");
+}
 
     // 各シフト入力に保存用イベントリスナーを追加
     const inputs = document.querySelectorAll(".shift-input");
