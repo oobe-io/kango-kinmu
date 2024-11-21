@@ -309,15 +309,8 @@ function addVacationTableSwitcher() {
             tablePeriod.textContent = "4月〜9月";
         }
     }
-
-    prevButton.addEventListener("click", () => {
-        toggleTables("10月〜3月");
-        calculateVacationRequiredDays(); // 切り替え後の再計算
-    });
-
-    nextButton.addEventListener("click", () => {
-        toggleTables("4月〜9月");
-        calculateVacationRequiredDays(); // 切り替え後の再計算
-    });
+    
+    prevButton.addEventListener("click", toggleTables);
+    nextButton.addEventListener("click", toggleTables);
 }
-}
+
