@@ -119,31 +119,41 @@ function calculateVacationRequiredDays() {
         const totalDays = parseInt(document.getElementById(`${row}-days`)?.value) || 0;
         const totalPeople = parseInt(document.getElementById(`${row}-people`)?.value) || 0;
 
-    // 合計の「予定」と「実績」
-    let totalPlan = 0;
-    let totalResult = 0;
+        let totalPlan = 0;
+        let totalResult = 0;
 
-    const months = [
-        "apr", "may", "jun", "jul", "aug", "sep", 
-        "oct", "nov", "dec", "jan", "feb", "mar"
-    ];
+        const months = [
+            "apr", "may", "jun", "jul", "aug", "sep", 
+            "oct", "nov", "dec", "jan", "feb", "mar"
+        ];
 
-    months.forEach(month => {
-        totalPlan += parseInt(document.getElementById(`${row}-${month}-plan`)?.value) || 0;
-        totalResult += parseInt(document.getElementById(`${row}-${month}-result`)?.value) || 0;
+        months.forEach(month => {
+            const planField = document.getElementById(`${row}-${month}-plan`);
+            const resultField = document.getElementById(`${row}-${month}-result`);
+
+            if (planField) {
+                totalPlan += parseInt(planField.value) || 0;
+            } else {
+                console.warn(`Plan field for ${row}-${month}-plan not found`);
+            }
+
+            if (resultField) {
+                totalResult += parseInt(resultField.value) || 0;
+            } else {
+                console.warn(`Result field for ${row}-${month}-result not found`);
+            }
+        });
+
+        const requiredPlanField = document.getElementById(`${row}-required-plan`);
+        const requiredResultField = document.getElementById(`${row}-required-result`);
+
+        if (requiredPlanField) {
+            requiredPlanField.value = (totalDays * totalPeople) - totalPlan;
+        }
+        if (requiredResultField) {
+            requiredResultField.value = (totalDays * totalPeople) - totalResult;
+        }
     });
-        
-    // 必要日数の計算
-    const requiredPlanField = document.getElementById(`${row}-required-plan`);
-    const requiredResultField = document.getElementById(`${row}-required-result`);
-
-    if (requiredPlanField) {
-        requiredPlanField.value = (totalDays * totalPeople) - totalPlan;
-    }
-    if (requiredResultField) {
-        requiredResultField.value = (totalDays * totalPeople) - totalResult;
-    }
-});
 
     console.log("「月ごとの休暇予定と実績」の計算完了");
 }
