@@ -21,6 +21,7 @@ function initializePage() {
     calculateTotalNurses();
     calculateCalendarDays();
     calculateMonthlySums();
+     calculateVacationRequiredDays(); 
 
     console.log("ページ初期化完了");
 }
@@ -98,6 +99,50 @@ function calculateMonthlySums() {
         const totalHolidayField = document.getElementById(`total-${month}-holiday`);
         if (totalHolidayField) totalHolidayField.value = holidayTotal;
     });
+}
+
+// 「月ごとの休暇予定と実績」の計算
+function calculateVacationRequiredDays() {
+    const vacationRows = [
+        "vacation-summer",
+        "vacation-legal5",
+        "vacation-sick",
+        "vacation-other",
+        "vacation-special",
+        "vacation-night",
+        "vacation-rotation",
+        "vacation-student",
+        "vacation-year1year3"
+    ];
+
+    vacationRows.forEach(row => {
+        const totalDays = parseInt(document.getElementById(`${row}-days`)?.value) || 0;
+        const totalPeople = parseInt(document.getElementById(`${row}-people`)?.value) || 0;
+
+        // 合計の「予定」と「実績」
+        let totalPlan = 0;
+        let totalResult = 0;
+
+        const months = ["apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec", "jan", "feb", "mar"];
+
+        months.forEach(month => {
+            totalPlan += parseInt(document.getElementById(`${row}-${month}-plan`)?.value) || 0;
+            totalResult += parseInt(document.getElementById(`${row}-${month}-result`)?.value) || 0;
+        });
+
+        // 必要日数の計算
+        const requiredPlanField = document.getElementById(`${row}-required-plan`);
+        const requiredResultField = document.getElementById(`${row}-required-result`);
+
+        if (requiredPlanField) {
+            requiredPlanField.value = (totalDays * totalPeople) - totalPlan;
+        }
+        if (requiredResultField) {
+            requiredResultField.value = (totalDays * totalPeople) - totalResult;
+        }
+    });
+
+    console.log("「月ごとの休暇予定と実績」の計算完了");
 }
 
 // ローカルストレージからデータを読み込む
@@ -190,6 +235,14 @@ function addEventListeners() {
             saveData();
         });
     });
+
+    // イベントリスナー追加: 「月ごとの休暇予定と実績」
+    document.querySelectorAll(".vacation-table input[type='number']").forEach(input => {
+        input.addEventListener("input", () => {
+            calculateVacationRequiredDays();
+        });
+    });
+    
     console.log("イベントリスナー追加完了");
 }
 
