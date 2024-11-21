@@ -2,7 +2,7 @@
 
 document.addEventListener("DOMContentLoaded", function () {
     initializePage();
-    initializeMonthlyPlannedWorkInputs(); // 月ごとの予定勤務者数入力の初期化を追加
+    initializeShiftInputs(); // シフトデータの初期化を追加
     addVacationTableSwitcher(); // 休暇テーブル切り替え機能を追加
 });
 
@@ -131,50 +131,53 @@ function saveData() {
     console.log("データ保存完了");
 }
 
-// データ保存関数の拡張
-function saveMonthlyPlannedWorkData() {
+// シフトデータ保存
+function saveShiftData() {
     const months = ["apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec", "jan", "feb", "mar"];
-    const workData = {};
+    const shiftTypes = ["night", "off-duty", "short", "late", "managerial", "day"];
+    const shiftData = {};
 
     months.forEach(month => {
-        // 対象フィールドのデータを保存
-        ["weekday", "holiday"].forEach(type => {
-            const input = document.getElementById(`${type}-${month}`);
-            if (input) {
-                workData[`${type}-${month}`] = input.value || 0;
-            }
+        shiftTypes.forEach(type => {
+            ["weekday", "holiday"].forEach(shiftCategory => {
+                const inputId = `${type}-shift-${month}-${shiftCategory}`;
+                const input = document.getElementById(inputId);
+                if (input) {
+                    shiftData[inputId] = input.value || 0; // 値を保存
+                }
+            });
         });
     });
 
-    // ローカルストレージに保存
-    localStorage.setItem("monthlyPlannedWorkData", JSON.stringify(workData));
-    console.log("月ごとの予定勤務者数データ保存完了");
+    localStorage.setItem("shiftData", JSON.stringify(shiftData));
+    console.log("シフトデータ保存完了");
 }
 
-// データ読み込み関数の拡張
-function loadMonthlyPlannedWorkData() {
-    const storedData = JSON.parse(localStorage.getItem("monthlyPlannedWorkData")) || {};
-    Object.entries(storedData).forEach(([key, value]) => {
+// シフトデータ復元
+function loadShiftData() {
+    const shiftData = JSON.parse(localStorage.getItem("shiftData")) || {};
+    Object.entries(shiftData).forEach(([key, value]) => {
         const input = document.getElementById(key);
         if (input) {
-            input.value = value;
+            input.value = value; // 保存された値を復元
         }
     });
-    console.log("月ごとの予定勤務者数データ読み込み完了");
+    console.log("シフトデータ復元完了");
 }
 
-// 初期化関数にデータロードとイベントリスナー追加を統合
-function initializeMonthlyPlannedWorkInputs() {
-    loadMonthlyPlannedWorkData();
+// 初期化関数に保存と復元の処理を追加
+function initializeShiftInputs() {
+    loadShiftData();
 
-    const inputs = document.querySelectorAll("#calendar-form input[type='number']");
+    // 各シフト入力に保存用イベントリスナーを追加
+    const inputs = document.querySelectorAll(".shift-input");
     inputs.forEach(input => {
         input.addEventListener("input", () => {
-            saveMonthlyPlannedWorkData();
+            saveShiftData();
         });
     });
 
-    console.log("月ごとの予定勤務者数入力の初期化完了");
+    console.log("シフト入力の初期化完了");
 }
 
 // イベントリスナーを追加
