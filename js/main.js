@@ -250,6 +250,12 @@ function addEventListeners() {
         });
     });
     
+    document.querySelectorAll(".vacation-table input[type='number']").forEach(input => {
+        input.addEventListener("input", () => {
+            calculateVacationRequiredDays();
+        });
+    });
+    
     console.log("イベントリスナー追加完了");
 }
 
