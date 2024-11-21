@@ -250,7 +250,7 @@ function addEventListeners() {
     console.log("イベントリスナー追加完了");
 }
 
-// テーブル切り替え機能
+// 「月ごとの予定勤務者数を入力」のテーブル切り替え機能
 function addTableSwitcher() {
     const prevButton = document.getElementById("prev-button");
     const nextButton = document.getElementById("next-button");
@@ -286,7 +286,7 @@ function addTableSwitcher() {
     nextButton.addEventListener("click", toggleTables);
 }
 
-// Vacation Table Switcher
+// 「月ごとの休暇予定と実績」のテーブル切り替え機能
 function addVacationTableSwitcher() {
     const prevButton = document.getElementById("vacation-prev-button");
     const nextButton = document.getElementById("vacation-next-button");
