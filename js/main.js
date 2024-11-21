@@ -133,14 +133,10 @@ function calculateVacationRequiredDays() {
 
             if (planField) {
                 totalPlan += parseInt(planField.value) || 0;
-            } else {
-                console.warn(`Plan field for ${row}-${month}-plan not found`);
             }
 
             if (resultField) {
                 totalResult += parseInt(resultField.value) || 0;
-            } else {
-                console.warn(`Result field for ${row}-${month}-result not found`);
             }
         });
 
@@ -157,6 +153,7 @@ function calculateVacationRequiredDays() {
 
     console.log("「月ごとの休暇予定と実績」の計算完了");
 }
+
 
 // ローカルストレージからデータを読み込む
 function loadData() {
