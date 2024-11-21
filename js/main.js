@@ -134,13 +134,13 @@ function saveData() {
 // シフトデータ保存
 function saveShiftData() {
     const months = ["apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec", "jan", "feb", "mar"];
-    const shiftTypes = ["night", "off-duty", "short", "late", "managerial", "day", "total"];
+    const shiftTypes = ["night-shift", "off-duty", "short-shift", "late-shift", "managerial-shift", "day-shift", "total"];
     const shiftData = {};
 
     months.forEach(month => {
         shiftTypes.forEach(type => {
             ["weekday", "holiday"].forEach(shiftCategory => {
-                const inputId = `${type}-shift-${month}-${shiftCategory}`;
+                const inputId = `${type}-${month}-${shiftCategory}`;
                 const input = document.getElementById(inputId);
                 if (input) {
                     shiftData[inputId] = input.value || 0; // 値を保存
