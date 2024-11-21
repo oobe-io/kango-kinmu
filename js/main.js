@@ -2,6 +2,7 @@
 
 document.addEventListener("DOMContentLoaded", function () {
     initializePage();
+    initializeMonthlyPlannedWorkInputs(); // 月ごとの予定勤務者数入力の初期化を追加
     addVacationTableSwitcher(); // 休暇テーブル切り替え機能を追加
 });
 
@@ -128,6 +129,52 @@ function saveData() {
 
     localStorage.setItem("nurseCounts", JSON.stringify(nurseCounts));
     console.log("データ保存完了");
+}
+
+// データ保存関数の拡張
+function saveMonthlyPlannedWorkData() {
+    const months = ["apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec", "jan", "feb", "mar"];
+    const workData = {};
+
+    months.forEach(month => {
+        // 対象フィールドのデータを保存
+        ["weekday", "holiday"].forEach(type => {
+            const input = document.getElementById(`${type}-${month}`);
+            if (input) {
+                workData[`${type}-${month}`] = input.value || 0;
+            }
+        });
+    });
+
+    // ローカルストレージに保存
+    localStorage.setItem("monthlyPlannedWorkData", JSON.stringify(workData));
+    console.log("月ごとの予定勤務者数データ保存完了");
+}
+
+// データ読み込み関数の拡張
+function loadMonthlyPlannedWorkData() {
+    const storedData = JSON.parse(localStorage.getItem("monthlyPlannedWorkData")) || {};
+    Object.entries(storedData).forEach(([key, value]) => {
+        const input = document.getElementById(key);
+        if (input) {
+            input.value = value;
+        }
+    });
+    console.log("月ごとの予定勤務者数データ読み込み完了");
+}
+
+// 初期化関数にデータロードとイベントリスナー追加を統合
+function initializeMonthlyPlannedWorkInputs() {
+    loadMonthlyPlannedWorkData();
+
+    const inputs = document.querySelectorAll("#calendar-form input[type='number']");
+    inputs.forEach(input => {
+        input.addEventListener("input", () => {
+            saveMonthlyPlannedWorkData();
+        });
+    });
+
+    console.log("月ごとの予定勤務者数入力の初期化完了");
 }
 
 // イベントリスナーを追加
