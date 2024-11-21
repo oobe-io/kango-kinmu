@@ -128,22 +128,22 @@ function calculateVacationRequiredDays() {
         "oct", "nov", "dec", "jan", "feb", "mar"
     ];
 
-        months.forEach(month => {
-            totalPlan += parseInt(document.getElementById(`${row}-${month}-plan`)?.value) || 0;
-            totalResult += parseInt(document.getElementById(`${row}-${month}-result`)?.value) || 0;
-        });
-
-        // 必要日数の計算
-        const requiredPlanField = document.getElementById(`${row}-required-plan`);
-        const requiredResultField = document.getElementById(`${row}-required-result`);
-
-        if (requiredPlanField) {
-            requiredPlanField.value = (totalDays * totalPeople) - totalPlan;
-        }
-        if (requiredResultField) {
-            requiredResultField.value = (totalDays * totalPeople) - totalResult;
-        }
+    months.forEach(month => {
+        totalPlan += parseInt(document.getElementById(`${row}-${month}-plan`)?.value) || 0;
+        totalResult += parseInt(document.getElementById(`${row}-${month}-result`)?.value) || 0;
     });
+
+    // 必要日数の計算
+    const requiredPlanField = document.getElementById(`${row}-required-plan`);
+    const requiredResultField = document.getElementById(`${row}-required-result`);
+
+    if (requiredPlanField) {
+        requiredPlanField.value = (totalDays * totalPeople) - totalPlan;
+    }
+    if (requiredResultField) {
+        requiredResultField.value = (totalDays * totalPeople) - totalResult;
+    }
+});
 
     console.log("「月ごとの休暇予定と実績」の計算完了");
 }
