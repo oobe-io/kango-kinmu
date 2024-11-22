@@ -373,7 +373,7 @@ function addVacationTableSwitcher() {
             table4To9.classList.add("active");
             tablePeriod.textContent = "4月〜9月";
         }
-        calculateVacationRequiredDays() {
+        calculateVacationRequiredDays();
         saveVacationData();// テーブル切り替え時に保存
         console.log("テーブル切り替え完了");
     }
