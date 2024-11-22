@@ -236,6 +236,9 @@ function saveVacationData() {
     document.querySelectorAll(".vacation-table input[type='number'], .vacation-table input[type='text']").forEach(input => {
         vacationData.values[input.id] = input.value || 0;
     });
+
+    console.log("保存対象データ:", vacationData);
+    
     // ローカルストレージに保存
     localStorage.setItem("vacationData", JSON.stringify(vacationData));
     console.log("月ごとの休暇予定と実績データ保存完了");
@@ -245,11 +248,18 @@ function saveVacationData() {
 function loadVacationData() {
     const storedData = JSON.parse(localStorage.getItem("vacationData")) || { tableState: "4-9", values: {} };
 
-    // 保存されたデータを復元
+    console.log("復元対象データ:", storedData);
+
+    // 保存されたデータをすべて復元
     if (storedData.values) {
         Object.entries(storedData.values).forEach(([key, value]) => {
             const input = document.getElementById(key);
-            if (input) input.value = value;
+            if (input) {
+                input.value = value; // 値を復元
+                console.log(`復元: ${key} => ${value}`);
+            } else {
+                console.warn(`復元対象が見つかりません: ${key}`);
+            }
         });
     }
 
@@ -304,12 +314,13 @@ function addEventListeners() {
         });
     });
     
-    document.querySelectorAll(".vacation-table input[type='number'], .vacation-table input[type='text']").forEach(input => {
+document.querySelectorAll(".vacation-table input[type='number'], .vacation-table input[type='text']").forEach(input => {
     input.addEventListener("input", () => {
+        console.log(`入力変更検知: ${input.id} => ${input.value}`);
         saveVacationData(); // 入力変更時にデータを保存
-        calculateVacationRequiredDays(); // 必要日数を再計算
     });
-});    
+});
+   
     console.log("イベントリスナー追加完了");
 }
 
