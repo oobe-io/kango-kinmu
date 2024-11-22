@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     initializePage();
     initializeShiftInputs(); // シフトデータの初期化を追加
     addVacationTableSwitcher(); // 休暇テーブル切り替え機能を追加
+    loadVacationData(); // ローカルストレージから復元
 });
 
 // 初期化関数
@@ -228,10 +229,11 @@ function loadShiftData() {
 //月ごとの休暇予定と実績データ保存
 function saveVacationData() {
     const vacationData = {};
+    // すべての入力フィールドと計算結果を保存
     document.querySelectorAll(".vacation-table input[type='number']").forEach(input => {
         vacationData[input.id] = input.value || 0;
     });
-
+　　// ローカルストレージに保存
     localStorage.setItem("vacationData", JSON.stringify(vacationData));
     console.log("月ごとの休暇予定と実績データ保存完了");
 }
@@ -239,10 +241,15 @@ function saveVacationData() {
 //月ごとの休暇予定と実績データ復元
 function loadVacationData() {
     const vacationData = JSON.parse(localStorage.getItem("vacationData")) || {};
+    // 保存されたデータをすべて復元
     Object.entries(vacationData).forEach(([key, value]) => {
         const input = document.getElementById(key);
         if (input) input.value = value;
     });
+    // 必要日数を再計算
+    calculateVacationRequiredDays();
+    console.log("月ごとの休暇予定と実績データ復元完了");
+}
     console.log("月ごとの休暇予定と実績データ復元完了");
 }
 
