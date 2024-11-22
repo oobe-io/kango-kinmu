@@ -237,7 +237,6 @@ function saveVacationData() {
     localStorage.setItem("vacationData", JSON.stringify(vacationData));
     console.log("月ごとの休暇予定と実績データ保存完了");
 }
-
 //月ごとの休暇予定と実績データ復元
 function loadVacationData() {
     const vacationData = JSON.parse(localStorage.getItem("vacationData")) || {};
@@ -250,9 +249,6 @@ function loadVacationData() {
     calculateVacationRequiredDays();
     console.log("月ごとの休暇予定と実績データ復元完了");
 }
-    console.log("月ごとの休暇予定と実績データ復元完了");
-}
-
 // 初期化関数に保存と復元の処理を追加
 function initializeShiftInputs() {
     loadShiftData();
