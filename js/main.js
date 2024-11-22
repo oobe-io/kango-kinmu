@@ -305,12 +305,11 @@ function addEventListeners() {
     });
     
     document.querySelectorAll(".vacation-table input[type='number']").forEach(input => {
-        input.addEventListener("input", () => {
-            saveVacationData(); // 休暇テーブルデータの保存
-            calculateVacationRequiredDays();
-        });
+    input.addEventListener("input", () => {
+        saveVacationData(); // 入力変更時にデータを保存
+        calculateVacationRequiredDays(); // 必要日数を再計算
     });
-    
+});    
     console.log("イベントリスナー追加完了");
 }
 
