@@ -245,11 +245,13 @@ function saveVacationData() {
 function loadVacationData() {
     const storedData = JSON.parse(localStorage.getItem("vacationData")) || { tableState: "4-9", values: {} };
 
-    // 保存されたデータをすべて復元
-    Object.entries(storedData.values).forEach(([key, value]) => {
-        const input = document.getElementById(key);
-        if (input) input.value = value;
-    });
+    // 保存されたデータを復元
+    if (storedData.values) {
+        Object.entries(storedData.values).forEach(([key, value]) => {
+            const input = document.getElementById(key);
+            if (input) input.value = value;
+        });
+    }
 
     // テーブル状態を復元
     const table4To9 = document.getElementById("vacation-table-4-9");
