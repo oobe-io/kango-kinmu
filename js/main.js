@@ -233,7 +233,7 @@ function saveVacationData() {
         values: {}
     };
     // すべての入力フィールドと計算結果を保存
-    document.querySelectorAll(".vacation-table input[type='number']").forEach(input => {
+    document.querySelectorAll(".vacation-table input[type='number'], .vacation-table input[type='text']").forEach(input => {
         vacationData.values[input.id] = input.value || 0;
     });
     // ローカルストレージに保存
@@ -304,7 +304,7 @@ function addEventListeners() {
         });
     });
     
-    document.querySelectorAll(".vacation-table input[type='number']").forEach(input => {
+    document.querySelectorAll(".vacation-table input[type='number'], .vacation-table input[type='text']").forEach(input => {
     input.addEventListener("input", () => {
         saveVacationData(); // 入力変更時にデータを保存
         calculateVacationRequiredDays(); // 必要日数を再計算
