@@ -234,9 +234,9 @@ function saveVacationData() {
     };
     // すべての入力フィールドと計算結果を保存
     document.querySelectorAll(".vacation-table input[type='number']").forEach(input => {
-        vacationData[input.id] = input.value || 0;
+        vacationData.values[input.id] = input.value || 0;
     });
-　　// ローカルストレージに保存
+    // ローカルストレージに保存
     localStorage.setItem("vacationData", JSON.stringify(vacationData));
     console.log("月ごとの休暇予定と実績データ保存完了");
 }
