@@ -12,22 +12,20 @@ function initializePage() {
 
     // データをロード
     loadData();
-    loadShiftData();
-    loadVacationData(); // 休暇テーブルデータの復元を追加
 
     // 各種イベントリスナーを追加
     addEventListeners();
     addTableSwitcher();
-    addVacationTableSwitcher();
 
     // 初期計算
     calculateTotalNurses();
     calculateCalendarDays();
     calculateMonthlySums();
-    calculateVacationRequiredDays();
+    calculateVacationRequiredDays(); 
 
     console.log("ページ初期化完了");
 }
+
 // 看護師数の計算
 function calculateTotalNurses() {
     const months = [
@@ -227,23 +225,23 @@ function loadShiftData() {
     console.log("シフトデータ復元完了");
 }
 
-// 月ごとの休暇予定と実績データ保存
+//月ごとの休暇予定と実績データ保存
 function saveVacationData() {
     const vacationData = {};
     document.querySelectorAll(".vacation-table input[type='number']").forEach(input => {
-        vacationData[input.id] = input.value || 0; // 値を取得し、空なら0を保存
+        vacationData[input.id] = input.value || 0;
     });
 
-    localStorage.setItem("vacationData", JSON.stringify(vacationData)); // ローカルストレージに保存
+    localStorage.setItem("vacationData", JSON.stringify(vacationData));
     console.log("月ごとの休暇予定と実績データ保存完了");
 }
 
-// 月ごとの休暇予定と実績データ復元
+//月ごとの休暇予定と実績データ復元
 function loadVacationData() {
-    const vacationData = JSON.parse(localStorage.getItem("vacationData")) || {}; // 保存されたデータを取得
+    const vacationData = JSON.parse(localStorage.getItem("vacationData")) || {};
     Object.entries(vacationData).forEach(([key, value]) => {
         const input = document.getElementById(key);
-        if (input) input.value = value; // 各フィールドにデータを復元
+        if (input) input.value = value;
     });
     console.log("月ごとの休暇予定と実績データ復元完了");
 }
@@ -274,14 +272,14 @@ function addEventListeners() {
             calculateVacationRequiredDays(); // 全月の「必要日数」再計算
         });
     });
-
+    
     document.querySelectorAll(".vacation-table input[type='number']").forEach(input => {
         input.addEventListener("input", () => {
             saveVacationData(); // 休暇テーブルデータの保存
             calculateVacationRequiredDays();
         });
     });
-
+    
     console.log("イベントリスナー追加完了");
 }
 
