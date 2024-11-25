@@ -230,14 +230,35 @@ function loadShiftData() {
 function saveVacationData() {
     const vacationData = {
         tableState: document.getElementById("vacation-table-4-9").classList.contains("active") ? "4-9" : "10-3",
-        values: {}
+        values: {} ,
+        commonData: {} // 共通データ用のオブジェクトを追加
     };
+
     // すべての入力フィールドと計算結果を保存
-    document.querySelectorAll(".vacation-table input[type='number'], .vacation-table input[type='text']").forEach(input => {
+    document.querySelectorAll(".vacation-table input[type='number']").forEach(input => {
         vacationData.values[input.id] = input.value || 0;
     });
 
-    console.log("保存対象データ:", vacationData);
+        // 共通データ（日数と人数）の保存
+    const vacationRows = [
+        "vacation-summer",
+        "vacation-legal5",
+        "vacation-sick",
+        "vacation-other",
+        "vacation-special",
+        "vacation-night",
+        "vacation-rotation",
+        "vacation-student",
+        "vacation-year1year3"
+    ];
+
+    vacationRows.forEach(row => {
+        vacationData.commonData[`${row}-days`] = document.getElementById(`${row}-days`)?.value || 0;
+        vacationData.commonData[`${row}-people`] = document.getElementById(`${row}-people`)?.value || 0;
+        // 必要日数の保存
+        vacationData.commonData[`${row}-required-plan`] = document.getElementById(`${row}-required-plan`)?.value || 0;
+        vacationData.commonData[`${row}-required-result`] = document.getElementById(`${row}-required-result`)?.value || 0;
+    });
     
     // ローカルストレージに保存
     localStorage.setItem("vacationData", JSON.stringify(vacationData));
@@ -246,23 +267,32 @@ function saveVacationData() {
 
 // 月ごとの休暇予定と実績データ復元
 function loadVacationData() {
-    const storedData = JSON.parse(localStorage.getItem("vacationData")) || { tableState: "4-9", values: {} };
+    const storedData = JSON.parse(localStorage.getItem("vacationData")) || { 
+        tableState: "4-9", 
+        values: {} ,
+        commonData: {}
+    };
 
-    console.log("復元対象データ:", storedData);
-
-    // 保存されたデータをすべて復元
+    // 保存された値を復元
     if (storedData.values) {
         Object.entries(storedData.values).forEach(([key, value]) => {
             const input = document.getElementById(key);
-            if (input) {
-                input.value = value; // 値を復元
-                console.log(`復元: ${key} => ${value}`);
-            } else {
-                console.warn(`復元対象が見つかりません: ${key}`);
-            }
+            if (input) input.value = value;
         });
     }
 
+    // 共通データの復元
+    if (storedData.commonData) {
+        Object.entries(storedData.commonData).forEach(([key, value]) => {
+            // 両方のテーブルの対応する要素に値を設定
+            const element4to9 = document.getElementById(key);
+            const element10to3 = document.getElementById(key.replace("4-9", "10-3"));
+            
+            if (element4to9) element4to9.value = value;
+            if (element10to3) element10to3.value = value;
+        });
+    }
+    
     // テーブル状態を復元
     const table4To9 = document.getElementById("vacation-table-4-9");
     const table10To3 = document.getElementById("vacation-table-10-3");
@@ -371,6 +401,9 @@ function addVacationTableSwitcher() {
         const table10To3 = document.getElementById("vacation-table-10-3");
         const tablePeriod = document.getElementById("vacation-table-period");
 
+        // 現在のデータを保存
+        saveVacationData();
+
         if (table4To9.classList.contains("active")) {
             table4To9.classList.remove("active");
             table4To9.classList.add("hidden");
@@ -384,8 +417,17 @@ function addVacationTableSwitcher() {
             table4To9.classList.add("active");
             tablePeriod.textContent = "4月〜9月";
         }
+
+        // 共通データを再適用
+        const storedData = JSON.parse(localStorage.getItem("vacationData"));
+        if (storedData && storedData.commonData) {
+            Object.entries(storedData.commonData).forEach(([key, value]) => {
+                const element = document.getElementById(key);
+                if (element) element.value = value;
+            });
+        }
+        
         calculateVacationRequiredDays();
-        saveVacationData();// テーブル切り替え時に保存
         console.log("テーブル切り替え完了");
     }
 
