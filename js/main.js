@@ -1,10 +1,10 @@
-// JavaScriptファイル全文
+// メインのJavaScriptファイル
 
 document.addEventListener("DOMContentLoaded", function () {
     initializePage();
-    initializeShiftInputs(); // シフトデータの初期化を追加
-    addVacationTableSwitcher(); // 休暇テーブル切り替え機能を追加
-    loadVacationData(); // ローカルストレージから復元
+    initializeShiftInputs();
+    addVacationTableSwitcher();
+    loadVacationData();
 });
 
 // 初期化関数
@@ -22,7 +22,7 @@ function initializePage() {
     calculateTotalNurses();
     calculateCalendarDays();
     calculateMonthlySums();
-    calculateVacationRequiredDays(); 
+    calculateVacationRequiredDays();
 
     console.log("ページ初期化完了");
 }
@@ -124,7 +124,7 @@ function calculateVacationRequiredDays() {
         let totalResult = 0;
 
         const months = [
-            "apr", "may", "jun", "jul", "aug", "sep", 
+            "apr", "may", "jun", "jul", "aug", "sep",
             "oct", "nov", "dec", "jan", "feb", "mar"
         ];
 
@@ -146,20 +146,19 @@ function calculateVacationRequiredDays() {
 
         if (requiredPlanField) {
             const requiredPlanValue = (totalDays * totalPeople) - totalPlan;
-            requiredPlanField.value = requiredPlanValue >= 0 ? requiredPlanValue : 0; // 負の値を防ぐ
+            requiredPlanField.value = requiredPlanValue >= 0 ? requiredPlanValue : 0;
             console.log(`Required Plan (${row}):`, requiredPlanValue);
         }
-        
+
         if (requiredResultField) {
             const requiredResultValue = (totalDays * totalPeople) - totalResult;
-            requiredResultField.value = requiredResultValue >= 0 ? requiredResultValue : 0; // 負の値を防ぐ
+            requiredResultField.value = requiredResultValue >= 0 ? requiredResultValue : 0;
             console.log(`Required Result (${row}):`, requiredResultValue);
         }
     });
 
     console.log("「月ごとの休暇予定と実績」の計算完了");
 }
-
 
 // ローカルストレージからデータを読み込む
 function loadData() {
@@ -204,7 +203,7 @@ function saveShiftData() {
                 const inputId = `${type}-${month}-${shiftCategory}`;
                 const input = document.getElementById(inputId);
                 if (input) {
-                    shiftData[inputId] = input.value || 0; // 値を保存
+                    shiftData[inputId] = input.value || 0;
                 }
             });
         });
@@ -220,26 +219,26 @@ function loadShiftData() {
     Object.entries(shiftData).forEach(([key, value]) => {
         const input = document.getElementById(key);
         if (input) {
-            input.value = value; // 保存された値を復元
+            input.value = value;
         }
     });
     console.log("シフトデータ復元完了");
 }
 
-//月ごとの休暇予定と実績データ保存
+// 月ごとの休暇予定と実績データ保存
 function saveVacationData() {
     const vacationData = {
         tableState: document.getElementById("vacation-table-4-9").classList.contains("active") ? "4-9" : "10-3",
-        values: {} ,
-        commonData: {} // 共通データ用のオブジェクトを追加
+        values: {},
+        commonData: {}
     };
 
-    // すべての入力フィールドと計算結果を保存
+    // すべての入力フィールドの値を保存
     document.querySelectorAll(".vacation-table input[type='number']").forEach(input => {
         vacationData.values[input.id] = input.value || 0;
     });
 
-        // 共通データ（日数と人数）の保存
+    // 共通データ（日数と人数）の保存
     const vacationRows = [
         "vacation-summer",
         "vacation-legal5",
@@ -259,7 +258,7 @@ function saveVacationData() {
         vacationData.commonData[`${row}-required-plan`] = document.getElementById(`${row}-required-plan`)?.value || 0;
         vacationData.commonData[`${row}-required-result`] = document.getElementById(`${row}-required-result`)?.value || 0;
     });
-    
+
     // ローカルストレージに保存
     localStorage.setItem("vacationData", JSON.stringify(vacationData));
     console.log("月ごとの休暇予定と実績データ保存完了");
@@ -267,13 +266,70 @@ function saveVacationData() {
 
 // 月ごとの休暇予定と実績データ復元
 function loadVacationData() {
-    const storedData = JSON.parse(localStorage.getItem("vacationData")) || { 
-        tableState: "4-9", 
-        values: {} ,
+    const storedData = JSON.parse(localStorage.getItem("vacationData")) || {
+        tableState: "4-9",
+        values: {},
         commonData: {}
     };
 
-    // 保存された値を復元
+    // まず4月〜9月テーブルをアクティブに設定
+    const table4To9 = document.getElementById("vacation-table-4-9");
+    const table10To3 = document.getElementById("vacation-table-10-3");
+    const tablePeriod = document.getElementById("vacation-table-period");
+
+    // 強制的に4月〜9月を表示
+    table4To9.classList.remove("hidden");
+    table4To9.classList.add("active");
+    table10To3.classList.add("hidden");
+    table10To3.classList.remove("active");
+    tablePeriod.textContent = "4月〜9月";
+
+    // 共通データの復元（両方のテーブルに適用）
+    if (storedData.commonData) {
+        const vacationRows = [
+            "vacation-summer",
+            "vacation-legal5",
+            "vacation-sick",
+            "vacation-other",
+            "vacation-special",
+            "vacation-night",
+            "vacation-rotation",
+            "vacation-student",
+            "vacation-year1year3"
+        ];
+
+        vacationRows.forEach(row => {
+            // 日数と人数の設定
+            const daysValue = storedData.commonData[`${row}-days`] || '';
+            const peopleValue = storedData.commonData[`${row}-people`] || '';
+            const requiredPlanValue = storedData.commonData[`${row}-required-plan`] || '';
+            const requiredResultValue = storedData.commonData[`${row}-required-result`] || '';
+
+            // 4月〜9月テーブルの設定
+            const days4to9 = document.getElementById(`${row}-days`);
+            const people4to9 = document.getElementById(`${row}-people`);
+            const requiredPlan4to9 = document.getElementById(`${row}-required-plan`);
+            const requiredResult4to9 = document.getElementById(`${row}-required-result`);
+
+            if (days4to9) days4to9.value = daysValue;
+            if (people4to9) people4to9.value = peopleValue;
+            if (requiredPlan4to9) requiredPlan4to9.value = requiredPlanValue;
+            if (requiredResult4to9) requiredResult4to9.value = requiredResultValue;
+
+            // 10月〜3月テーブルの設定
+            const days10to3 = document.querySelector(`#vacation-table-10-3 [data-row="${row}-days"]`);
+            const people10to3 = document.querySelector(`#vacation-table-10-3 [data-row="${row}-people"]`);
+            const requiredPlan10to3 = document.querySelector(`#vacation-table-10-3 [data-row="${row}-required-plan"]`);
+            const requiredResult10to3 = document.querySelector(`#vacation-table-10-3 [data-row="${row}-required-result"]`);
+
+            if (days10to3) days10to3.value = daysValue;
+            if (people10to3) people10to3.value = peopleValue;
+            if (requiredPlan10to3) requiredPlan10to3.value = requiredPlanValue;
+            if (requiredResult10to3) requiredResult10to3.value = requiredResultValue;
+        });
+    }
+
+    // 月別データの復元
     if (storedData.values) {
         Object.entries(storedData.values).forEach(([key, value]) => {
             const input = document.getElementById(key);
@@ -281,43 +337,12 @@ function loadVacationData() {
         });
     }
 
-    // 共通データの復元
-    if (storedData.commonData) {
-        Object.entries(storedData.commonData).forEach(([key, value]) => {
-            // 両方のテーブルの対応する要素に値を設定
-            const element4to9 = document.getElementById(key);
-            const element10to3 = document.getElementById(key.replace("4-9", "10-3"));
-            
-            if (element4to9) element4to9.value = value;
-            if (element10to3) element10to3.value = value;
-        });
-    }
-    
-    // テーブル状態を復元
-    const table4To9 = document.getElementById("vacation-table-4-9");
-    const table10To3 = document.getElementById("vacation-table-10-3");
-    const tablePeriod = document.getElementById("vacation-table-period");
-
-    if (storedData.tableState === "10-3") {
-        table4To9.classList.remove("active");
-        table4To9.classList.add("hidden");
-        table10To3.classList.remove("hidden");
-        table10To3.classList.add("active");
-        tablePeriod.textContent = "10月〜3月";
-    } else {
-        table10To3.classList.remove("active");
-        table10To3.classList.add("hidden");
-        table4To9.classList.remove("hidden");
-        table4To9.classList.add("active");
-        tablePeriod.textContent = "4月〜9月";
-    }
-
     // 必要日数を再計算
     calculateVacationRequiredDays();
     console.log("月ごとの休暇予定と実績データ復元完了");
 }
 
-// 初期化関数に保存と復元の処理を追加
+// シフト入力の初期化
 function initializeShiftInputs() {
     loadShiftData();
 
@@ -334,23 +359,22 @@ function initializeShiftInputs() {
 
 // イベントリスナーを追加
 function addEventListeners() {
-    document.querySelectorAll("input[type='number']").forEach(input => {
-        input.addEventListener("input", () => {
+    document.querySelectorAll("input[type='number']").forEach(input => {input.addEventListener("input", () => {
             calculateTotalNurses();
             calculateCalendarDays();
             calculateMonthlySums();
             saveData();
-            calculateVacationRequiredDays(); // 全月の「必要日数」再計算
+            calculateVacationRequiredDays();
         });
     });
-    
-document.querySelectorAll(".vacation-table input[type='number'], .vacation-table input[type='text']").forEach(input => {
-    input.addEventListener("input", () => {
-        console.log(`入力変更検知: ${input.id} => ${input.value}`);
-        saveVacationData(); // 入力変更時にデータを保存
+
+    document.querySelectorAll(".vacation-table input[type='number']").forEach(input => {
+        input.addEventListener("input", () => {
+            saveVacationData();
+            calculateVacationRequiredDays();
+        });
     });
-});
-   
+
     console.log("イベントリスナー追加完了");
 }
 
@@ -391,7 +415,7 @@ function addTableSwitcher() {
     nextButton.addEventListener("click", toggleTables);
 }
 
-// テーブル切り替え時にデータ保存
+// 休暇テーブル切り替え機能
 function addVacationTableSwitcher() {
     const prevButton = document.getElementById("vacation-prev-button");
     const nextButton = document.getElementById("vacation-next-button");
@@ -405,12 +429,42 @@ function addVacationTableSwitcher() {
         saveVacationData();
 
         if (table4To9.classList.contains("active")) {
+            // 4月〜9月から10月〜3月への切り替え
             table4To9.classList.remove("active");
             table4To9.classList.add("hidden");
             table10To3.classList.remove("hidden");
             table10To3.classList.add("active");
             tablePeriod.textContent = "10月〜3月";
+
+            // 共通データを10月〜3月テーブルに明示的に適用
+            const storedData = JSON.parse(localStorage.getItem("vacationData"));
+            if (storedData && storedData.commonData) {
+                const vacationRows = [
+                    "vacation-summer",
+                    "vacation-legal5",
+                    "vacation-sick",
+                    "vacation-other",
+                    "vacation-special",
+                    "vacation-night",
+                    "vacation-rotation",
+                    "vacation-student",
+                    "vacation-year1year3"
+                ];
+
+                vacationRows.forEach(row => {
+                    const days = document.querySelector(`#vacation-table-10-3 [data-row="${row}-days"]`);
+                    const people = document.querySelector(`#vacation-table-10-3 [data-row="${row}-people"]`);
+                    const requiredPlan = document.querySelector(`#vacation-table-10-3 [data-row="${row}-required-plan"]`);
+                    const requiredResult = document.querySelector(`#vacation-table-10-3 [data-row="${row}-required-result"]`);
+
+                    if (days) days.value = storedData.commonData[`${row}-days`] || '';
+                    if (people) people.value = storedData.commonData[`${row}-people`] || '';
+                    if (requiredPlan) requiredPlan.value = storedData.commonData[`${row}-required-plan`] || '';
+                    if (requiredResult) requiredResult.value = storedData.commonData[`${row}-required-result`] || '';
+                });
+            }
         } else {
+            // 10月〜3月から4月〜9月への切り替え
             table10To3.classList.remove("active");
             table10To3.classList.add("hidden");
             table4To9.classList.remove("hidden");
@@ -418,15 +472,7 @@ function addVacationTableSwitcher() {
             tablePeriod.textContent = "4月〜9月";
         }
 
-        // 共通データを再適用
-        const storedData = JSON.parse(localStorage.getItem("vacationData"));
-        if (storedData && storedData.commonData) {
-            Object.entries(storedData.commonData).forEach(([key, value]) => {
-                const element = document.getElementById(key);
-                if (element) element.value = value;
-            });
-        }
-        
+        // 必要日数を再計算
         calculateVacationRequiredDays();
         console.log("テーブル切り替え完了");
     }
