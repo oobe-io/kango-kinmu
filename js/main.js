@@ -117,8 +117,14 @@ function calculateVacationRequiredDays() {
     ];
 
     vacationRows.forEach(row => {
-        const totalDays = parseInt(document.getElementById(`${row}-days`)?.value) || 0;
-        const totalPeople = parseInt(document.getElementById(`${row}-people`)?.value) || 0;
+        // 両方のテーブルの日数・人数を取得（4-9のテーブルを優先）
+        const daysInput = document.getElementById(`${row}-days`) || 
+                         document.getElementById(`${row}-days-10-3`);
+        const peopleInput = document.getElementById(`${row}-people`) || 
+                          document.getElementById(`${row}-people-10-3`);
+        
+        const totalDays = parseInt(daysInput?.value) || 0;
+        const totalPeople = parseInt(peopleInput?.value) || 0;
 
         let totalPlan = 0;
         let totalResult = 0;
@@ -129,8 +135,12 @@ function calculateVacationRequiredDays() {
         ];
 
         months.forEach(month => {
-            const planField = document.getElementById(`${row}-${month}-plan`);
-            const resultField = document.getElementById(`${row}-${month}-result`);
+            // 4-9と10-3の両方のテーブルから値を取得
+            const planId = `${row}-${month}-plan`;
+            const resultId = `${row}-${month}-result`;
+            
+            const planField = document.getElementById(planId);
+            const resultField = document.getElementById(resultId);
 
             if (planField) {
                 totalPlan += parseInt(planField.value) || 0;
@@ -141,20 +151,27 @@ function calculateVacationRequiredDays() {
             }
         });
 
-        const requiredPlanField = document.getElementById(`${row}-required-plan`);
-        const requiredResultField = document.getElementById(`${row}-required-result`);
+        // 両方のテーブルの必要日数フィールドを更新
+        const requiredPlanFields = [
+            document.getElementById(`${row}-required-plan`),
+            document.getElementById(`${row}-required-plan-10-3`)
+        ];
 
-        if (requiredPlanField) {
-            const requiredPlanValue = (totalDays * totalPeople) - totalPlan;
-            requiredPlanField.value = requiredPlanValue >= 0 ? requiredPlanValue : 0;
-            console.log(`Required Plan (${row}):`, requiredPlanValue);
-        }
+        const requiredResultFields = [
+            document.getElementById(`${row}-required-result`),
+            document.getElementById(`${row}-required-result-10-3`)
+        ];
 
-        if (requiredResultField) {
-            const requiredResultValue = (totalDays * totalPeople) - totalResult;
-            requiredResultField.value = requiredResultValue >= 0 ? requiredResultValue : 0;
-            console.log(`Required Result (${row}):`, requiredResultValue);
-        }
+        const requiredPlanValue = Math.max(0, (totalDays * totalPeople) - totalPlan);
+        const requiredResultValue = Math.max(0, (totalDays * totalPeople) - totalResult);
+
+        requiredPlanFields.forEach(field => {
+            if (field) field.value = requiredPlanValue;
+        });
+
+        requiredResultFields.forEach(field => {
+            if (field) field.value = requiredResultValue;
+        });
     });
 
     console.log("「月ごとの休暇予定と実績」の計算完了");
@@ -359,7 +376,8 @@ function initializeShiftInputs() {
 
 // イベントリスナーを追加
 function addEventListeners() {
-    document.querySelectorAll("input[type='number']").forEach(input => {input.addEventListener("input", () => {
+    document.querySelectorAll("input[type='number']").forEach(input => {
+        input.addEventListener("input", () => {
             calculateTotalNurses();
             calculateCalendarDays();
             calculateMonthlySums();
@@ -368,14 +386,13 @@ function addEventListeners() {
         });
     });
 
+    // 両方のテーブルの入力フィールドにイベントリスナーを追加
     document.querySelectorAll(".vacation-table input[type='number']").forEach(input => {
         input.addEventListener("input", () => {
             saveVacationData();
             calculateVacationRequiredDays();
         });
     });
-
-    console.log("イベントリスナー追加完了");
 }
 
 // 「月ごとの予定勤務者数を入力」のテーブル切り替え機能
