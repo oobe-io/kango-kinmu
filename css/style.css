@@ -102,32 +102,3 @@ input[type="number"] {
     height: 40px;
     font-size: 1rem;
 }
-
-/* テーブル全体のスタイル */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed; /* 列幅を固定 */
-}
-
-th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-    width: calc(100% / 13); /* 13列の場合、各列の幅を均等に */
-}
-
-th {
-    background-color: #4CAF50;
-    color: white;
-}
-
-input[type="number"] {
-    width: 100%;
-    box-sizing: border-box;
-    border: none;
-    text-align: center;
-    background-color: transparent;
-    font-size: 1rem;
-}
-
