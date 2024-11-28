@@ -16,9 +16,9 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    width: 80%; /* 横幅を画面の80%に設定 */
+    width: 80%;
     max-width: 1200px;
-    margin-bottom: 20px; /* コンテナ間のスペースを確保 */
+    margin-bottom: 20px;
 }
 
 /* テーブルスタイル */
@@ -26,13 +26,14 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
+    table-layout: fixed;
 }
 
 th, td {
     padding: 10px;
     border: 1px solid #ddd;
     text-align: center;
-    width: auto; /* 各セルの幅を自動調整 */
+    vertical-align: middle;
 }
 
 th {
@@ -42,11 +43,14 @@ th {
 
 /* 入力フィールドのスタイル */
 input[type="number"] {
-    width: 100%; /* 入力欄の幅をセルに合わせる */
-    height: 40px; /* 入力欄の高さ */
-    font-size: 1rem; /* フォントサイズを大きく */
-    padding: 5px; /* 内側の余白 */
+    width: 100%;
+    height: 35px;
+    font-size: 14px;
+    padding: 5px;
     box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    text-align: right;
 }
 
 /* シフト入力フィールド専用 */
@@ -58,11 +62,11 @@ input[type="number"] {
 
 /* テーブル切り替え用スタイル */
 .shift-table {
-    display: none; /* 初期状態では非表示 */
+    display: none;
 }
 
 .shift-table.active {
-    display: block; /* 表示するテーブル */
+    display: block;
 }
 
 .hidden {
@@ -74,31 +78,159 @@ input[type="number"] {
     justify-content: center;
     align-items: center;
     margin-bottom: 10px;
+    gap: 10px;
 }
 
 .table-switcher button {
-    margin: 0 10px;
     padding: 5px 10px;
     font-size: 1rem;
     cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
 }
 
 /* 休暇テーブルスタイル */
 .vacation-table {
-    display: none; /* 初期状態では非表示 */
+    display: none;
+    overflow-x: auto;
 }
 
 .vacation-table.active {
-    display: block; /* アクティブなテーブルのみ表示 */
+    display: block;
 }
 
-.vacation-table th {
+.vacation-table table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.vacation-table th,
+.vacation-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* 項目列の幅設定 */
+.vacation-table td:first-child {
+    width: 150px;
+    text-align: left;
+    padding-left: 10px;
+}
+
+/* 日・人列の幅設定 */
+.vacation-table th:nth-last-child(1),
+.vacation-table th:nth-last-child(2),
+.vacation-table td:nth-last-child(1),
+.vacation-table td:nth-last-child(2) {
+    width: 60px;
+    background-color: #f9f9f9;
+}
+
+/* その他の列の幅設定 */
+.vacation-table td:not(:first-child):not(:nth-last-child(1)):not(:nth-last-child(2)),
+.vacation-table th:not(:first-child):not(:nth-last-child(1)):not(:nth-last-child(2)) {
+    width: calc((100% - 270px) / 14);
+}
+
+/* 休暇テーブルの入力フィールドのスタイル */
+.vacation-table input[type="number"] {
+    width: 100%;
+    height: 30px;
+    padding: 2px 5px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    text-align: right;
+    box-sizing: border-box;
+}
+
+/* 読み取り専用フィールドのスタイル */
+.vacation-table input[readonly] {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+}
+
+/* 月ごとの平日・休日入力と暦日計算のテーブルスタイル */
+.calendar-input {
+    width: 100%;
+    height: 35px;
+    font-size: 14px;
+    padding: 5px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    text-align: center;
+}
+
+/* 暦日数（読み取り専用）のスタイル */
+.calendar-input[readonly] {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+}
+
+/* テーブルのセルの幅を調整 */
+#calendar-table td {
+    padding: 5px;
+    width: calc((100% - 100px) / 12);
+}
+
+#calendar-table td:first-child {
+    width: 100px;
+    text-align: left;
+    padding-left: 10px;
+}
+
+/* テーブルヘッダーのスタイル */
+#calendar-table th {
     background-color: #4CAF50;
     color: white;
+    padding: 8px;
+    text-align: center;
 }
 
-.vacation-table input[type="number"] {
-    width: 100%; /* 入力欄の幅をセル全体に合わせる */
-    height: 40px; /* 入力欄の高さ */
-    font-size: 1rem;
+/* テーブルヘッダーの位置固定 */
+.vacation-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+/* ヘッダーテキストの折り返し防止 */
+.vacation-table th {
+    white-space: nowrap;
+}
+
+/* レスポンシブ対応 */
+@media screen and (max-width: 1200px) {
+    .container {
+        width: 95%;
+        padding: 10px;
+    }
+
+    .vacation-table {
+        overflow-x: auto;
+    }
+}
+
+/* 入力フィールドのホバー状態 */
+.vacation-table input[type="number"]:hover:not([readonly]) {
+    background-color: #f8f8f8;
+}
+
+/* 入力フィールドのフォーカス状態 */
+.vacation-table input[type="number"]:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 3px rgba(74, 175, 80, 0.3);
+}
+
+/* 必要日数セルのスタイル */
+.vacation-table td:nth-last-child(3),
+.vacation-table td:nth-last-child(4) {
+    background-color: #f5f5f5;
 }
