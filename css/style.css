@@ -16,9 +16,9 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    width: 80%; /* 横幅を画面の80%に設定 */
+    width: 80%;
     max-width: 1200px;
-    margin-bottom: 20px; /* コンテナ間のスペースを確保 */
+    margin-bottom: 20px;
 }
 
 /* テーブルスタイル */
@@ -32,7 +32,7 @@ th, td {
     padding: 10px;
     border: 1px solid #ddd;
     text-align: center;
-    width: auto; /* 各セルの幅を自動調整 */
+    width: auto;
 }
 
 th {
@@ -42,10 +42,10 @@ th {
 
 /* 入力フィールドのスタイル */
 input[type="number"] {
-    width: 100%; /* 入力欄の幅をセルに合わせる */
-    height: 40px; /* 入力欄の高さ */
-    font-size: 1rem; /* フォントサイズを大きく */
-    padding: 5px; /* 内側の余白 */
+    width: 100%;
+    height: 40px;
+    font-size: 1rem;
+    padding: 5px;
     box-sizing: border-box;
 }
 
@@ -58,11 +58,11 @@ input[type="number"] {
 
 /* テーブル切り替え用スタイル */
 .shift-table {
-    display: none; /* 初期状態では非表示 */
+    display: none;
 }
 
 .shift-table.active {
-    display: block; /* 表示するテーブル */
+    display: block;
 }
 
 .hidden {
@@ -85,11 +85,11 @@ input[type="number"] {
 
 /* 休暇テーブルスタイル */
 .vacation-table {
-    display: none; /* 初期状態では非表示 */
+    display: none;
 }
 
 .vacation-table.active {
-    display: block; /* アクティブなテーブルのみ表示 */
+    display: block;
 }
 
 .vacation-table th {
@@ -98,7 +98,83 @@ input[type="number"] {
 }
 
 .vacation-table input[type="number"] {
-    width: 100%; /* 入力欄の幅をセル全体に合わせる */
-    height: 40px; /* 入力欄の高さ */
+    width: 100%;
+    height: 40px;
     font-size: 1rem;
+}
+
+/* 追加テーブルのスタイル */
+.calendar-additional {
+    margin-top: 20px;
+}
+
+/* 計算テーブルのスタイル */
+.calculation-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.calculation-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.calculation-table td:first-child {
+    background-color: #f5f5f5;
+    font-weight: bold;
+    text-align: left;
+    width: 120px;
+}
+
+.calculation-table input[type="number"] {
+    width: 100%;
+    height: 40px;
+    font-size: 1rem;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+/* 年度別カレンダーのスタイル */
+.yearly-calendar {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.yearly-calendar th,
+.yearly-calendar td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.yearly-calendar th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.yearly-calendar td:first-child {
+    background-color: #f5f5f5;
+    font-weight: bold;
+    width: 120px;
+}
+
+.yearly-calendar td[colspan="24"] {
+    border: 1px solid #ddd;
+}
+
+/* 読み取り専用フィールドのスタイル */
+input[readonly] {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+}
+
+/* テーブル内の数値セルのスタイル */
+.numeric-cell {
+    font-family: 'Arial', sans-serif;
+    text-align: right;
+    padding-right: 10px;
 }
