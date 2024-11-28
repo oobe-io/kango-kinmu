@@ -399,88 +399,70 @@
         <h1>月ごとの平日・休日入力と暦日計算</h1>
         <form id="calendar-form">
             <table>
-                <thead>
-                    <tr>
-                        <th><input type="number" id="year" value="2024" required></th>
-                        <th>4月</th>
-                        <th>5月</th>
-                        <th>6月</th>
-                        <th>7月</th>
-                        <th>8月</th>
-                        <th>9月</th>
-                        <th>10月</th>
-                        <th>11月</th>
-                        <th>12月</th>
-                        <th>1月</th>
-                        <th>2月</th>
-                        <th>3月</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>平日</td>
-                        <td>
-                            <input type="number" id="weekday-apr" required><br>
-                            <label>休日</label><input type="number" id="holiday-apr" required><br>
-                            <label>暦日数</label><input type="number" id="calendar-apr" readonly>
-                        </td>
-                        <td>
-                            <input type="number" id="weekday-may" required><br>
-                            <label>休日</label><input type="number" id="holiday-may" required><br>
-                            <label>暦日数</label><input type="number" id="calendar-may" readonly>
-                        </td>
-                        <td>
-                            <input type="number" id="weekday-jun" required><br>
-                            <label>休日</label><input type="number" id="holiday-jun" required><br>
-                            <label>暦日数</label><input type="number" id="calendar-jun" readonly>
-                        </td>
-                        <td>
-                            <input type="number" id="weekday-jul" required><br>
-                            <label>休日</label><input type="number" id="holiday-jul" required><br>
-                            <label>暦日数</label><input type="number" id="calendar-jul" readonly>
-                        </td>
-                        <td>
-                            <input type="number" id="weekday-aug" required><br>
-                            <label>休日</label><input type="number" id="holiday-aug" required><br>
-                            <label>暦日数</label><input type="number" id="calendar-aug" readonly>
-                        </td>
-                        <td>
-                            <input type="number" id="weekday-sep" required><br>
-                            <label>休日</label><input type="number" id="holiday-sep" required><br>
-                            <label>暦日数</label><input type="number" id="calendar-sep" readonly>
-                        </td>
-                        <td>
-                            <input type="number" id="weekday-oct" required><br>
-                            <label>休日</label><input type="number" id="holiday-oct" required><br>
-                            <label>暦日数</label><input type="number" id="calendar-oct" readonly>
-                        </td>
-                        <td>
-                            <input type="number" id="weekday-nov" required><br>
-                            <label>休日</label><input type="number" id="holiday-nov" required><br>
-                            <label>暦日数</label><input type="number" id="calendar-nov" readonly>
-                        </td>
-                        <td>
-                            <input type="number" id="weekday-dec" required><br>
-                            <label>休日</label><input type="number" id="holiday-dec" required><br>
-                            <label>暦日数</label><input type="number" id="calendar-dec" readonly>
-                        </td>
-                        <td>
-                            <input type="number" id="weekday-jan" required><br>
-                            <label>休日</label><input type="number" id="holiday-jan" required><br>
-                            <label>暦日数</label><input type="number" id="calendar-jan" readonly>
-                        </td>
-                        <td>
-                            <input type="number" id="weekday-feb" required><br>
-                            <label>休日</label><input type="number" id="holiday-feb" required><br>
-                            <label>暦日数</label><input type="number" id="calendar-feb" readonly>
-                        </td>
-                        <td>
-                            <input type="number" id="weekday-mar" required><br>
-                            <label>休日</label><input type="number" id="holiday-mar" required><br>
-                            <label>暦日数</label><input type="number" id="calendar-mar" readonly>
-                        </td>
-                    </tr>
-                </tbody>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>4月</th>
+                  <th>5月</th>
+                  <th>6月</th>
+                  <th>7月</th>
+                  <th>8月</th>
+                  <th>9月</th>
+                  <th>10月</th>
+                  <th>11月</th>
+                  <th>12月</th>
+                  <th>1月</th>
+                  <th>2月</th>
+                  <th>3月</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>平日</td>
+                  <td><input type="number" id="weekday-apr" class="calendar-input"></td>
+                  <td><input type="number" id="weekday-may" class="calendar-input"></td>
+                  <td><input type="number" id="weekday-jun" class="calendar-input"></td>
+                  <td><input type="number" id="weekday-jul" class="calendar-input"></td>
+                  <td><input type="number" id="weekday-aug" class="calendar-input"></td>
+                  <td><input type="number" id="weekday-sep" class="calendar-input"></td>
+                  <td><input type="number" id="weekday-oct" class="calendar-input"></td>
+                  <td><input type="number" id="weekday-nov" class="calendar-input"></td>
+                  <td><input type="number" id="weekday-dec" class="calendar-input"></td>
+                  <td><input type="number" id="weekday-jan" class="calendar-input"></td>
+                  <td><input type="number" id="weekday-feb" class="calendar-input"></td>
+                  <td><input type="number" id="weekday-mar" class="calendar-input"></td>
+                </tr>
+                <tr>
+                  <td>休日</td>
+                  <td><input type="number" id="holiday-apr" class="calendar-input"></td>
+                  <td><input type="number" id="holiday-may" class="calendar-input"></td>
+                  <td><input type="number" id="holiday-jun" class="calendar-input"></td>
+                  <td><input type="number" id="holiday-jul" class="calendar-input"></td>
+                  <td><input type="number" id="holiday-aug" class="calendar-input"></td>
+                  <td><input type="number" id="holiday-sep" class="calendar-input"></td>
+                  <td><input type="number" id="holiday-oct" class="calendar-input"></td>
+                  <td><input type="number" id="holiday-nov" class="calendar-input"></td>
+                  <td><input type="number" id="holiday-dec" class="calendar-input"></td>
+                  <td><input type="number" id="holiday-jan" class="calendar-input"></td>
+                  <td><input type="number" id="holiday-feb" class="calendar-input"></td>
+                  <td><input type="number" id="holiday-mar" class="calendar-input"></td>
+                </tr>
+                <tr>
+                  <td>暦日数</td>
+                  <td><input type="number" id="calendar-apr" class="calendar-input" readonly></td>
+                  <td><input type="number" id="calendar-may" class="calendar-input" readonly></td>
+                  <td><input type="number" id="calendar-jun" class="calendar-input" readonly></td>
+                  <td><input type="number" id="calendar-jul" class="calendar-input" readonly></td>
+                  <td><input type="number" id="calendar-aug" class="calendar-input" readonly></td>
+                  <td><input type="number" id="calendar-sep" class="calendar-input" readonly></td>
+                  <td><input type="number" id="calendar-oct" class="calendar-input" readonly></td>
+                  <td><input type="number" id="calendar-nov" class="calendar-input" readonly></td>
+                  <td><input type="number" id="calendar-dec" class="calendar-input" readonly></td>
+                  <td><input type="number" id="calendar-jan" class="calendar-input" readonly></td>
+                  <td><input type="number" id="calendar-feb" class="calendar-input" readonly></td>
+                  <td><input type="number" id="calendar-mar" class="calendar-input" readonly></td>
+                </tr>
+              </tbody>
             </table>
         </form>
     </div>
