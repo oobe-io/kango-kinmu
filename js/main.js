@@ -23,7 +23,9 @@ function initializePage() {
     calculateCalendarDays();
     calculateMonthlySums();
     calculateVacationRequiredDays();
-    calculateWorkAndRestDays(); // 追加
+    calculateWorkAndRestDays(); 
+    loadDeploymentData();
+    addEventListeners();
 
     console.log("ページ初期化完了");
 }
@@ -408,6 +410,43 @@ function loadVacationData() {
     console.log("月ごとの休暇予定と実績データ復元完了");
 }
 
+
+//投入割合など保存
+function saveDeploymentData() {
+    const months = [
+        "apr", "may", "jun", "jul", "aug", "sep",
+        "oct", "nov", "dec", "jan", "feb", "mar"
+    ];
+
+    const deploymentData = {};
+
+    months.forEach(month => {
+        const deploymentRatioField = document.getElementById(`deployment-ratio-${month}`);
+        if (deploymentRatioField) {
+            deploymentData[month] = deploymentRatioField.value || "";
+        }
+    });
+
+    localStorage.setItem("deploymentData", JSON.stringify(deploymentData));
+}
+
+//投入割合など復元
+function loadDeploymentData() {
+    const deploymentData = JSON.parse(localStorage.getItem("deploymentData") || "{}");
+    const months = [
+        "apr", "may", "jun", "jul", "aug", "sep",
+        "oct", "nov", "dec", "jan", "feb", "mar"
+    ];
+
+    months.forEach(month => {
+        const deploymentRatioField = document.getElementById(`deployment-ratio-${month}`);
+        if (deploymentRatioField && deploymentData[month]) {
+            deploymentRatioField.value = deploymentData[month];
+        }
+    });
+}
+
+
 // シフト入力の初期化
 function initializeShiftInputs() {
     loadShiftData();
@@ -433,6 +472,7 @@ function addEventListeners() {
             saveData();
             calculateVacationRequiredDays();
             calculateWorkAndRestDays(); 
+            saveDeploymentData();
         });
     });
 
