@@ -117,14 +117,21 @@ function calculateVacationRequiredDays() {
     ];
 
     vacationRows.forEach(row => {
-        // 両方のテーブルの日数・人数を取得（4-9のテーブルを優先）
-        const daysInput = document.getElementById(`${row}-days`) || 
-                         document.getElementById(`${row}-days-10-3`);
-        const peopleInput = document.getElementById(`${row}-people`) || 
-                          document.getElementById(`${row}-people-10-3`);
-        
-        const totalDays = parseInt(daysInput?.value) || 0;
-        const totalPeople = parseInt(peopleInput?.value) || 0;
+        // 両方のテーブルの日数・人数を取得（相互に同期）
+        const days4to9 = document.getElementById(`${row}-days`);
+        const days10to3 = document.getElementById(`${row}-days-10-3`);
+        const people4to9 = document.getElementById(`${row}-people`);
+        const people10to3 = document.getElementById(`${row}-people-10-3`);
+
+        // 最新の値を取得（どちらかのテーブルの値を使用）
+        const daysValue = parseInt(days4to9?.value || days10to3?.value) || 0;
+        const peopleValue = parseInt(people4to9?.value || people10to3?.value) || 0;
+
+        // 両方のテーブルの値を同期
+        if (days4to9) days4to9.value = daysValue;
+        if (days10to3) days10to3.value = daysValue;
+        if (people4to9) people4to9.value = peopleValue;
+        if (people10to3) people10to3.value = peopleValue;
 
         let totalPlan = 0;
         let totalResult = 0;
@@ -135,12 +142,8 @@ function calculateVacationRequiredDays() {
         ];
 
         months.forEach(month => {
-            // 4-9と10-3の両方のテーブルから値を取得
-            const planId = `${row}-${month}-plan`;
-            const resultId = `${row}-${month}-result`;
-            
-            const planField = document.getElementById(planId);
-            const resultField = document.getElementById(resultId);
+            const planField = document.getElementById(`${row}-${month}-plan`);
+            const resultField = document.getElementById(`${row}-${month}-result`);
 
             if (planField) {
                 totalPlan += parseInt(planField.value) || 0;
@@ -150,7 +153,7 @@ function calculateVacationRequiredDays() {
                 totalResult += parseInt(resultField.value) || 0;
             }
         });
-
+        
         // 両方のテーブルの必要日数フィールドを更新
         const requiredPlanFields = [
             document.getElementById(`${row}-required-plan`),
@@ -162,8 +165,8 @@ function calculateVacationRequiredDays() {
             document.getElementById(`${row}-required-result-10-3`)
         ];
 
-        const requiredPlanValue = Math.max(0, (totalDays * totalPeople) - totalPlan);
-        const requiredResultValue = Math.max(0, (totalDays * totalPeople) - totalResult);
+        const requiredPlanValue = Math.max(0, (daysValue * peopleValue) - totalPlan);
+        const requiredResultValue = Math.max(0, (daysValue * peopleValue) - totalResult);
 
         requiredPlanFields.forEach(field => {
             if (field) field.value = requiredPlanValue;
