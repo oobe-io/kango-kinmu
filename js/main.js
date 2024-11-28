@@ -23,6 +23,7 @@ function initializePage() {
     calculateCalendarDays();
     calculateMonthlySums();
     calculateVacationRequiredDays();
+    calculateWorkAndRestDays(); // 追加
 
     console.log("ページ初期化完了");
 }
@@ -171,6 +172,47 @@ function calculateVacationRequiredDays() {
     });
 
     console.log("「月ごとの休暇予定と実績」の計算完了");
+}
+
+// 必要公休数、可能勤務数、投入勤務数の計算
+function calculateWorkAndRestDays() {
+    const months = [
+        "apr", "may", "jun", "jul", "aug", "sep",
+        "oct", "nov", "dec", "jan", "feb", "mar"
+    ];
+
+    months.forEach(month => {
+        // 看護師総数の取得
+        const totalNurseField = document.getElementById(`total-nurse-${month}`);
+        const totalNurses = parseInt(totalNurseField?.value) || 0;
+
+        // 平日と休日の取得
+        const weekdayField = document.getElementById(`weekday-${month}`);
+        const holidayField = document.getElementById(`holiday-${month}`);
+        const weekdays = parseInt(weekdayField?.value) || 0;
+        const holidays = parseInt(holidayField?.value) || 0;
+
+        // 必要公休数の計算
+        const requiredRestDays = totalNurses * holidays;
+        const requiredRestDaysField = document.getElementById(`required-rest-days-${month}`);
+        if (requiredRestDaysField) requiredRestDaysField.value = requiredRestDays;
+
+        // 可能勤務数の計算
+        const possibleWorkDays = totalNurses * weekdays;
+        const possibleWorkDaysField = document.getElementById(`possible-work-days-${month}`);
+        if (possibleWorkDaysField) possibleWorkDaysField.value = possibleWorkDays;
+
+        // 月ごとの予定勤務者数の総和の取得
+        const totalWeekdayWorkersField = document.getElementById(`total-${month}-weekday`);
+        const totalHolidayWorkersField = document.getElementById(`total-${month}-holiday`);
+        const totalWeekdayWorkers = parseInt(totalWeekdayWorkersField?.value) || 0;
+        const totalHolidayWorkers = parseInt(totalHolidayWorkersField?.value) || 0;
+
+        // 投入勤務数の計算
+        const deployedWorkDays = (totalWeekdayWorkers * weekdays) + (totalHolidayWorkers * holidays);
+        const deployedWorkDaysField = document.getElementById(`deployed-work-days-${month}`);
+        if (deployedWorkDaysField) deployedWorkDaysField.value = deployedWorkDays;
+    });
 }
 
 // ローカルストレージからデータを読み込む
@@ -379,6 +421,7 @@ function addEventListeners() {
             calculateMonthlySums();
             saveData();
             calculateVacationRequiredDays();
+            calculateWorkAndRestDays(); 
         });
     });
 
