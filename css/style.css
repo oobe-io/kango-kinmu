@@ -104,31 +104,25 @@ input[type="number"] {
 }
 
 /* 追加テーブルのスタイル */
-.calendar-additional {
-    margin-top: 20px;
-}
-
-/* 計算テーブルのスタイル */
-.calculation-table {
+.calculation-table,
+.yearly-calendar {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
 }
 
-.calculation-table td {
+.calculation-table th,
+.calculation-table td,
+.yearly-calendar th,
+.yearly-calendar td {
     padding: 10px;
     border: 1px solid #ddd;
     text-align: center;
+    width: auto;
 }
 
-.calculation-table td:first-child {
-    background-color: #f5f5f5;
-    font-weight: bold;
-    text-align: left;
-    width: 120px;
-}
-
-.calculation-table input[type="number"] {
+.calculation-table input[type="number"],
+.yearly-calendar input[type="number"] {
     width: 100%;
     height: 40px;
     font-size: 1rem;
@@ -136,45 +130,24 @@ input[type="number"] {
     box-sizing: border-box;
 }
 
-/* 年度別カレンダーのスタイル */
-.yearly-calendar {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-}
-
-.yearly-calendar th,
-.yearly-calendar td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: center;
-    font-size: 1rem;
-}
-
-.yearly-calendar th {
-    background-color: #4CAF50;
-    color: white;
-}
-
+/* 見出しセルのスタイル */
+.calculation-table td:first-child,
 .yearly-calendar td:first-child {
     background-color: #f5f5f5;
-    font-weight: bold;
-    width: 120px;
-}
-
-.yearly-calendar td[colspan="24"] {
-    border: 1px solid #ddd;
+    text-align: center;
+    width: auto;
 }
 
 /* 読み取り専用フィールドのスタイル */
-input[readonly] {
+input[readonly],
+.calculation-table input[readonly] {
     background-color: #f5f5f5;
     cursor: not-allowed;
 }
 
-/* テーブル内の数値セルのスタイル */
-.numeric-cell {
-    font-family: 'Arial', sans-serif;
-    text-align: right;
-    padding-right: 10px;
+/* ヘッダーのスタイル統一 */
+.calculation-table th,
+.yearly-calendar th {
+    background-color: #4CAF50;
+    color: white;
 }
