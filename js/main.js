@@ -117,13 +117,13 @@ function calculateVacationRequiredDays() {
     ];
 
     vacationRows.forEach(row => {
-        // 両方のテーブルの日数・人数を取得（相互に同期）
+        // 両方のテーブルの日数・人数を取得
         const days4to9 = document.getElementById(`${row}-days`);
-        const days10to3 = document.getElementById(`${row}-days-10-3`);
+        const days10to3 = document.querySelector(`#vacation-table-10-3 [data-row="${row}-days"]`);
         const people4to9 = document.getElementById(`${row}-people`);
-        const people10to3 = document.getElementById(`${row}-people-10-3`);
+        const people10to3 = document.querySelector(`#vacation-table-10-3 [data-row="${row}-people"]`);
 
-        // 最新の値を取得（どちらかのテーブルの値を使用）
+        // 最新の値を取得
         const daysValue = parseInt(days4to9?.value || days10to3?.value) || 0;
         const peopleValue = parseInt(people4to9?.value || people10to3?.value) || 0;
 
@@ -153,28 +153,21 @@ function calculateVacationRequiredDays() {
                 totalResult += parseInt(resultField.value) || 0;
             }
         });
-        
-        // 両方のテーブルの必要日数フィールドを更新
-        const requiredPlanFields = [
-            document.getElementById(`${row}-required-plan`),
-            document.getElementById(`${row}-required-plan-10-3`)
-        ];
 
-        const requiredResultFields = [
-            document.getElementById(`${row}-required-result`),
-            document.getElementById(`${row}-required-result-10-3`)
-        ];
-
+        // 必要日数の計算と更新
         const requiredPlanValue = Math.max(0, (daysValue * peopleValue) - totalPlan);
         const requiredResultValue = Math.max(0, (daysValue * peopleValue) - totalResult);
 
-        requiredPlanFields.forEach(field => {
-            if (field) field.value = requiredPlanValue;
-        });
+        // 両方のテーブルの必要日数を更新
+        const requiredPlan4to9 = document.getElementById(`${row}-required-plan`);
+        const requiredPlan10to3 = document.querySelector(`#vacation-table-10-3 [data-row="${row}-required-plan"]`);
+        const requiredResult4to9 = document.getElementById(`${row}-required-result`);
+        const requiredResult10to3 = document.querySelector(`#vacation-table-10-3 [data-row="${row}-required-result"]`);
 
-        requiredResultFields.forEach(field => {
-            if (field) field.value = requiredResultValue;
-        });
+        if (requiredPlan4to9) requiredPlan4to9.value = requiredPlanValue;
+        if (requiredPlan10to3) requiredPlan10to3.value = requiredPlanValue;
+        if (requiredResult4to9) requiredResult4to9.value = requiredResultValue;
+        if (requiredResult10to3) requiredResult10to3.value = requiredResultValue;
     });
 
     console.log("「月ごとの休暇予定と実績」の計算完了");
@@ -392,6 +385,17 @@ function addEventListeners() {
     // 両方のテーブルの入力フィールドにイベントリスナーを追加
     document.querySelectorAll(".vacation-table input[type='number']").forEach(input => {
         input.addEventListener("input", () => {
+            // 「日」「人」の入力値を同期
+            if (input.hasAttribute('data-row')) {
+                const rowId = input.getAttribute('data-row');
+                const otherTableInput = document.querySelector(
+                    `.vacation-table ${input.closest('#vacation-table-4-9') ? 
+                    '#vacation-table-10-3' : '#vacation-table-4-9'} [data-row="${rowId}"]`
+                );
+                if (otherTableInput) {
+                    otherTableInput.value = input.value;
+                }
+            }
             saveVacationData();
             calculateVacationRequiredDays();
         });
