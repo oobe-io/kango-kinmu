@@ -911,6 +911,105 @@
         </table>
     </form>
 </div>
+
+<!-- 既存の暦日計算テーブルの下に追加 -->
+<div class="calendar-additional">
+  <!-- 必要公休数、可能勤務数等のテーブル -->
+  <table class="calculation-table">
+    <tbody>
+      <tr>
+        <td></td>
+        <td colspan="2">4月</td>
+        <td colspan="2">5月</td>
+        <td colspan="2">6月</td>
+        <td colspan="2">7月</td>
+        <td colspan="2">8月</td>
+        <td colspan="2">9月</td>
+        <td colspan="2">10月</td>
+        <td colspan="2">11月</td>
+        <td colspan="2">12月</td>
+        <td colspan="2">1月</td>
+        <td colspan="2">2月</td>
+        <td colspan="2">3月</td>
+      </tr>
+      <tr class="required-days">
+        <td></td>
+        <td colspan="2"><input type="number" id="required-vacation-apr" class="calendar-input" readonly></td>
+        <td colspan="2"><input type="number" id="required-vacation-may" class="calendar-input" readonly></td>
+        <td colspan="2"><input type="number" id="required-vacation-jun" class="calendar-input" readonly></td>
+        <td colspan="2"><input type="number" id="required-vacation-jul" class="calendar-input" readonly></td>
+        <td colspan="2"><input type="number" id="required-vacation-aug" class="calendar-input" readonly></td>
+        <td colspan="2"><input type="number" id="required-vacation-sep" class="calendar-input" readonly></td>
+        <td colspan="2"><input type="number" id="required-vacation-oct" class="calendar-input" readonly></td>
+        <td colspan="2"><input type="number" id="required-vacation-nov" class="calendar-input" readonly></td>
+        <td colspan="2"><input type="number" id="required-vacation-dec" class="calendar-input" readonly></td>
+        <td colspan="2"><input type="number" id="required-vacation-jan" class="calendar-input" readonly></td>
+        <td colspan="2"><input type="number" id="required-vacation-feb" class="calendar-input" readonly></td>
+        <td colspan="2"><input type="number" id="required-vacation-mar" class="calendar-input" readonly></td>
+      </tr>
+      <tr>
+        <td>必要公休数</td>
+        <td colspan="2"><input type="number" class="calendar-input" readonly></td>
+        <td colspan="2"><input type="number" class="calendar-input" readonly></td>
+        <td colspan="2"><input type="number" class="calendar-input" readonly></td>
+        <td colspan="2"><input type="number" class="calendar-input" readonly></td>
+        <td colspan="2"><input type="number" class="calendar-input" readonly></td>
+        <td colspan="2"><input type="number" class="calendar-input" readonly></td>
+        <td colspan="2"><input type="number" class="calendar-input" readonly></td>
+        <td colspan="2"><input type="number" class="calendar-input" readonly></td>
+        <td colspan="2"><input type="number" class="calendar-input" readonly></td>
+        <td colspan="2"><input type="number" class="calendar-input" readonly></td>
+        <td colspan="2"><input type="number" class="calendar-input" readonly></td>
+        <td colspan="2"><input type="number" class="calendar-input" readonly></td>
+      </tr>
+      <tr>
+        <td>可能勤務数</td>
+        <td colspan="2">可能勤務数</td>
+        <td colspan="2">可能勤務数</td>
+        <td colspan="2">可能勤務数</td>
+        <td colspan="2">可能勤務数</td>
+        <td colspan="2">可能勤務数</td>
+        <td colspan="2">可能勤務数</td>
+        <td colspan="2">可能勤務数</td>
+        <td colspan="2">可能勤務数</td>
+        <td colspan="2">可能勤務数</td>
+        <td colspan="2">可能勤務数</td>
+        <td colspan="2">可能勤務数</td>
+        <td colspan="2">可能勤務数</td>
+      </tr>
+      <tr>
+        <td>投入勤務数</td>
+        <td colspan="2">投入勤務数</td>
+        <td colspan="2">投入勤務数</td>
+        <td colspan="2">投入勤務数</td>
+        <td colspan="2">投入勤務数</td>
+        <td colspan="2">投入勤務数</td>
+        <td colspan="2">投入勤務数</td>
+        <td colspan="2">投入勤務数</td>
+        <td colspan="2">投入勤務数</td>
+        <td colspan="2">投入勤務数</td>
+        <td colspan="2">投入勤務数</td>
+        <td colspan="2">投入勤務数</td>
+        <td colspan="2">投入勤務数</td>
+      </tr>
+      <tr>
+        <td>投入割合</td>
+        <td colspan="2">0.00%</td>
+        <td colspan="2">0.00%</td>
+        <td colspan="2">0.00%</td>
+        <td colspan="2">0.00%</td>
+        <td colspan="2">0.00%</td>
+        <td colspan="2">0.00%</td>
+        <td colspan="2">0.00%</td>
+        <td colspan="2">0.00%</td>
+        <td colspan="2">0.00%</td>
+        <td colspan="2">0.00%</td>
+        <td colspan="2">0.00%</td>
+        <td colspan="2">0.00%</td>
+      </tr>
+    </tbody>
+  </table>
+</div>    
            <script src="js/main.js"></script>
 </body>
 </html>
