@@ -26,6 +26,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
+    table-layout: fixed;
 }
 
 th, td {
@@ -33,6 +34,7 @@ th, td {
     border: 1px solid #ddd;
     text-align: center;
     width: auto;
+    width: calc(100% / 13); /* 13列の場合、各列の幅を均等に */
 }
 
 th {
