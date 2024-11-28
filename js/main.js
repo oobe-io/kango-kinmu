@@ -212,6 +212,17 @@ function calculateWorkAndRestDays() {
         const deployedWorkDays = (totalWeekdayWorkers * weekdays) + (totalHolidayWorkers * holidays);
         const deployedWorkDaysField = document.getElementById(`deployed-work-days-${month}`);
         if (deployedWorkDaysField) deployedWorkDaysField.value = deployedWorkDays;
+
+        // 投入割合の計算
+        const deploymentRatioField = document.getElementById(`deployment-ratio-${month}`);
+        if (deploymentRatioField) {
+            if (possibleWorkDays > 0) {
+                const deploymentRatio = (deployedWorkDays / possibleWorkDays) * 100;
+                deploymentRatioField.value = deploymentRatio.toFixed(2); // 小数点以下2桁まで表示
+            } else {
+                deploymentRatioField.value = "0.00";
+            }
+        }
     });
 }
 
