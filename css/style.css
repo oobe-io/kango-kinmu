@@ -100,6 +100,28 @@ input[type="number"] {
 
 .vacation-table input[type="number"] {
     width: 100%;
+
+/* 集計テーブル用のスタイル */
+.summary-tables-container {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.summary-table {
+    flex: 1;
+}
+
+/* 入力欄のスタイルを統一 */
+.summary-table .calendar-input {
+    text-align: center;
+}
+
+/* テーブルヘッダーのスタイルを統一 */
+.summary-table table th {
+    background-color: #4CAF50;
+    color: white;
+}
     height: 40px;
     font-size: 1rem;
 }
