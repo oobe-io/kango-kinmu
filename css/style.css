@@ -100,3 +100,15 @@ input[type="number"] {
 
 .vacation-table input[type="number"] {
     width: 100%;
+
+/* 集計テーブル */
+.summary-tables-container {
+    display: flex;
+    gap: 20px; /* テーブル間の間隔を20pxに設定 */
+    margin-top: 20px; /* 上部に20pxの余白を追加 */
+}
+
+/* 子要素のテーブルが均等に幅を取るように設定 */
+.summary-table {
+    flex: 1;
+}
