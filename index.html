@@ -1040,16 +1040,16 @@
       </tbody>
     </table>
 </div> 
-<div class="container summary-tables-container">
+<div class="summary-tables-container">
   <h1>必要日数の集計テーブル</h1>
   <div class="summary-table">
-    <table class="calendar-table">
+    <table>
       <thead>
         <tr>
           <th colspan="3">必要日数</th>
         </tr>
         <tr>
-          <th>残日数 計</th>
+          <th rowspan="2">残日数 計</th>
           <th colspan="2">必要日数計</th>
         </tr>
         <tr>
@@ -1059,23 +1059,16 @@
       </thead>
       <tbody>
         <tr>
-          <td>
-            <input type="number" id="total-remaining-days" class="calendar-input" readonly>
-          </td>
-          <td>
-            <input type="number" id="total-required-days-plan" class="calendar-input" readonly>
-          </td>
-          <td>
-            <input type="number" id="total-required-days-result" class="calendar-input" readonly>
-          </td>
+          <td><input type="number" id="total-remaining-days" readonly></td>
+          <td><input type="number" id="total-required-days-plan" readonly></td>
+          <td><input type="number" id="total-required-days-result" readonly></td>
         </tr>
       </tbody>
     </table>
   </div>
-
   <h1>最終残日数テーブル</h1>
-  <div class="summary-table">
-    <table class="calendar-table">
+   <div class="summary-table">
+    <table>
       <thead>
         <tr>
           <th colspan="2">最終残日数</th>
@@ -1087,12 +1080,8 @@
       </thead>
       <tbody>
         <tr>
-          <td>
-            <input type="number" id="final-remaining-days-plan" class="calendar-input" readonly>
-          </td>
-          <td>
-            <input type="number" id="final-remaining-days-result" class="calendar-input" readonly>
-          </td>
+          <td><input type="number" id="final-remaining-days-plan" readonly></td>
+          <td><input type="number" id="final-remaining-days-result" readonly></td>
         </tr>
       </tbody>
     </table>
