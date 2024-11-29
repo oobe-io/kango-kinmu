@@ -107,6 +107,9 @@ input[type="number"] {
     justify-content: space-between;
     gap: 20px;
     margin-top: 20px;
+    width: 80%;
+    max-width: 1200px;
+    margin-bottom: 20px;
 }
 
 /* 各テーブルのスタイル */
