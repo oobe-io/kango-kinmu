@@ -25,7 +25,6 @@ function initializePage() {
     calculateVacationRequiredDays();
     calculateWorkAndRestDays(); 
     calculateRemainingDays();
-    loadSummaryData();
     calculateSummaries(); 
     loadDeploymentData();
 
@@ -516,83 +515,6 @@ function loadDeploymentData() {
     });
 }
 
-// 集計テーブルのデータ保存
-function saveSummaryData() {
-    const summaryData = {
-        totalRemainingDays: document.getElementById('total-remaining-days')?.value || 0,
-        totalRequiredDaysPlan: document.getElementById('total-required-days-plan')?.value || 0,
-        totalRequiredDaysResult: document.getElementById('total-required-days-result')?.value || 0,
-        finalRemainingDaysPlan: document.getElementById('final-remaining-days-plan')?.value || 0,
-        finalRemainingDaysResult: document.getElementById('final-remaining-days-result')?.value || 0
-    };
-    localStorage.setItem("summaryData", JSON.stringify(summaryData));
-}
-
-// 集計テーブルのデータ復元
-function loadSummaryData() {
-    const summaryData = JSON.parse(localStorage.getItem("summaryData")) || {};
-    
-    // データの復元
-    if (document.getElementById('total-remaining-days')) {
-        document.getElementById('total-remaining-days').value = summaryData.totalRemainingDays || 0;
-    }
-    if (document.getElementById('total-required-days-plan')) {
-        document.getElementById('total-required-days-plan').value = summaryData.totalRequiredDaysPlan || 0;
-    }
-    if (document.getElementById('total-required-days-result')) {
-        document.getElementById('total-required-days-result').value = summaryData.totalRequiredDaysResult || 0;
-    }
-    if (document.getElementById('final-remaining-days-plan')) {
-        document.getElementById('final-remaining-days-plan').value = summaryData.finalRemainingDaysPlan || 0;
-    }
-    if (document.getElementById('final-remaining-days-result')) {
-        document.getElementById('final-remaining-days-result').value = summaryData.finalRemainingDaysResult || 0;
-    }
-}
-
-// 集計テーブルの計算を修正
-function calculateSummaries() {
-    const months = [
-        "apr", "may", "jun", "jul", "aug", "sep",
-        "oct", "nov", "dec", "jan", "feb", "mar"
-    ];
-
-    // 残日数の合計を計算
-    let totalRemainingDays = 0;
-    months.forEach(month => {
-        const remainingDays = parseInt(document.getElementById(`remaining-days-${month}`)?.value) || 0;
-        totalRemainingDays += remainingDays;
-    });
-    
-    // 必要日数の合計を計算（予定）
-    let totalRequiredDaysPlan = 0;
-    document.querySelectorAll('.vacation-table input[id$="required-plan"]').forEach(element => {
-        totalRequiredDaysPlan += parseInt(element.value) || 0;
-    });
-
-    // 必要日数の合計を計算（実績）
-    let totalRequiredDaysResult = 0;
-    document.querySelectorAll('.vacation-table input[id$="required-result"]').forEach(element => {
-        totalRequiredDaysResult += parseInt(element.value) || 0;
-    });
-
-    // 最終残日数を計算
-    const finalRemainingDaysPlan = totalRemainingDays - totalRequiredDaysPlan;
-    const finalRemainingDaysResult = totalRemainingDays - totalRequiredDaysResult;
-
-    // 結果を表示
-    document.getElementById('total-remaining-days').value = totalRemainingDays;
-    document.getElementById('total-required-days-plan').value = totalRequiredDaysPlan;
-    document.getElementById('total-required-days-result').value = totalRequiredDaysResult;
-    document.getElementById('final-remaining-days-plan').value = finalRemainingDaysPlan;
-    document.getElementById('final-remaining-days-result').value = finalRemainingDaysResult;
-
-    // 計算結果を保存
-    saveSummaryData();
-}
-
-
-
 // シフト入力の初期化
 function initializeShiftInputs() {
     loadShiftData();
@@ -640,7 +562,6 @@ function addEventListeners() {
             }
             saveVacationData();
             calculateVacationRequiredDays();
-            calculateSummaries();
         });
     });
 }
