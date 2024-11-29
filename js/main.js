@@ -24,8 +24,8 @@ function initializePage() {
     calculateMonthlySums();
     calculateVacationRequiredDays();
     calculateWorkAndRestDays(); 
+    calculateRemainingDays();
     loadDeploymentData();
-    addEventListeners();
 
     console.log("ページ初期化完了");
 }
@@ -224,6 +224,36 @@ function calculateWorkAndRestDays() {
             } else {
                 deploymentRatioField.value = "0.00";
             }
+        }
+    });
+}
+
+function calculateRemainingDays() {
+    const months = [
+        "apr", "may", "jun", "jul", "aug", "sep",
+        "oct", "nov", "dec", "jan", "feb", "mar"
+    ];
+
+    months.forEach(month => {
+        // 該当月の暦日数を取得
+        const calendarDays = parseInt(document.getElementById(`calendar-${month}`)?.value) || 0;
+        
+        // 看護師総数を取得
+        const totalNurses = parseInt(document.getElementById(`total-nurse-${month}`)?.value) || 0;
+        
+        // 必要公休数を取得
+        const requiredRestDays = parseInt(document.getElementById(`required-rest-days-${month}`)?.value) || 0;
+        
+        // 投入勤務数を取得
+        const deployedWorkDays = parseInt(document.getElementById(`deployed-work-days-${month}`)?.value) || 0;
+
+        // 残日数を計算
+        const remainingDays = (calendarDays * totalNurses) - requiredRestDays - deployedWorkDays;
+
+        // 結果を表示
+        const remainingDaysField = document.getElementById(`remaining-days-${month}`);
+        if (remainingDaysField) {
+            remainingDaysField.value = remainingDays;
         }
     });
 }
@@ -472,6 +502,7 @@ function addEventListeners() {
             saveData();
             calculateVacationRequiredDays();
             calculateWorkAndRestDays(); 
+            calculateRemainingDays();
             saveDeploymentData();
         });
     });
