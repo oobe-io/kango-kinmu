@@ -115,6 +115,7 @@ input[type="number"] {
 /* 各テーブルのスタイル */
 .summary-table {
     flex: 1;
+    width: 50%;
 }
 
 .summary-table table {
