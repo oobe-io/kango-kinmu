@@ -25,6 +25,7 @@ function initializePage() {
     calculateVacationRequiredDays();
     calculateWorkAndRestDays(); 
     calculateRemainingDays();
+    calculateSummaries(); 
     loadDeploymentData();
 
     console.log("ページ初期化完了");
@@ -256,6 +257,44 @@ function calculateRemainingDays() {
             remainingDaysField.value = remainingDays;
         }
     });
+}
+
+// 集計テーブルの計算を追加
+function calculateSummaries() {
+    const months = [
+        "apr", "may", "jun", "jul", "aug", "sep",
+        "oct", "nov", "dec", "jan", "feb", "mar"
+    ];
+
+    // 残日数の合計を計算
+    let totalRemainingDays = 0;
+    months.forEach(month => {
+        const remainingDays = parseInt(document.getElementById(`remaining-days-${month}`)?.value) || 0;
+        totalRemainingDays += remainingDays;
+    });
+    
+    // 必要日数の合計を計算（予定）
+    let totalRequiredDaysPlan = 0;
+    document.querySelectorAll('[id$="required-plan"]').forEach(element => {
+        totalRequiredDaysPlan += parseInt(element.value) || 0;
+    });
+
+    // 必要日数の合計を計算（実績）
+    let totalRequiredDaysResult = 0;
+    document.querySelectorAll('[id$="required-result"]').forEach(element => {
+        totalRequiredDaysResult += parseInt(element.value) || 0;
+    });
+
+    // 最終残日数を計算
+    const finalRemainingDaysPlan = totalRemainingDays - totalRequiredDaysPlan;
+    const finalRemainingDaysResult = totalRemainingDays - totalRequiredDaysResult;
+
+    // 結果を表示
+    document.getElementById('total-remaining-days').value = totalRemainingDays;
+    document.getElementById('total-required-days-plan').value = totalRequiredDaysPlan;
+    document.getElementById('total-required-days-result').value = totalRequiredDaysResult;
+    document.getElementById('final-remaining-days-plan').value = finalRemainingDaysPlan;
+    document.getElementById('final-remaining-days-result').value = finalRemainingDaysResult;
 }
 
 // ローカルストレージからデータを読み込む
@@ -503,6 +542,7 @@ function addEventListeners() {
             calculateVacationRequiredDays();
             calculateWorkAndRestDays(); 
             calculateRemainingDays();
+            calculateSummaries(); 
             saveDeploymentData();
         });
     });
